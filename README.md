@@ -27,7 +27,7 @@ Os textos em inglês e espanhol ficam no objeto `I18N`, no fim do `index.html`. 
 No fim do `index.html`, dentro do `<script>`, o objeto `site` guarda o conteúdo que muda com frequência:
 
 - `estilos`: os cards do carrossel "Projetos recentes" (título, texto, foto e descrição da foto).
-- `portfolio`: as fotos do portfólio, na ordem em que aparecem. Só as 12 primeiras aparecem de cara; as demais ficam no botão "Ver portfólio completo". Para mudar esse número, altere `PF_VISIVEIS` no `<script>`. Para acrescentar, coloque a foto em `assets/` e adicione `{ src: "assets/nome.webp", alt: "descrição" }`.
+- `portfolio`: as fotos do portfólio, na ordem em que aparecem. Só as 13 primeiras aparecem de cara; as demais ficam no botão "Ver portfólio completo". Para mudar esse número, altere `PF_VISIVEIS` no `<script>`. Para acrescentar, coloque a foto em `assets/` e adicione `{ src: "assets/nome.webp", alt: "descrição" }`.
 - `avaliacoes`: avaliações do Google (nome, tempo, texto). Está vazia e a seção está oculta: ao preencher, tire o `hidden` da `<section id="avaliacoes">` e ajuste a nota, o total e o link do Google no HTML. As que têm `foto` aparecem primeiro e abrem ampliadas ao toque.
 - `whatsappBase` e `mensagemWhatsApp`: número e mensagem inicial do botão de orçamento.
 
