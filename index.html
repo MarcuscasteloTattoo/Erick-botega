@@ -714,6 +714,15 @@ site.erroForm = "Preencha seu nome e o WhatsApp com DDD, no formato (48) 9 9999-
     if (e.inputType && e.inputType.startsWith("delete") && d === antes && tel.value.length < formatar(antes).length) d = d.slice(0, -1);
     tel.value = formatar(d); antes = d;
   });
+  /* dispositivo de quem se cadastrou: tipo, sistema e navegador */
+  const dispositivo = () => {
+    const ua = navigator.userAgent, toque = navigator.maxTouchPoints > 1;
+    const ipad = /iPad/.test(ua) || (/Macintosh/.test(ua) && toque);
+    const tipo = ipad || /Tablet|Android(?!.*Mobile)/i.test(ua) ? "Tablet" : /Mobi|iPhone|iPod|Android/i.test(ua) ? "Celular" : "Computador";
+    const sistema = ipad || /iPhone|iPod/.test(ua) ? "iOS" : /Android/.test(ua) ? "Android" : /Windows/.test(ua) ? "Windows" : /CrOS/.test(ua) ? "ChromeOS" : /Mac OS X/.test(ua) ? "macOS" : /Linux/.test(ua) ? "Linux" : "Outro";
+    const navegador = /Instagram/.test(ua) ? "Instagram" : /FBAN|FBAV/.test(ua) ? "Facebook" : /SamsungBrowser/.test(ua) ? "Samsung Internet" : /EdgA?\/|EdgiOS/.test(ua) ? "Edge" : /OPR\/|Opera/.test(ua) ? "Opera" : /FxiOS|Firefox/.test(ua) ? "Firefox" : /CriOS|Chrome\//.test(ua) ? "Chrome" : /Safari/.test(ua) ? "Safari" : "Outro";
+    return { tipo, sistema, navegador };
+  };
   const lab = (id) => document.querySelector(`label[for="${id}"]`).textContent.trim();
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -724,11 +733,31 @@ site.erroForm = "Preencha seu nome e o WhatsApp com DDD, no formato (48) 9 9999-
     if (!v("f-hp")) {
       /* envia o contato para o Make (formato de formulário simples, sem bloqueio de CORS) */
       if (site.webhookMake) {
-        const d = v("f-tel").replace(/\D/g, "");
+        const d = v("f-tel").replace(/\D/g, ""), ddd = d.slice(0, 2), num = `${d[2]} ${d.slice(3, 7)}-${d.slice(7)}`;
+        const agora = new Date(), fuso = { timeZone: "America/Sao_Paulo" };
+        const dataBR = agora.toLocaleDateString("pt-BR", fuso);
+        const horaBR = agora.toLocaleTimeString("pt-BR", { ...fuso, hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
+        const disp = dispositivo();
         const dados = new URLSearchParams({
-          nome: v("f-nome"), telefone: v("f-tel"), telefone_internacional: "+55" + d,
-          whatsapp_link: "https://wa.me/55" + d, idioma: document.documentElement.lang,
-          pagina: location.href, data: new Date().toISOString(),
+          nome: v("f-nome"),
+          telefone: `(${ddd}) ${num}`,
+          telefone_completo: `+55 (${ddd}) ${num}`,
+          ddd: ddd,
+          numero: num,
+          telefone_somente_numeros: "55" + d,
+          whatsapp_link: "https://wa.me/55" + d,
+          data: dataBR,
+          hora: horaBR,
+          data_hora: `${dataBR} ${horaBR}`,
+          fuso_horario: "Horário de Brasília",
+          dispositivo: disp.tipo,
+          sistema: disp.sistema,
+          navegador: disp.navegador,
+          tela: `${screen.width} x ${screen.height}`,
+          pagina: location.href,
+          origem: document.referrer || "Acesso direto",
+          idioma: document.documentElement.lang,
+          user_agent: navigator.userAgent,
         });
         try { fetch(site.webhookMake, { method: "POST", mode: "no-cors", keepalive: true, body: dados }).catch(() => {}); } catch (_) {}
       }
