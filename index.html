@@ -460,6 +460,8 @@ footer .small-muted { font-size: .68rem; }
    Fotos ficam em assets/; veja o README para trocar ou acrescentar. */
 const site = {
   whatsappBase: "https://wa.me/5548988123543",
+  /* cada pedido de orçamento (nome e telefone) também vai para este webhook do Make */
+  webhookMake: "https://hook.eu2.make.com/bywqw2pdcfrve1tywvinv3gmtxu4my95",
   mensagemWhatsApp: "Olá, Damisel! Vim pelo seu site e quero fazer a minha tatuagem.",
   marquee: ["HIPER-REALISMO", "DETALHISMO", "PRECISÃO", "EXCLUSIVIDADE", "PROJETOS PERSONALIZADOS", "AUTENTICIDADE", "ALTO PADRÃO"],
   estilos: [
@@ -720,6 +722,16 @@ site.erroForm = "Preencha seu nome e o WhatsApp com DDD, no formato (48) 9 9999-
     }
     err.hidden = true;
     if (!v("f-hp")) {
+      /* envia o contato para o Make (formato de formulário simples, sem bloqueio de CORS) */
+      if (site.webhookMake) {
+        const d = v("f-tel").replace(/\D/g, "");
+        const dados = new URLSearchParams({
+          nome: v("f-nome"), telefone: v("f-tel"), telefone_internacional: "+55" + d,
+          whatsapp_link: "https://wa.me/55" + d, idioma: document.documentElement.lang,
+          pagina: location.href, data: new Date().toISOString(),
+        });
+        try { fetch(site.webhookMake, { method: "POST", mode: "no-cors", keepalive: true, body: dados }).catch(() => {}); } catch (_) {}
+      }
       const txt = `${site.mensagemWhatsApp}\n\n${lab("f-nome")}: ${v("f-nome")}\n${lab("f-tel")}: ${v("f-tel")}`;
       const url = `${site.whatsappBase}?text=${encodeURIComponent(txt)}`;
       $("f-sent-link").href = url;
