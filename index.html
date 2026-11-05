@@ -718,7 +718,6 @@ site.erroForm = "Preencha seu nome e o WhatsApp com DDD, no formato (48) 9 9999-
     const navegador = /Instagram/.test(ua) ? "Instagram" : /FBAN|FBAV/.test(ua) ? "Facebook" : /SamsungBrowser/.test(ua) ? "Samsung Internet" : /EdgA?\/|EdgiOS/.test(ua) ? "Edge" : /OPR\/|Opera/.test(ua) ? "Opera" : /FxiOS|Firefox/.test(ua) ? "Firefox" : /CriOS|Chrome\//.test(ua) ? "Chrome" : /Safari/.test(ua) ? "Safari" : "Outro";
     return { tipo, sistema, navegador };
   };
-  const lab = (id) => document.querySelector(`label[for="${id}"]`).textContent.trim();
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!v("f-nome") || !telValido(v("f-tel"))) {
@@ -756,7 +755,7 @@ site.erroForm = "Preencha seu nome e o WhatsApp com DDD, no formato (48) 9 9999-
         });
         try { fetch(site.webhookMake, { method: "POST", mode: "no-cors", keepalive: true, body: dados }).catch(() => {}); } catch (_) {}
       }
-      const txt = `${site.mensagemWhatsApp}\n\n${lab("f-nome")}: ${v("f-nome")}\n${lab("f-tel")}: ${v("f-tel")}`;
+      const txt = site.mensagemWhatsApp; /* nome e telefone vão só para o webhook */
       const url = `${site.whatsappBase}?text=${encodeURIComponent(txt)}`;
       /* vai direto para o WhatsApp, na mesma aba */
       btn.disabled = true;
