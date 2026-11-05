@@ -288,8 +288,8 @@ footer .small-muted { font-size: .68rem; }
 #orcamento .lead { color: var(--hero-muted); }
 #orcamento strong { color: var(--gold) !important; }
 #orcamento form { margin-top: 2rem; }
+#orcamento .campos { display: grid; gap: 1.25rem; }
 #orcamento .form-error { color: #f6c1b0; }
-#orcamento .sent { margin-top: 2rem; background: var(--card); color: var(--foreground); }
 .foot { padding-block: 2.5rem; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; text-align: center; }
 .foot-brand { font-family: var(--font-display); font-size: 1.5rem; }
 .foot-row { display: flex; align-items: center; gap: .75rem; }
@@ -419,7 +419,7 @@ footer .small-muted { font-size: .68rem; }
         <p class="lead" style="max-width:30rem" data-t="orcTexto">Uma sessão com o <strong style="color:var(--foreground);font-weight:600">Damisel Ramirez</strong> custa em média de <strong style="color:var(--foreground);font-weight:600">R$1.000&nbsp;a&nbsp;R$1.500</strong>. Para trabalhos menores, o valor mínimo é de <strong style="color:var(--foreground);font-weight:600">R$500</strong>.</p>
         <p class="lead" style="max-width:none;margin-top:.75rem" data-t="orcSub">Solicite seu orçamento se cadastrando abaixo</p>
         <form id="orc-form" novalidate>
-          <div class="row2">
+          <div class="campos">
             <div><label for="f-nome" data-t="fNome">Nome</label><input id="f-nome" name="nome" autocomplete="name" required placeholder="Seu nome" data-ta="placeholder:fNomePh"></div>
             <div><label for="f-tel" data-t="fTel">WhatsApp</label><input id="f-tel" name="tel" type="tel" inputmode="numeric" autocomplete="tel-national" required placeholder="(48) 9 9999-9999"></div>
           </div>
@@ -427,11 +427,6 @@ footer .small-muted { font-size: .68rem; }
           <p class="form-error" id="f-erro" role="alert" hidden></p>
           <button type="submit" class="btn btn-block btn-wa" id="wa-btn"><svg class="icon icon-wa"><use href="#i-wa"/></svg><span data-t="orcBotao">Quero receber meu orçamento</span></button>
         </form>
-        <div class="sent" id="f-sent" hidden>
-          <p data-t="fSent">Sua mensagem já está escrita no WhatsApp. Se ele não abriu sozinho, toque no botão abaixo e envie.</p>
-          <a class="btn btn-wa" id="f-sent-link" href="https://wa.me/5548988123543" target="_blank" rel="noopener noreferrer"><svg class="icon icon-wa"><use href="#i-wa"/></svg><span data-t="fAbrir">Abrir o WhatsApp</span></a>
-          <button type="button" class="link-accent" id="f-editar" style="background:none;border:0;cursor:pointer;color:var(--accent)" data-t="fEditar">Corrigir os dados</button>
-        </div>
       </div>
     </div>
   </section>
@@ -688,7 +683,7 @@ renderMarquee();
 /* Formulário de orçamento: monta a mensagem e abre o WhatsApp do estúdio */
 site.erroForm = "Preencha seu nome e o WhatsApp com DDD, no formato (48) 9 9999-9999.";
 (function () {
-  const form = $("orc-form"), sent = $("f-sent"), err = $("f-erro");
+  const form = $("orc-form"), err = $("f-erro"), btn = $("wa-btn");
   const v = (id) => $(id).value.trim();
   /* máscara do WhatsApp: (DDD) 9 0000-0000 */
   const tel = $("f-tel");
@@ -763,13 +758,14 @@ site.erroForm = "Preencha seu nome e o WhatsApp com DDD, no formato (48) 9 9999-
       }
       const txt = `${site.mensagemWhatsApp}\n\n${lab("f-nome")}: ${v("f-nome")}\n${lab("f-tel")}: ${v("f-tel")}`;
       const url = `${site.whatsappBase}?text=${encodeURIComponent(txt)}`;
-      $("f-sent-link").href = url;
-      try { window.open(url, "_blank", "noopener"); } catch (_) {}
+      /* vai direto para o WhatsApp, na mesma aba */
+      btn.disabled = true;
+      setTimeout(() => { location.href = url; }, 150);
     }
-    form.hidden = true; sent.hidden = false; $("f-sent-link").focus();
   });
+  /* ao voltar do WhatsApp pelo botão "voltar", o botão fica ativo de novo */
+  window.addEventListener("pageshow", () => { btn.disabled = false; });
   form.addEventListener("input", () => { err.hidden = true; });
-  $("f-editar").addEventListener("click", () => { sent.hidden = true; form.hidden = false; $("f-nome").focus(); });
 })();
 
 /* IDIOMAS: PT (original da página), EN e ES.
@@ -797,8 +793,6 @@ const I18N = {
       pfMais: "See full portfolio",
       pfMenos: "Show less",
       fNome: "Name", fTel: "WhatsApp",
-      fSent: "Your message is already written in WhatsApp. If it didn't open on its own, tap the button below and send it.",
-      fAbrir: "Open WhatsApp", fEditar: "Edit my details",
     },
     ta: {
       langAria: "Language", heroAlt: "Damisel Ramirez, realistic tattoo artist in Florianópolis, Brazil, in a white T-shirt on a bridge over the Seine with the Eiffel Tower behind him",
@@ -869,8 +863,6 @@ const I18N = {
       pfMais: "Ver portafolio completo",
       pfMenos: "Mostrar menos",
       fNome: "Nombre", fTel: "WhatsApp",
-      fSent: "Tu mensaje ya está escrito en WhatsApp. Si no se abrió solo, toca el botón de abajo y envíalo.",
-      fAbrir: "Abrir WhatsApp", fEditar: "Corregir mis datos",
     },
     ta: {
       langAria: "Idioma", heroAlt: "Damisel Ramirez, tatuador realista en Florianópolis, Brasil, con camiseta blanca en un puente sobre el Sena, con la Torre Eiffel al fondo",
