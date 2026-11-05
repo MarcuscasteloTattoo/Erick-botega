@@ -9,7 +9,7 @@
 <meta name="author" content="Damisel Ramirez">
 <meta name="geo.region" content="BR-SC">
 <meta name="geo.placename" content="Florianópolis">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TattooParlor", "name": "Damisel Ramirez Tattoo", "alternateName": "Dami Tattoo", "description": "Tatuagem realista em Florianópolis: realismo preto e cinza e tatuagem colorida com o tatuador Damisel Ramirez.", "founder": {"@type": "Person", "name": "Damisel Ramirez", "jobTitle": "Tatuador"}, "telephone": "+55 48 99140-1511", "address": {"@type": "PostalAddress", "addressLocality": "Florianópolis", "addressRegion": "SC", "addressCountry": "BR"}, "areaServed": {"@type": "City", "name": "Florianópolis"}, "priceRange": "R$500 - R$1.500", "image": "assets/tatuador-damisel-ramirez-florianopolis-paris-zoom.webp", "sameAs": ["https://www.instagram.com/dami_tattoo/"], "knowsAbout": ["Tatuagem realista", "Realismo preto e cinza", "Tatuagem colorida", "Fechamento de braço", "Tatuagem religiosa"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TattooParlor", "name": "Damisel Ramirez Tattoo", "alternateName": "Dami Tattoo", "description": "Tatuagem realista em Florianópolis: realismo preto e cinza e tatuagem colorida com o tatuador Damisel Ramirez.", "founder": {"@type": "Person", "name": "Damisel Ramirez", "jobTitle": "Tatuador"}, "telephone": "+55 48 98812-3543", "address": {"@type": "PostalAddress", "addressLocality": "Florianópolis", "addressRegion": "SC", "addressCountry": "BR"}, "areaServed": {"@type": "City", "name": "Florianópolis"}, "priceRange": "R$500 - R$1.500", "image": "assets/tatuador-damisel-ramirez-florianopolis-paris-zoom.webp", "sameAs": ["https://www.instagram.com/dami_tattoo/"], "knowsAbout": ["Tatuagem realista", "Realismo preto e cinza", "Tatuagem colorida", "Fechamento de braço", "Tatuagem religiosa"]}</script>
 <link rel="icon" type="image/png" href="favicon-paris.png">
 <link rel="preload" as="image" href="assets/tatuador-damisel-ramirez-florianopolis-paris-zoom.webp" imagesrcset="assets/tatuador-damisel-ramirez-florianopolis-paris-zoom-800.webp 800w, assets/tatuador-damisel-ramirez-florianopolis-paris-zoom.webp 1080w" imagesizes="(min-width: 900px) 56vw, 100vw" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -287,6 +287,9 @@ footer .small-muted { font-size: .68rem; }
 #orcamento .h2 { color: var(--hero-fg); }
 #orcamento .lead { color: var(--hero-muted); }
 #orcamento strong { color: var(--gold) !important; }
+#orcamento form { margin-top: 2rem; }
+#orcamento .form-error { color: #f6c1b0; }
+#orcamento .sent { margin-top: 2rem; background: var(--card); color: var(--foreground); }
 .foot { padding-block: 2.5rem; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; text-align: center; }
 .foot-brand { font-family: var(--font-display); font-size: 1.5rem; }
 .foot-row { display: flex; align-items: center; gap: .75rem; }
@@ -415,7 +418,40 @@ footer .small-muted { font-size: .68rem; }
         <h2 class="h2" data-t="orcTitulo">Qual o valor de uma tatuagem com Damisel Ramirez?</h2>
         <p class="lead" style="max-width:30rem" data-t="orcTexto">Uma sessão com o <strong style="color:var(--foreground);font-weight:600">Damisel Ramirez</strong> custa em média de <strong style="color:var(--foreground);font-weight:600">R$1.000&nbsp;a&nbsp;R$1.500</strong>. Para trabalhos menores, o valor mínimo é de <strong style="color:var(--foreground);font-weight:600">R$500</strong>.</p>
         <p class="lead" style="max-width:none;margin-top:.75rem" data-t="orcSub">Solicite seu orçamento se cadastrando abaixo</p>
-        <div style="margin-top:2rem"><a class="btn btn-block btn-wa" id="wa-btn" href="https://wa.me/5548991401511" target="_blank" rel="noopener noreferrer"><svg class="icon icon-wa"><use href="#i-wa"/></svg><span data-t="orcBotao">Quero receber meu orçamento</span></a></div>
+        <form id="orc-form" novalidate>
+          <div class="row2">
+            <div><label for="f-nome" data-t="fNome">Nome</label><input id="f-nome" name="nome" autocomplete="name" required placeholder="Seu nome" data-ta="placeholder:fNomePh"></div>
+            <div><label for="f-tel" data-t="fTel">WhatsApp</label><input id="f-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(48) 99999-9999"></div>
+          </div>
+          <div class="row2">
+            <div><label for="f-local" data-t="fLocal">Local do corpo</label><select id="f-local" name="local" required>
+              <option value="" data-t="fEscolha">Escolha</option>
+              <option value="braco" data-t="lBraco">Braço</option>
+              <option value="antebraco" data-t="lAntebraco">Antebraço</option>
+              <option value="perna" data-t="lPerna">Perna ou coxa</option>
+              <option value="costas" data-t="lCostas">Costas</option>
+              <option value="peito" data-t="lPeito">Peito ou ombro</option>
+              <option value="outro" data-t="lOutro">Outro lugar</option>
+            </select></div>
+            <div><label for="f-tam" data-t="fTam">Tamanho aproximado</label><select id="f-tam" name="tamanho">
+              <option value="" data-t="fEscolha2">Escolha</option>
+              <option value="p" data-t="tP">Pequena (até 10 cm)</option>
+              <option value="m" data-t="tM">Média (10 a 20 cm)</option>
+              <option value="g" data-t="tG">Grande (mais de 20 cm)</option>
+              <option value="f" data-t="tF">Fechamento (braço, perna ou costas)</option>
+              <option value="n" data-t="tN">Ainda não sei</option>
+            </select></div>
+          </div>
+          <div><label for="f-ideia" data-t="fIdeia">Sua ideia</label><textarea id="f-ideia" name="ideia" required placeholder="Conte a ideia, o estilo e se tem alguma referência" data-ta="placeholder:fIdeiaPh"></textarea></div>
+          <input class="hp" id="f-hp" name="empresa" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="form-error" id="f-erro" role="alert" hidden></p>
+          <button type="submit" class="btn btn-block btn-wa" id="wa-btn"><svg class="icon icon-wa"><use href="#i-wa"/></svg><span data-t="orcBotao">Quero receber meu orçamento</span></button>
+        </form>
+        <div class="sent" id="f-sent" hidden>
+          <p data-t="fSent">Sua mensagem já está escrita no WhatsApp. Se ele não abriu sozinho, toque no botão abaixo e envie.</p>
+          <a class="btn btn-wa" id="f-sent-link" href="https://wa.me/5548988123543" target="_blank" rel="noopener noreferrer"><svg class="icon icon-wa"><use href="#i-wa"/></svg><span data-t="fAbrir">Abrir o WhatsApp</span></a>
+          <button type="button" class="link-accent" id="f-editar" style="background:none;border:0;cursor:pointer;color:var(--accent)" data-t="fEditar">Corrigir os dados</button>
+        </div>
       </div>
     </div>
   </section>
@@ -443,7 +479,7 @@ footer .small-muted { font-size: .68rem; }
 /* CONFIGURAÇÃO — conteúdo do site do Damisel Ramirez que muda com frequência.
    Fotos ficam em assets/; veja o README para trocar ou acrescentar. */
 const site = {
-  whatsappBase: "https://wa.me/5548991401511",
+  whatsappBase: "https://wa.me/5548988123543",
   mensagemWhatsApp: "Olá, Damisel! Vim pelo seu site e quero fazer a minha tatuagem.",
   marquee: ["HIPER-REALISMO", "DETALHISMO", "PRECISÃO", "EXCLUSIVIDADE", "PROJETOS PERSONALIZADOS", "AUTENTICIDADE", "ALTO PADRÃO"],
   estilos: [
@@ -667,8 +703,30 @@ renderMarquee();
   if (!reduced) setInterval(() => { if (!paused && !document.hidden && $("lightbox").hidden) scroll(1); }, 4000);
 })();
 
-/* Botão do WhatsApp com a mensagem inicial */
-$("wa-btn").href = `${site.whatsappBase}?text=${encodeURIComponent(site.mensagemWhatsApp)}`;
+/* Formulário de orçamento: monta a mensagem e abre o WhatsApp do estúdio */
+site.erroForm = "Preencha nome, WhatsApp, local do corpo e a sua ideia.";
+(function () {
+  const form = $("orc-form"), sent = $("f-sent"), err = $("f-erro");
+  const v = (id) => $(id).value.trim();
+  const lab = (id) => document.querySelector(`label[for="${id}"]`).textContent.trim();
+  const opt = (id) => { const s = $(id); return s.value ? s.selectedOptions[0].textContent.trim() : "-"; };
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!v("f-nome") || v("f-tel").replace(/\D/g, "").length < 8 || !v("f-local") || !v("f-ideia")) {
+      err.textContent = site.erroForm; err.hidden = false; return;
+    }
+    err.hidden = true;
+    if (!v("f-hp")) {
+      const txt = `${site.mensagemWhatsApp}\n\n${lab("f-nome")}: ${v("f-nome")}\n${lab("f-tel")}: ${v("f-tel")}\n${lab("f-local")}: ${opt("f-local")}\n${lab("f-tam")}: ${opt("f-tam")}\n${lab("f-ideia")}: ${v("f-ideia")}`;
+      const url = `${site.whatsappBase}?text=${encodeURIComponent(txt)}`;
+      $("f-sent-link").href = url;
+      try { window.open(url, "_blank", "noopener"); } catch (_) {}
+    }
+    form.hidden = true; sent.hidden = false; $("f-sent-link").focus();
+  });
+  form.addEventListener("input", () => { err.hidden = true; });
+  $("f-editar").addEventListener("click", () => { sent.hidden = true; form.hidden = false; $("f-nome").focus(); });
+})();
 
 /* IDIOMAS: PT (original da página), EN e ES.
    Textos fixos da página usam data-t (conteúdo) e data-ta (atributos). O português é lido da própria página. */
@@ -676,6 +734,7 @@ const I18N = {
   en: {
     desc: "Tattoos in Florianópolis with Damisel Ramirez: realistic black and grey and color tattoos, arm and back pieces and 100% custom projects. Request your quote on WhatsApp.",
     msg: "Hi, Damisel! I came from your website and I'd like to get my tattoo.",
+    erro: "Please fill in your name, WhatsApp, body placement and your idea.",
     ampliar: "Enlarge: ", ampliarFoto: "Enlarge photo: ", googleAria: "Google review", starsAria: "5 out of 5 stars",
     t: {
       h1: '<span class="h1-name">Damisel Ramirez</span> Tattoo<span class="h1-city">Florianópolis</span>',
@@ -693,12 +752,19 @@ const I18N = {
       direitos: "All rights reserved.",
       pfMais: "See full portfolio",
       pfMenos: "Show less",
+      fNome: "Name", fTel: "WhatsApp", fLocal: "Body placement", fTam: "Approximate size", fIdeia: "Your idea",
+      fEscolha: "Choose", fEscolha2: "Choose",
+      lBraco: "Arm", lAntebraco: "Forearm", lPerna: "Leg or thigh", lCostas: "Back", lPeito: "Chest or shoulder", lOutro: "Somewhere else",
+      tP: "Small (up to 10 cm)", tM: "Medium (10 to 20 cm)", tG: "Large (over 20 cm)", tF: "Full piece (arm, leg or back)", tN: "Not sure yet",
+      fSent: "Your message is already written in WhatsApp. If it didn't open on its own, tap the button below and send it.",
+      fAbrir: "Open WhatsApp", fEditar: "Edit my details",
     },
     ta: {
       langAria: "Language", heroAlt: "Damisel Ramirez, realistic tattoo artist in Florianópolis, Brazil, in a white T-shirt on a bridge over the Seine with the Eiffel Tower behind him",
       projetos: "Recent projects", projAnt: "Previous project", projProx: "Next project", portfolio: "Portfolio",
       aboutAlt: "Damisel Ramirez at his tattoo studio in Florianópolis, drawing a tattoo design on a tablet",
       avAria: "Client reviews", avAnt: "Previous review", avProx: "Next review",
+      fNomePh: "Your name", fIdeiaPh: "Tell me the idea, the style and any references",
       igAria: "Damisel Ramirez's Instagram", lbAria: "Enlarged photo", lbFechar: "Close", lbAnt: "Previous photo", lbProx: "Next photo",
     },
     marquee: ["HYPER-REALISM", "ATTENTION TO DETAIL", "PRECISION", "EXCLUSIVITY", "CUSTOM PROJECTS", "AUTHENTICITY", "HIGH-END"],
@@ -743,6 +809,7 @@ const I18N = {
   es: {
     desc: "Tatuajes en Florianópolis con Damisel Ramirez: tatuaje realista en negro y gris y a color, mangas y espaldas completas y proyectos 100% personalizados. Solicita tu presupuesto por WhatsApp.",
     msg: "¡Hola, Damisel! Vengo de tu sitio web y quiero hacerme mi tatuaje.",
+    erro: "Completa tu nombre, WhatsApp, zona del cuerpo y tu idea.",
     ampliar: "Ampliar: ", ampliarFoto: "Ampliar foto: ", googleAria: "Reseña de Google", starsAria: "5 de 5 estrellas",
     t: {
       h1: '<span class="h1-name">Damisel Ramirez</span> Tattoo<span class="h1-city">Florianópolis</span>',
@@ -760,12 +827,19 @@ const I18N = {
       direitos: "Todos los derechos reservados.",
       pfMais: "Ver portafolio completo",
       pfMenos: "Mostrar menos",
+      fNome: "Nombre", fTel: "WhatsApp", fLocal: "Zona del cuerpo", fTam: "Tamaño aproximado", fIdeia: "Tu idea",
+      fEscolha: "Elige", fEscolha2: "Elige",
+      lBraco: "Brazo", lAntebraco: "Antebrazo", lPerna: "Pierna o muslo", lCostas: "Espalda", lPeito: "Pecho u hombro", lOutro: "Otro lugar",
+      tP: "Pequeño (hasta 10 cm)", tM: "Mediano (10 a 20 cm)", tG: "Grande (más de 20 cm)", tF: "Pieza completa (brazo, pierna o espalda)", tN: "Todavía no sé",
+      fSent: "Tu mensaje ya está escrito en WhatsApp. Si no se abrió solo, toca el botón de abajo y envíalo.",
+      fAbrir: "Abrir WhatsApp", fEditar: "Corregir mis datos",
     },
     ta: {
       langAria: "Idioma", heroAlt: "Damisel Ramirez, tatuador realista en Florianópolis, Brasil, con camiseta blanca en un puente sobre el Sena, con la Torre Eiffel al fondo",
       projetos: "Proyectos recientes", projAnt: "Proyecto anterior", projProx: "Siguiente proyecto", portfolio: "Portafolio",
       aboutAlt: "Damisel Ramirez en su estudio de tatuaje en Florianópolis, dibujando un diseño de tatuaje en la tableta",
       avAria: "Reseñas de clientes", avAnt: "Reseña anterior", avProx: "Siguiente reseña",
+      fNomePh: "Tu nombre", fIdeiaPh: "Cuéntame la idea, el estilo y si tienes alguna referencia",
       igAria: "Instagram de Damisel Ramirez", lbAria: "Foto ampliada", lbFechar: "Cerrar", lbAnt: "Foto anterior", lbProx: "Foto siguiente",
     },
     marquee: ["HIPERREALISMO", "DETALLISMO", "PRECISIÓN", "EXCLUSIVIDAD", "PROYECTOS PERSONALIZADOS", "AUTENTICIDAD", "ALTO NIVEL"],
@@ -813,7 +887,7 @@ const I18N = {
   const meta = document.querySelector('meta[name="description"]');
   /* português: guardado a partir da própria página e do objeto site */
   const PT = {
-    desc: meta ? meta.content : "", msg: site.mensagemWhatsApp,
+    desc: meta ? meta.content : "", msg: site.mensagemWhatsApp, erro: site.erroForm,
     ampliar: "Ampliar: ", ampliarFoto: "Ampliar foto: ", googleAria: "Avaliação do Google", starsAria: "5 de 5 estrelas",
     t: {}, ta: {},
     marquee: [...site.marquee],
@@ -842,7 +916,7 @@ const I18N = {
     site.portfolio.forEach((f, i) => { f.alt = L.portfolio[i]; });
     site.avaliacoes.forEach((a, i) => { const v = L.avaliacoes[i]; a.tempo = v.tempo; a.texto = v.texto; if (a.foto) a.fotoAlt = v.fotoAlt || a.fotoAlt; });
     site.mensagemWhatsApp = L.msg;
-    $("wa-btn").href = `${site.whatsappBase}?text=${encodeURIComponent(site.mensagemWhatsApp)}`;
+    site.erroForm = L.erro;
     const nE = site.estilos.length;
     document.querySelectorAll("#styles-track .style-card").forEach((c, i) => {
       const e = site.estilos[i % nE];
