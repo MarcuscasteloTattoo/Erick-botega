@@ -37,7 +37,7 @@ Ficam direto no HTML: textos do banner, do "Quem sou" e do valor médio e o link
 
 Os nomes das fotos descrevem a tatuagem e terminam em `-florianopolis`, para ajudar a busca do Google por "tatuagem em Florianópolis". Cada foto também leva título, descrição, autor e palavras-chave nos metadados do arquivo (EXIF e XMP).
 
-- `assets/tatuador-damisel-ramirez-florianopolis-paris.webp`: foto do banner
+- `assets/tatuador-damisel-ramirez-florianopolis-paris-zoom.webp`: foto do banner
 - `assets/damisel-ramirez-tatuagem-florianopolis-estudio.webp`: foto do "Quem sou"
 - `assets/tatuagem-*-florianopolis.webp`: fotos do carrossel "Projetos recentes" e do portfólio
 
