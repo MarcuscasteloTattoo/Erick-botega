@@ -423,26 +423,6 @@ footer .small-muted { font-size: .68rem; }
             <div><label for="f-nome" data-t="fNome">Nome</label><input id="f-nome" name="nome" autocomplete="name" required placeholder="Seu nome" data-ta="placeholder:fNomePh"></div>
             <div><label for="f-tel" data-t="fTel">WhatsApp</label><input id="f-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(48) 99999-9999"></div>
           </div>
-          <div class="row2">
-            <div><label for="f-local" data-t="fLocal">Local do corpo</label><select id="f-local" name="local" required>
-              <option value="" data-t="fEscolha">Escolha</option>
-              <option value="braco" data-t="lBraco">Braço</option>
-              <option value="antebraco" data-t="lAntebraco">Antebraço</option>
-              <option value="perna" data-t="lPerna">Perna ou coxa</option>
-              <option value="costas" data-t="lCostas">Costas</option>
-              <option value="peito" data-t="lPeito">Peito ou ombro</option>
-              <option value="outro" data-t="lOutro">Outro lugar</option>
-            </select></div>
-            <div><label for="f-tam" data-t="fTam">Tamanho aproximado</label><select id="f-tam" name="tamanho">
-              <option value="" data-t="fEscolha2">Escolha</option>
-              <option value="p" data-t="tP">Pequena (até 10 cm)</option>
-              <option value="m" data-t="tM">Média (10 a 20 cm)</option>
-              <option value="g" data-t="tG">Grande (mais de 20 cm)</option>
-              <option value="f" data-t="tF">Fechamento (braço, perna ou costas)</option>
-              <option value="n" data-t="tN">Ainda não sei</option>
-            </select></div>
-          </div>
-          <div><label for="f-ideia" data-t="fIdeia">Sua ideia</label><textarea id="f-ideia" name="ideia" required placeholder="Conte a ideia, o estilo e se tem alguma referência" data-ta="placeholder:fIdeiaPh"></textarea></div>
           <input class="hp" id="f-hp" name="empresa" tabindex="-1" autocomplete="off" aria-hidden="true">
           <p class="form-error" id="f-erro" role="alert" hidden></p>
           <button type="submit" class="btn btn-block btn-wa" id="wa-btn"><svg class="icon icon-wa"><use href="#i-wa"/></svg><span data-t="orcBotao">Quero receber meu orçamento</span></button>
@@ -704,20 +684,19 @@ renderMarquee();
 })();
 
 /* Formulário de orçamento: monta a mensagem e abre o WhatsApp do estúdio */
-site.erroForm = "Preencha nome, WhatsApp, local do corpo e a sua ideia.";
+site.erroForm = "Preencha seu nome e o seu WhatsApp.";
 (function () {
   const form = $("orc-form"), sent = $("f-sent"), err = $("f-erro");
   const v = (id) => $(id).value.trim();
   const lab = (id) => document.querySelector(`label[for="${id}"]`).textContent.trim();
-  const opt = (id) => { const s = $(id); return s.value ? s.selectedOptions[0].textContent.trim() : "-"; };
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (!v("f-nome") || v("f-tel").replace(/\D/g, "").length < 8 || !v("f-local") || !v("f-ideia")) {
+    if (!v("f-nome") || v("f-tel").replace(/\D/g, "").length < 8) {
       err.textContent = site.erroForm; err.hidden = false; return;
     }
     err.hidden = true;
     if (!v("f-hp")) {
-      const txt = `${site.mensagemWhatsApp}\n\n${lab("f-nome")}: ${v("f-nome")}\n${lab("f-tel")}: ${v("f-tel")}\n${lab("f-local")}: ${opt("f-local")}\n${lab("f-tam")}: ${opt("f-tam")}\n${lab("f-ideia")}: ${v("f-ideia")}`;
+      const txt = `${site.mensagemWhatsApp}\n\n${lab("f-nome")}: ${v("f-nome")}\n${lab("f-tel")}: ${v("f-tel")}`;
       const url = `${site.whatsappBase}?text=${encodeURIComponent(txt)}`;
       $("f-sent-link").href = url;
       try { window.open(url, "_blank", "noopener"); } catch (_) {}
@@ -734,7 +713,7 @@ const I18N = {
   en: {
     desc: "Tattoos in Florianópolis with Damisel Ramirez: realistic black and grey and color tattoos, arm and back pieces and 100% custom projects. Request your quote on WhatsApp.",
     msg: "Hi, Damisel! I came from your website and I'd like to get my tattoo.",
-    erro: "Please fill in your name, WhatsApp, body placement and your idea.",
+    erro: "Please fill in your name and your WhatsApp number.",
     ampliar: "Enlarge: ", ampliarFoto: "Enlarge photo: ", googleAria: "Google review", starsAria: "5 out of 5 stars",
     t: {
       h1: '<span class="h1-name">Damisel Ramirez</span> Tattoo<span class="h1-city">Florianópolis</span>',
@@ -752,10 +731,7 @@ const I18N = {
       direitos: "All rights reserved.",
       pfMais: "See full portfolio",
       pfMenos: "Show less",
-      fNome: "Name", fTel: "WhatsApp", fLocal: "Body placement", fTam: "Approximate size", fIdeia: "Your idea",
-      fEscolha: "Choose", fEscolha2: "Choose",
-      lBraco: "Arm", lAntebraco: "Forearm", lPerna: "Leg or thigh", lCostas: "Back", lPeito: "Chest or shoulder", lOutro: "Somewhere else",
-      tP: "Small (up to 10 cm)", tM: "Medium (10 to 20 cm)", tG: "Large (over 20 cm)", tF: "Full piece (arm, leg or back)", tN: "Not sure yet",
+      fNome: "Name", fTel: "WhatsApp",
       fSent: "Your message is already written in WhatsApp. If it didn't open on its own, tap the button below and send it.",
       fAbrir: "Open WhatsApp", fEditar: "Edit my details",
     },
@@ -764,7 +740,7 @@ const I18N = {
       projetos: "Recent projects", projAnt: "Previous project", projProx: "Next project", portfolio: "Portfolio",
       aboutAlt: "Damisel Ramirez at his tattoo studio in Florianópolis, drawing a tattoo design on a tablet",
       avAria: "Client reviews", avAnt: "Previous review", avProx: "Next review",
-      fNomePh: "Your name", fIdeiaPh: "Tell me the idea, the style and any references",
+      fNomePh: "Your name",
       igAria: "Damisel Ramirez's Instagram", lbAria: "Enlarged photo", lbFechar: "Close", lbAnt: "Previous photo", lbProx: "Next photo",
     },
     marquee: ["HYPER-REALISM", "ATTENTION TO DETAIL", "PRECISION", "EXCLUSIVITY", "CUSTOM PROJECTS", "AUTHENTICITY", "HIGH-END"],
@@ -809,7 +785,7 @@ const I18N = {
   es: {
     desc: "Tatuajes en Florianópolis con Damisel Ramirez: tatuaje realista en negro y gris y a color, mangas y espaldas completas y proyectos 100% personalizados. Solicita tu presupuesto por WhatsApp.",
     msg: "¡Hola, Damisel! Vengo de tu sitio web y quiero hacerme mi tatuaje.",
-    erro: "Completa tu nombre, WhatsApp, zona del cuerpo y tu idea.",
+    erro: "Completa tu nombre y tu WhatsApp.",
     ampliar: "Ampliar: ", ampliarFoto: "Ampliar foto: ", googleAria: "Reseña de Google", starsAria: "5 de 5 estrellas",
     t: {
       h1: '<span class="h1-name">Damisel Ramirez</span> Tattoo<span class="h1-city">Florianópolis</span>',
@@ -827,10 +803,7 @@ const I18N = {
       direitos: "Todos los derechos reservados.",
       pfMais: "Ver portafolio completo",
       pfMenos: "Mostrar menos",
-      fNome: "Nombre", fTel: "WhatsApp", fLocal: "Zona del cuerpo", fTam: "Tamaño aproximado", fIdeia: "Tu idea",
-      fEscolha: "Elige", fEscolha2: "Elige",
-      lBraco: "Brazo", lAntebraco: "Antebrazo", lPerna: "Pierna o muslo", lCostas: "Espalda", lPeito: "Pecho u hombro", lOutro: "Otro lugar",
-      tP: "Pequeño (hasta 10 cm)", tM: "Mediano (10 a 20 cm)", tG: "Grande (más de 20 cm)", tF: "Pieza completa (brazo, pierna o espalda)", tN: "Todavía no sé",
+      fNome: "Nombre", fTel: "WhatsApp",
       fSent: "Tu mensaje ya está escrito en WhatsApp. Si no se abrió solo, toca el botón de abajo y envíalo.",
       fAbrir: "Abrir WhatsApp", fEditar: "Corregir mis datos",
     },
@@ -839,7 +812,7 @@ const I18N = {
       projetos: "Proyectos recientes", projAnt: "Proyecto anterior", projProx: "Siguiente proyecto", portfolio: "Portafolio",
       aboutAlt: "Damisel Ramirez en su estudio de tatuaje en Florianópolis, dibujando un diseño de tatuaje en la tableta",
       avAria: "Reseñas de clientes", avAnt: "Reseña anterior", avProx: "Siguiente reseña",
-      fNomePh: "Tu nombre", fIdeiaPh: "Cuéntame la idea, el estilo y si tienes alguna referencia",
+      fNomePh: "Tu nombre",
       igAria: "Instagram de Damisel Ramirez", lbAria: "Foto ampliada", lbFechar: "Cerrar", lbAnt: "Foto anterior", lbProx: "Foto siguiente",
     },
     marquee: ["HIPERREALISMO", "DETALLISMO", "PRECISIÓN", "EXCLUSIVIDAD", "PROYECTOS PERSONALIZADOS", "AUTENTICIDAD", "ALTO NIVEL"],
