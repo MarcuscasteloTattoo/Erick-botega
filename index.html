@@ -421,7 +421,7 @@ footer .small-muted { font-size: .68rem; }
         <form id="orc-form" novalidate>
           <div class="row2">
             <div><label for="f-nome" data-t="fNome">Nome</label><input id="f-nome" name="nome" autocomplete="name" required placeholder="Seu nome" data-ta="placeholder:fNomePh"></div>
-            <div><label for="f-tel" data-t="fTel">WhatsApp</label><input id="f-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(48) 99999-9999"></div>
+            <div><label for="f-tel" data-t="fTel">WhatsApp</label><input id="f-tel" name="tel" type="tel" inputmode="numeric" autocomplete="tel-national" required placeholder="(48) 9 9999-9999"></div>
           </div>
           <input class="hp" id="f-hp" name="empresa" tabindex="-1" autocomplete="off" aria-hidden="true">
           <p class="form-error" id="f-erro" role="alert" hidden></p>
@@ -684,14 +684,38 @@ renderMarquee();
 })();
 
 /* Formulário de orçamento: monta a mensagem e abre o WhatsApp do estúdio */
-site.erroForm = "Preencha seu nome e o seu WhatsApp.";
+site.erroForm = "Preencha seu nome e o WhatsApp com DDD, no formato (48) 9 9999-9999.";
 (function () {
   const form = $("orc-form"), sent = $("f-sent"), err = $("f-erro");
   const v = (id) => $(id).value.trim();
+  /* máscara do WhatsApp: (DDD) 9 0000-0000 */
+  const tel = $("f-tel");
+  const soDigitos = (t) => {
+    let d = t.replace(/\D/g, "");
+    if (d.length > 11 && d.startsWith("55")) d = d.slice(2);
+    if (d.startsWith("0")) d = d.replace(/^0+/, "");
+    if (d.length >= 3 && d[2] !== "9") d = d.slice(0, 2) + "9" + d.slice(2);
+    return d.slice(0, 11);
+  };
+  const formatar = (d) => {
+    let r = "";
+    if (d.length) r = "(" + d.slice(0, 2);
+    if (d.length >= 3) r += ") " + d[2];
+    if (d.length > 3) r += " " + d.slice(3, 7);
+    if (d.length > 7) r += "-" + d.slice(7, 11);
+    return r;
+  };
+  const telValido = (t) => { const d = t.replace(/\D/g, ""); return d.length === 11 && d[2] === "9" && +d.slice(0, 2) >= 11; };
+  let antes = "";
+  tel.addEventListener("input", (e) => {
+    let d = soDigitos(tel.value);
+    if (e.inputType && e.inputType.startsWith("delete") && d === antes && tel.value.length < formatar(antes).length) d = d.slice(0, -1);
+    tel.value = formatar(d); antes = d;
+  });
   const lab = (id) => document.querySelector(`label[for="${id}"]`).textContent.trim();
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (!v("f-nome") || v("f-tel").replace(/\D/g, "").length < 8) {
+    if (!v("f-nome") || !telValido(v("f-tel"))) {
       err.textContent = site.erroForm; err.hidden = false; return;
     }
     err.hidden = true;
@@ -713,7 +737,7 @@ const I18N = {
   en: {
     desc: "Tattoos in Florianópolis with Damisel Ramirez: realistic black and grey and color tattoos, arm and back pieces and 100% custom projects. Request your quote on WhatsApp.",
     msg: "Hi, Damisel! I came from your website and I'd like to get my tattoo.",
-    erro: "Please fill in your name and your WhatsApp number.",
+    erro: "Please fill in your name and your WhatsApp number with area code, like (48) 9 9999-9999.",
     ampliar: "Enlarge: ", ampliarFoto: "Enlarge photo: ", googleAria: "Google review", starsAria: "5 out of 5 stars",
     t: {
       h1: '<span class="h1-name">Damisel Ramirez</span> Tattoo<span class="h1-city">Florianópolis</span>',
@@ -785,7 +809,7 @@ const I18N = {
   es: {
     desc: "Tatuajes en Florianópolis con Damisel Ramirez: tatuaje realista en negro y gris y a color, mangas y espaldas completas y proyectos 100% personalizados. Solicita tu presupuesto por WhatsApp.",
     msg: "¡Hola, Damisel! Vengo de tu sitio web y quiero hacerme mi tatuaje.",
-    erro: "Completa tu nombre y tu WhatsApp.",
+    erro: "Completa tu nombre y tu WhatsApp con código de área, como (48) 9 9999-9999.",
     ampliar: "Ampliar: ", ampliarFoto: "Ampliar foto: ", googleAria: "Reseña de Google", starsAria: "5 de 5 estrellas",
     t: {
       h1: '<span class="h1-name">Damisel Ramirez</span> Tattoo<span class="h1-city">Florianópolis</span>',
