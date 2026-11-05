@@ -41,7 +41,7 @@ Os nomes das fotos descrevem a tatuagem e terminam em `-florianopolis`, para aju
 - `assets/damisel-ramirez-tatuagem-florianopolis-estudio.webp`: foto do "Quem sou"
 - `assets/tatuagem-*-florianopolis.webp`: fotos do carrossel "Projetos recentes" e do portfólio
 
-As fotos de tatuagem têm versões menores com `-480` e `-360` no nome, e o banner e o "Quem sou" têm versões `-800` e `-720`. O celular carrega a versão menor e o computador a maior. Ao trocar uma foto, troque todas as versões e mantenha o nome descritivo, começando por `tatuagem-` (é o que liga as versões menores no código).
+As fotos de tatuagem têm versões menores com `-480` e `-360` no nome, e o banner tem versões `-800` e `-480`, e o "Quem sou" `-720` e `-480`. O celular carrega a versão menor e o computador a maior. Ao trocar uma foto, troque todas as versões e mantenha o nome descritivo, começando por `tatuagem-` (é o que liga as versões menores no código).
 
 O texto alternativo (`alt`) de cada foto fica no objeto `site` e nas traduções `I18N`, sempre citando o tipo de tatuagem e Florianópolis.
 
