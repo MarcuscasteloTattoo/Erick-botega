@@ -1,8 +1,8 @@
-# Damisel Ramirez Tattoo
+# Erick Bottega | Bottega Ink
 
-Site do tatuador Damisel Ramirez: hiper-realismo de alto padrão. A página tem o banner, os projetos recentes em carrossel, o portfólio, o "Quem sou", o valor médio de uma tatuagem e o botão de orçamento pelo WhatsApp.
+Site do tatuador Erick Bottega, da Bottega Ink, em Florianópolis: tatuagens fineline, sketch, blackwork e composições em preto e vermelho. A página tem o banner, os projetos recentes em carrossel, o portfólio, o "Quem sou", as avaliações do Google, o valor das tatuagens e o formulário de orçamento.
 
-É um site estático: um `index.html` e a pasta `assets/` com as fotos. Não precisa de build nem de instalação. As fontes vêm do Google Fonts.
+É um site estático: um `index.html`, os ícones e a pasta `assets/` com as fotos. Não precisa de build nem de instalação. As fontes vêm do Google Fonts.
 
 ## Testar no computador
 
@@ -10,11 +10,22 @@ Abra o `index.html` no navegador (dois cliques no arquivo).
 
 ## Publicar
 
-Funciona em qualquer hospedagem de site estático. Envie o `index.html`, os ícones (`favicon-paris.png`, `apple-touch-icon-paris.png`, `favicon.png` e `apple-touch-icon.png`) e a pasta `assets/` juntos, mantendo a estrutura.
+Funciona em qualquer hospedagem de site estático. Envie o `index.html`, os ícones (`favicon-bottega-ink.png`, `apple-touch-icon-bottega-ink.png`, `favicon.png` e `apple-touch-icon.png`) e a pasta `assets/` juntos, mantendo a estrutura.
 
-- **GitHub Pages:** neste repositório, vá em Settings → Pages → *Deploy from a branch* → `main` / `(root)`.
-- **Vercel ou Netlify:** importe este repositório; não há comando de build.
-- **Hostinger, Locaweb e similares:** envie os arquivos para a pasta `public_html`.
+- **Hostinger (deploy pelo Git):** cada envio ao branch `main` é publicado na pasta do site, se a integração com este repositório estiver ativa no hPanel.
+- **GitHub Pages:** Settings → Pages → *Deploy from a branch* → `main` / `(root)`.
+
+## Formulário de orçamento
+
+O visitante preenche nome e WhatsApp, com máscara `(DD) 9 0000-0000`. Ao enviar:
+
+1. Os dados vão para o webhook do Make (`webhookMake` no objeto `site`), com data e hora de Brasília, telefone no padrão brasileiro, dispositivo, sistema, navegador e página de origem.
+2. O Meta Pixel registra o evento `Lead`, sem dados pessoais.
+3. O visitante vai direto para o WhatsApp (`whatsappBase`), com a mensagem `mensagemWhatsApp`.
+
+## Meta Pixel
+
+Pixel `1784247566187393`, com o código oficial da Meta no `<head>`. `PageView` dispara ao abrir a página. `Lead` dispara uma única vez por visita, só depois de um envio válido do formulário.
 
 ## Idiomas
 
@@ -26,31 +37,27 @@ Os textos em inglês e espanhol ficam no objeto `I18N`, no fim do `index.html`. 
 
 No fim do `index.html`, dentro do `<script>`, o objeto `site` guarda o conteúdo que muda com frequência:
 
-- `estilos`: os cards do carrossel "Projetos recentes" (título, texto, foto e descrição da foto).
-- `portfolio`: as fotos do portfólio, na ordem em que aparecem. Só as 13 primeiras aparecem de cara; as demais ficam no botão "Ver portfólio completo". Para mudar esse número, altere `PF_VISIVEIS` no `<script>`. Para acrescentar, coloque a foto em `assets/` e adicione `{ src: "assets/nome.webp", alt: "descrição" }`.
-- `avaliacoes`: avaliações do Google (nome, tempo, texto). Está vazia e a seção está oculta: ao preencher, tire o `hidden` da `<section id="avaliacoes">` e ajuste a nota, o total e o link do Google no HTML. As que têm `foto` aparecem primeiro e abrem ampliadas ao toque.
-- `whatsappBase` e `mensagemWhatsApp`: número e mensagem inicial do botão de orçamento.
+- `estilos`: os cards do carrossel "Projetos recentes" (título, texto, foto, foto grande e descrição da foto).
+- `portfolio`: as fotos do portfólio, na ordem em que aparecem. Mantenha um número par de fotos (hoje são 12), para a grade não terminar com uma foto sozinha. `PF_VISIVEIS` define quantas aparecem antes do botão "Ver portfólio completo".
+- `avaliacoes`: avaliações do Google (nome, foto do perfil, tempo, texto e fotos). As fotos abrem ampliadas ao toque.
+- `whatsappBase`, `mensagemWhatsApp` e `webhookMake`: WhatsApp, mensagem inicial e webhook do formulário.
 
-Ficam direto no HTML: textos do banner, do "Quem sou" e do valor médio e o link do Instagram.
+Ficam direto no HTML: textos do banner, do "Quem sou" e dos preços, e o link do Instagram (@bottegaink).
 
 ## Fotos
 
-Os nomes das fotos descrevem a tatuagem e terminam em `-florianopolis`, para ajudar a busca do Google por "tatuagem em Florianópolis". Cada foto também leva título, descrição, autor e palavras-chave nos metadados do arquivo (EXIF e XMP).
+- `assets/erick-bottega-tatuador-bottega-ink-banner-*.webp`: banner (um recorte para celular e outro para computador)
+- `assets/erick-bottega-tatuando-bottega-ink-quem-sou*.webp`: foto do "Quem sou"
+- `assets/tatuagem-*-florianopolis.webp`: fotos do carrossel e do portfólio, com versões `-480` e `-360` para celular e `-grande` para a foto ampliada
+- `assets/avaliacao-*.webp`: fotos de perfil das avaliações
+- `assets/logo-*.webp|png` e `assets/monograma-*.webp`: logo da Erick Bottega Ink
 
-- `assets/tatuador-damisel-ramirez-florianopolis-paris-zoom.webp`: foto do banner
-- `assets/damisel-ramirez-tatuagem-florianopolis-estudio.webp`: foto do "Quem sou"
-- `assets/tatuagem-*-florianopolis.webp`: fotos do carrossel "Projetos recentes" e do portfólio
-
-As fotos de tatuagem têm versões menores com `-480` e `-360` no nome, e o banner tem versões `-800` e `-480`, e o "Quem sou" `-720` e `-480`. O celular carrega a versão menor e o computador a maior. Ao trocar uma foto, troque todas as versões e mantenha o nome descritivo, começando por `tatuagem-` (é o que liga as versões menores no código).
-
-O texto alternativo (`alt`) de cada foto fica no objeto `site` e nas traduções `I18N`, sempre citando o tipo de tatuagem e Florianópolis.
+Ao trocar uma foto, use um nome de arquivo novo e mantenha o padrão descritivo terminado em `-florianopolis`.
 
 ## SEO
 
-No `<head>` ficam o título da página, a descrição, as palavras-chave, os dados para redes sociais (`og:`) e um bloco `application/ld+json` que apresenta o estúdio ao Google como estúdio de tatuagem em Florianópolis, com WhatsApp, Instagram e faixa de preço. Quando tiver o endereço completo do estúdio e o domínio do site, acrescente `streetAddress` e `postalCode` nesse bloco e troque os caminhos das imagens por endereços completos.
+No `<head>` ficam o título, a descrição, as palavras-chave, os dados para redes sociais (`og:`) e um bloco `application/ld+json` com os dados da Bottega Ink: endereço, horário, telefone, Instagram, Google e logo. Quando o domínio estiver definido, troque os caminhos das imagens nesse bloco e em `og:image` por endereços completos.
 
 ## Desempenho
 
-`_headers` (Netlify e Cloudflare Pages) e `vercel.json` (Vercel) mandam o navegador guardar as fotos em cache por 1 ano. Por isso, ao trocar uma foto, use um nome de arquivo novo em vez de substituir o arquivo com o mesmo nome. No GitHub Pages esses arquivos não têm efeito.
-
-O ícone do site usa os arquivos `favicon-paris.png` e `apple-touch-icon-paris.png`. Ao trocar o ícone, use um nome de arquivo novo e atualize as duas linhas `<link rel="icon">` e `<link rel="apple-touch-icon">` no `index.html`, porque o navegador guarda o ícone antigo por até uma semana.
+`_headers` (Netlify e Cloudflare Pages) e `vercel.json` (Vercel) mandam o navegador guardar as fotos em cache por 1 ano. Na Hostinger, o mesmo pode ser feito no `.htaccess`.
