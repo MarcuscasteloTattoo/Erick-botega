@@ -381,6 +381,12 @@ footer .foot-row { gap: 1.25rem; }
 #orcamento .orc-preco { font-size: 1.125rem; line-height: 1.65; color: var(--hero-fg); max-width: 30rem; margin-top: 1.25rem; text-wrap: pretty; }
 @media (min-width: 768px) { #orcamento .orc-preco { font-size: 1.25rem; } }
 #orcamento .orc-preco strong { font-weight: 600; white-space: nowrap; }
+#orcamento .nw { white-space: nowrap; }
+/* faixa do ticket médio em destaque: dourado, maior e com sublinhado suave */
+#orcamento .orc-preco .orc-destaque {
+  font-size: 1.18em; font-weight: 600; white-space: nowrap; color: var(--gold) !important;
+  padding: 0 .1em; background: linear-gradient(transparent 62%, rgba(174, 133, 101, .38) 62% 92%, transparent 92%);
+}
 #orcamento .orc-chamada {
   max-width: 34rem; margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid rgba(229, 211, 189, .22);
   font-size: 1rem; font-weight: 500; letter-spacing: .02em; color: var(--gold);
@@ -500,7 +506,7 @@ footer .foot-row { gap: 1.25rem; }
     <div class="wrap section">
       <div class="form-wrap">
         <h2 class="h2" data-t="orcTitulo">Quanto custa uma tatuagem com Erick Bottega?</h2>
-        <p class="lead orc-preco" data-t="orcTexto">Flashs de 5 a 8&nbsp;cm a partir de <strong style="color:var(--foreground);font-weight:600">R$&nbsp;300</strong>. Para projetos maiores, o valor varia conforme o tamanho e a complexidade da tatuagem.</p>
+        <p class="lead orc-preco" data-t="orcTexto">Projetos de médio porte variam entre <strong class="orc-destaque">R$&nbsp;650 e R$&nbsp;1.200</strong>, enquanto fechamentos começam a partir de <span class="nw">R$&nbsp;1.500</span>. Para flashes menores, de 5 a 8&nbsp;cm, temos opções a partir de <span class="nw">R$&nbsp;300</span>.</p>
         <p class="lead orc-chamada" data-t="orcSub">Solicite seu orçamento se cadastrando abaixo</p>
         <form id="orc-form" novalidate>
           <div class="campos">
@@ -890,7 +896,7 @@ const I18N = {
       avLead: "See what clients say after getting tattooed at Bottega Ink.",
       avLink: "See all reviews on Google",
       orcTitulo: "How much does a tattoo with Erick Bottega cost?",
-      orcTexto: 'Flash tattoos from 5 to 8&nbsp;cm start at <strong style="color:var(--foreground);font-weight:600">R$&nbsp;300</strong> (Brazilian reais). For larger projects, the price depends on the size and complexity of the tattoo.',
+      orcTexto: 'Medium-sized projects range from <strong class="orc-destaque">R$&nbsp;650 to R$&nbsp;1,200</strong>, while full sleeves start at <span class="nw">R$&nbsp;1,500</span> (Brazilian reais). For smaller flash pieces, 5 to 8&nbsp;cm, we have options starting at <span class="nw">R$&nbsp;300</span>.',
       aboutAlias: "— The artist behind Bottega Ink",
       orcSub: "Request your quote below",
       orcBotao: "Get my quote",
@@ -955,7 +961,7 @@ const I18N = {
       avLead: "Mira lo que cuentan los clientes después de tatuarse en Bottega Ink.",
       avLink: "Ver todas las reseñas en Google",
       orcTitulo: "¿Cuánto cuesta un tatuaje con Erick Bottega?",
-      orcTexto: 'Flashes de 5 a 8&nbsp;cm desde <strong style="color:var(--foreground);font-weight:600">R$&nbsp;300</strong> (reales brasileños). Para proyectos más grandes, el valor varía según el tamaño y la complejidad del tatuaje.',
+      orcTexto: 'Los proyectos medianos van de <strong class="orc-destaque">R$&nbsp;650 a R$&nbsp;1.200</strong>, mientras que las mangas completas comienzan desde <span class="nw">R$&nbsp;1.500</span> (reales brasileños). Para flashes más pequeños, de 5 a 8&nbsp;cm, tenemos opciones desde <span class="nw">R$&nbsp;300</span>.',
       aboutAlias: "— El artista detrás de Bottega Ink",
       orcSub: "Solicita tu presupuesto abajo",
       orcBotao: "Quiero recibir mi presupuesto",
