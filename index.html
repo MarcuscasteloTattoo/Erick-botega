@@ -365,6 +365,44 @@ footer .foot-row { gap: 1.25rem; }
   .marquee-track { animation: none; }
   .btn, .pf-item .ph { transition: none; }
 }
+
+/* REVISÃO DE LEGIBILIDADE: banner, preços, formulário e "Quem sou" */
+/* Banner: textos um pouco maiores e sombra suave para ler bem sobre a foto */
+.hero h1 { text-shadow: 0 2px 22px rgba(34, 32, 29, .35); }
+.h1-city { font-size: .875rem; letter-spacing: .3em; margin-top: 1.1rem; }
+.hero-sub { font-size: 1.0625rem; line-height: 1.6; max-width: 30rem; text-shadow: 0 1px 12px rgba(34, 32, 29, .25); }
+@media (min-width: 900px) {
+  .hero h1 { text-shadow: none; }
+  .hero-sub { font-size: 1.1875rem; max-width: 31rem; text-shadow: none; }
+}
+/* Preços e orçamento */
+#orcamento .h2 { font-size: 2rem; line-height: 1.12; max-width: 34rem; margin-inline: auto; }
+@media (min-width: 768px) { #orcamento .h2 { font-size: 2.6rem; } }
+#orcamento .orc-preco { font-size: 1.0625rem; line-height: 1.7; color: var(--hero-fg); max-width: 34rem; margin-top: 1.25rem; }
+@media (min-width: 768px) { #orcamento .orc-preco { font-size: 1.1875rem; } }
+#orcamento .orc-preco strong { font-weight: 600; white-space: nowrap; }
+#orcamento .orc-chamada {
+  max-width: 34rem; margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid rgba(229, 211, 189, .22);
+  font-size: 1rem; font-weight: 500; letter-spacing: .02em; color: var(--gold);
+}
+/* Formulário: mesma largura do texto, campos de 16px (evita o zoom do iPhone) e respiro uniforme */
+#orcamento form { max-width: 30rem; margin: 1.75rem auto 0; gap: 1.25rem; }
+#orcamento .campos { gap: 1.125rem; }
+#orcamento label { margin-bottom: .5rem; font-size: .9375rem; font-weight: 500; color: var(--hero-fg); text-align: left; }
+#orcamento input:not(.hp) { font-size: 1rem; min-height: 3.25rem; padding: .85rem 1.1rem; border-radius: .75rem; border-color: transparent; }
+#orcamento input:not(.hp):focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+#orcamento .btn-wa { margin-top: .5rem; min-height: 3.6rem; font-size: .9375rem; letter-spacing: .05em; line-height: 1.3; padding-inline: 1.25rem; }
+@media (min-width: 768px) { #orcamento .btn-wa { font-size: 1rem; } }
+@media (max-width: 440px) { #orcamento .btn-wa { font-size: .875rem; letter-spacing: .02em; gap: .55rem; padding-inline: 1rem; } #orcamento .btn-wa .icon-wa { width: 1.25rem; height: 1.25rem; } }
+#orcamento .form-error { text-align: left; }
+#orcamento .btn-wa span { text-align: center; }
+/* Quem sou: nome maior, subtítulo mais compacto e biografia com leitura confortável */
+.about-copy h2 { font-size: 2.125rem; }
+@media (min-width: 768px) { .about-copy h2 { font-size: 2.6rem; } }
+.about-alias { margin-top: .6rem; font-size: .8125rem; letter-spacing: .16em; line-height: 1.5; }
+.about-copy p { font-size: 1.0625rem; line-height: 1.75; max-width: 34rem; }
+.about-copy p:first-of-type { margin-top: 1.5rem; color: var(--foreground); }
+@media (min-width: 1024px) { .about-copy p { font-size: 1.125rem; } }
 </style>
 <meta property="og:title" content="Tatuagem Fineline em Florianópolis | Erick Bottega – Bottega Ink">
 <meta property="og:site_name" content="Bottega Ink">
@@ -428,7 +466,7 @@ footer .foot-row { gap: 1.25rem; }
 
   <section class="wrap section" id="sobre">
     <div class="about">
-      <img class="about-img" src="assets/erick-bottega-tatuando-bottega-ink-quem-sou.webp" srcset="assets/erick-bottega-tatuando-bottega-ink-quem-sou-480.webp 480w, assets/erick-bottega-tatuando-bottega-ink-quem-sou-720.webp 720w, assets/erick-bottega-tatuando-bottega-ink-quem-sou.webp 1000w" sizes="(min-width: 1152px) 600px, (min-width: 768px) calc(57vw - 60px), calc(100vw - 48px)" width="1000" height="1333" alt="Erick Bottega, de camiseta preta e máscara, tatuando a perna de um cliente no estúdio da Bottega Ink em Florianópolis" data-ta="alt:aboutAlt" loading="lazy" decoding="async">
+      <img class="about-img" src="assets/erick-bottega-paris-bottega-ink-quem-sou.webp" srcset="assets/erick-bottega-paris-bottega-ink-quem-sou-480.webp 480w, assets/erick-bottega-paris-bottega-ink-quem-sou-720.webp 720w, assets/erick-bottega-paris-bottega-ink-quem-sou.webp 1000w" sizes="(min-width: 1152px) 600px, (min-width: 768px) calc(57vw - 60px), calc(100vw - 48px)" width="1000" height="1333" alt="Erick Bottega, tatuador da Bottega Ink em Florianópolis, de camisa branca e braço tatuado, diante da Ópera Garnier, em Paris" data-ta="alt:aboutAlt" loading="lazy" decoding="async">
       <div class="about-copy">
         <h2>Erick Bottega <span class="about-alias" data-t="aboutAlias">— O artista por trás da Bottega Ink</span></h2>
         <p data-t="sobre1">Sou Erick Bottega, tatuador e criador da Bottega Ink, em Florianópolis. Minha trajetória começou na arquitetura, onde desenvolvi um olhar atento às proporções, à composição e aos detalhes. Encontrei na tatuagem uma forma mais pessoal de transformar ideias e histórias em arte.</p>
@@ -462,8 +500,8 @@ footer .foot-row { gap: 1.25rem; }
     <div class="wrap section">
       <div class="form-wrap">
         <h2 class="h2" data-t="orcTitulo">Quanto custa uma tatuagem com Erick Bottega?</h2>
-        <p class="lead" style="max-width:30rem" data-t="orcTexto">Trabalhos a partir de <strong style="color:var(--foreground);font-weight:600">R$&nbsp;300</strong>, com projetos de médio porte entre <strong style="color:var(--foreground);font-weight:600">R$&nbsp;650 e R$&nbsp;1.200</strong> e fechamentos a partir de <strong style="color:var(--foreground);font-weight:600">R$&nbsp;1.500</strong>. O valor final depende do tamanho, da complexidade e dos detalhes de cada projeto.</p>
-        <p class="lead" style="max-width:none;margin-top:.75rem" data-t="orcSub">Solicite seu orçamento se cadastrando abaixo</p>
+        <p class="lead orc-preco" data-t="orcTexto">Trabalhos a partir de <strong style="color:var(--foreground);font-weight:600">R$&nbsp;300</strong>, com projetos de médio porte entre <strong style="color:var(--foreground);font-weight:600">R$&nbsp;650 e R$&nbsp;1.200</strong> e fechamentos a partir de <strong style="color:var(--foreground);font-weight:600">R$&nbsp;1.500</strong>. O valor final depende do tamanho, da complexidade e dos detalhes de cada projeto.</p>
+        <p class="lead orc-chamada" data-t="orcSub">Solicite seu orçamento se cadastrando abaixo</p>
         <form id="orc-form" novalidate>
           <div class="campos">
             <div><label for="f-nome" data-t="fNome">Nome</label><input id="f-nome" name="nome" autocomplete="name" required placeholder="Seu nome" data-ta="placeholder:fNomePh"></div>
@@ -520,8 +558,8 @@ const site = {
     /* trabalhos do Erick */
     { src: "assets/tatuagem-leopardo-flores-vermelhas-antebraco-completa-florianopolis.webp", alt: "Tatuagem de leopardo com flores vermelhas no antebraço, feita por Erick Bottega, tatuador da Bottega Ink em Florianópolis" },
     { src: "assets/tatuagem-flores-vermelhas-ombro-costas-completa-florianopolis.webp", alt: "Tatuagem fineline de flores vermelhas no ombro e nas costas, feita por Erick Bottega, tatuador da Bottega Ink em Florianópolis" },
-    { src: "assets/tatuagem-coracao-ampulheta-time-balance-antebraco-completa-florianopolis.webp", alt: "Tatuagem de coração anatômico e ampulheta com as palavras Time e Balance no antebraço, feita por Erick Bottega, tatuador da Bottega Ink em Florianópolis" },
-    { src: "assets/tatuagem-leopardo-espreguicando-braco-completa-florianopolis.webp", alt: "Tatuagem fineline de leopardo se espreguiçando no braço, feita por Erick Bottega, tatuador da Bottega Ink em Florianópolis" },
+    { src: "assets/tatuagem-relogio-arvore-ampulheta-coracao-antebraco-completa-florianopolis.webp", alt: "Tatuagem de antebraço com rosto com relógio, árvore, ampulheta e coração anatômico com as palavras Time e Balance, feita por Erick Bottega, tatuador da Bottega Ink em Florianópolis" },
+    { src: "assets/tatuagem-gato-da-sorte-maneki-neko-braco-completa-florianopolis.webp", alt: "Tatuagem de gato da sorte (maneki-neko) em sombreado e pontilhismo no braço, feita por Erick Bottega, tatuador da Bottega Ink em Florianópolis" },
     { src: "assets/tatuagem-lirio-do-vale-braco-completa-florianopolis.webp", alt: "Tatuagem fineline de lírio-do-vale no braço, feita por Erick Bottega, tatuador da Bottega Ink em Florianópolis" },
     { src: "assets/tatuagem-tarot-lua-vermelho-braco-completa-florianopolis.webp", alt: "Tatuagem de carta de tarô com lua em vermelho e preto no braço, feita por Erick Bottega, tatuador da Bottega Ink em Florianópolis" },
     { src: "assets/tatuagem-flores-onca-agua-viva-costas-completa-florianopolis.webp", alt: "Tatuagem de flores, onça e água-viva nas costas e no ombro, feita por Erick Bottega, tatuador da Bottega Ink em Florianópolis" },
@@ -864,7 +902,7 @@ const I18N = {
     ta: {
       langAria: "Language", heroAlt: "Erick Bottega, tattoo artist at Bottega Ink in Florianópolis, Brazil, in a white T-shirt, resting his chin on his hands, with a fine line floral tattoo on his arm",
       projetos: "Recent projects", projAnt: "Previous project", projProx: "Next project", portfolio: "Portfolio",
-      aboutAlt: "Erick Bottega, in a black T-shirt and mask, tattooing a client's leg at the Bottega Ink studio in Florianópolis, Brazil",
+      aboutAlt: "Erick Bottega, tattoo artist at Bottega Ink in Florianópolis, Brazil, in a white shirt with a tattooed arm, in front of the Palais Garnier opera house in Paris",
       avAria: "Client reviews", avAnt: "Previous review", avProx: "Next review",
       fNomePh: "Your name",
       igAria: "Bottega Ink on Instagram", lbAria: "Enlarged photo", lbFechar: "Close", lbAnt: "Previous photo", lbProx: "Next photo",
@@ -883,8 +921,8 @@ const I18N = {
     portfolio: [
       "Leopard with red flowers forearm tattoo by Erick Bottega, tattoo artist at Bottega Ink in Florianópolis, Brazil",
       "Fine line red flowers shoulder and back tattoo by Erick Bottega, tattoo artist at Bottega Ink in Florianópolis, Brazil",
-      "Anatomical heart and hourglass forearm tattoo with the words Time and Balance by Erick Bottega, tattoo artist at Bottega Ink in Florianópolis, Brazil",
-      "Fine line stretching leopard arm tattoo by Erick Bottega, tattoo artist at Bottega Ink in Florianópolis, Brazil",
+      "Forearm tattoo with a clock face, tree, hourglass and anatomical heart with the words Time and Balance by Erick Bottega, tattoo artist at Bottega Ink in Florianópolis, Brazil",
+      "Lucky cat (maneki-neko) arm tattoo in shading and stippling by Erick Bottega, tattoo artist at Bottega Ink in Florianópolis, Brazil",
       "Fine line lily of the valley arm tattoo by Erick Bottega, tattoo artist at Bottega Ink in Florianópolis, Brazil",
       "Red and black tarot card with moon arm tattoo by Erick Bottega, tattoo artist at Bottega Ink in Florianópolis, Brazil",
       "Flowers, jaguar and jellyfish back and shoulder tattoo by Erick Bottega, tattoo artist at Bottega Ink in Florianópolis, Brazil",
@@ -929,7 +967,7 @@ const I18N = {
     ta: {
       langAria: "Idioma", heroAlt: "Erick Bottega, tatuador de Bottega Ink en Florianópolis, Brasil, con camiseta blanca, con las manos apoyadas en el mentón y el brazo tatuado con flores en fineline",
       projetos: "Proyectos recientes", projAnt: "Proyecto anterior", projProx: "Siguiente proyecto", portfolio: "Portafolio",
-      aboutAlt: "Erick Bottega, con camiseta negra y mascarilla, tatuando la pierna de un cliente en el estudio de Bottega Ink en Florianópolis, Brasil",
+      aboutAlt: "Erick Bottega, tatuador de Bottega Ink en Florianópolis, Brasil, con camisa blanca y el brazo tatuado, frente a la Ópera Garnier de París",
       avAria: "Reseñas de clientes", avAnt: "Reseña anterior", avProx: "Siguiente reseña",
       fNomePh: "Tu nombre",
       igAria: "Instagram de Bottega Ink", lbAria: "Foto ampliada", lbFechar: "Cerrar", lbAnt: "Foto anterior", lbProx: "Foto siguiente",
@@ -948,8 +986,8 @@ const I18N = {
     portfolio: [
       "Tatuaje de leopardo con flores rojas en el antebrazo, hecho por Erick Bottega, tatuador de Bottega Ink en Florianópolis, Brasil",
       "Tatuaje fineline de flores rojas en el hombro y la espalda, hecho por Erick Bottega, tatuador de Bottega Ink en Florianópolis, Brasil",
-      "Tatuaje de corazón anatómico y reloj de arena con las palabras Time y Balance en el antebrazo, hecho por Erick Bottega, tatuador de Bottega Ink en Florianópolis, Brasil",
-      "Tatuaje fineline de leopardo estirándose en el brazo, hecho por Erick Bottega, tatuador de Bottega Ink en Florianópolis, Brasil",
+      "Tatuaje de antebrazo con rostro con reloj, árbol, reloj de arena y corazón anatómico con las palabras Time y Balance, hecho por Erick Bottega, tatuador de Bottega Ink en Florianópolis, Brasil",
+      "Tatuaje de gato de la suerte (maneki-neko) en sombreado y puntillismo en el brazo, hecho por Erick Bottega, tatuador de Bottega Ink en Florianópolis, Brasil",
       "Tatuaje fineline de lirio de los valles en el brazo, hecho por Erick Bottega, tatuador de Bottega Ink en Florianópolis, Brasil",
       "Tatuaje de carta de tarot con luna en rojo y negro en el brazo, hecho por Erick Bottega, tatuador de Bottega Ink en Florianópolis, Brasil",
       "Tatuaje de flores, jaguar y medusa en la espalda y el hombro, hecho por Erick Bottega, tatuador de Bottega Ink en Florianópolis, Brasil",
