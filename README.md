@@ -38,7 +38,7 @@ Os textos em inglês e espanhol ficam no objeto `I18N`, no fim do `index.html`. 
 No fim do `index.html`, dentro do `<script>`, o objeto `site` guarda o conteúdo que muda com frequência:
 
 - `estilos`: os cards do carrossel "Projetos recentes" (título, texto, foto, foto grande e descrição da foto).
-- `portfolio`: as fotos do portfólio, na ordem em que aparecem. Mantenha um número par de fotos (hoje são 12), para a grade não terminar com uma foto sozinha. `PF_VISIVEIS` define quantas aparecem antes do botão "Ver portfólio completo".
+- `portfolio`: as fotos do portfólio, na ordem em que aparecem. Mantenha um múltiplo de 6 fotos (hoje são 12): a grade tem 2 colunas no celular e 3 no computador, e assim nunca termina com uma foto sozinha. `PF_VISIVEIS` define quantas aparecem antes do botão "Ver portfólio completo".
 - `avaliacoes`: avaliações do Google (nome, foto do perfil, tempo, texto e fotos). As fotos abrem ampliadas ao toque.
 - `whatsappBase`, `mensagemWhatsApp` e `webhookMake`: WhatsApp, mensagem inicial e webhook do formulário.
 
