@@ -47,7 +47,7 @@ Ficam direto no HTML: textos do banner, do "Quem sou" e dos preços, e o link do
 ## Fotos
 
 - `assets/erick-bottega-tatuador-bottega-ink-banner-*.webp`: banner (um recorte para celular e outro para computador)
-- `assets/erick-bottega-paris-bottega-ink-quem-sou*.webp`: foto do "Quem sou"
+- `assets/erick-bottega-paris-opera-bottega-ink-quem-sou*.webp`: foto do "Quem sou"
 - `assets/tatuagem-*-florianopolis.webp`: fotos do carrossel e do portfólio, com versões `-480` e `-360` para celular e `-grande` para a foto ampliada
 - `assets/avaliacao-*.webp`: fotos de perfil das avaliações
 - `assets/logo-*.webp|png` e `assets/monograma-*.webp`: logo da Erick Bottega Ink
