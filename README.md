@@ -61,3 +61,10 @@ No `<head>` ficam o título, a descrição, as palavras-chave, os dados para red
 ## Desempenho
 
 `_headers` (Netlify e Cloudflare Pages) e `vercel.json` (Vercel) mandam o navegador guardar as fotos em cache por 1 ano. Na Hostinger, o mesmo pode ser feito no `.htaccess`.
+
+## LGPD e cookies
+
+- O Meta Pixel e o Microsoft Clarity só carregam depois que o visitante aceita no aviso de cookies. A escolha fica no navegador (`localStorage`, chave `bottegaink-consentimento-v1`) e pode ser mudada em "Preferências de cookies", no rodapé.
+- A Política de Privacidade abre numa janela, pelos links do aviso, do formulário e do rodapé, ou pelo endereço `#privacidade`. O texto fica em `polTexto` (português no HTML, inglês e espanhol no `I18N`).
+- O formulário mostra um aviso de que nome e WhatsApp são usados para responder ao orçamento.
+- Ao mudar ferramentas, prazos ou contatos, atualize a política e a data de "Última atualização".

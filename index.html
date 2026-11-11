@@ -9,32 +9,55 @@
 <meta name="author" content="Erick Bottega">
 <meta name="geo.region" content="BR-SC">
 <meta name="geo.placename" content="Florianópolis">
-<!-- Meta Pixel Code -->
+<!-- Consentimento LGPD: Meta Pixel e Microsoft Clarity só carregam depois que o visitante aceita -->
 <script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1784247566187393');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1784247566187393&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-<!-- Microsoft Clarity -->
-<script type="text/javascript">
+(function () {
+  var CHAVE = "bottegaink-consentimento-v1";
+  function ler() { try { return JSON.parse(localStorage.getItem(CHAVE)); } catch (e) { return null; } }
+  function gravar(c) { try { localStorage.setItem(CHAVE, JSON.stringify(c)); } catch (e) {} }
+  /* Meta Pixel Code (código oficial da Meta), ativado só com consentimento de marketing */
+  function carregarPixel() {
+    if (window.fbq) return;
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1784247566187393');
+    fbq('track', 'PageView');
+  }
+  /* Microsoft Clarity (código oficial), ativado só com consentimento de análise */
+  function carregarClarity() {
+    if (window.clarity) return;
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "zc11zfl6li");
+    window.clarity("consentv2", { ad_Storage: "denied", analytics_Storage: "granted" });
+  }
+  window.consentimento = {
+    atual: ler,
+    salvar: function (c) {
+      var antes = ler() || {};
+      c.data = new Date().toISOString(); gravar(c);
+      if (c.marketing) carregarPixel();
+      if (c.analise) carregarClarity();
+      /* se o visitante retirar um consentimento já dado, as ferramentas param ao recarregar a página */
+      if ((antes.marketing && !c.marketing) || (antes.analise && !c.analise)) {
+        try { if (window.clarity && !c.analise) window.clarity("consentv2", { ad_Storage: "denied", analytics_Storage: "denied" }); } catch (e) {}
+        location.reload();
+      }
+    }
+  };
+  var c = ler();
+  if (c && c.marketing) carregarPixel();
+  if (c && c.analise) carregarClarity();
+})();
 </script>
-<!-- End Microsoft Clarity -->
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TattooParlor", "name": "Bottega Ink", "description": "Estúdio de tatuagem fineline de Erick Bottega no Centro de Florianópolis.", "telephone": "+55 48 98812-3543", "address": {"@type": "PostalAddress", "streetAddress": "R. Ten. Silveira, 221 - Sala 01, 1º andar - Centro", "addressLocality": "Florianópolis", "addressRegion": "SC", "postalCode": "88010-300", "addressCountry": "BR"}, "geo": {"@type": "GeoCoordinates", "latitude": -27.595821, "longitude": -48.551744}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "14:00", "closes": "23:59"}], "hasMap": "https://share.google/g0JAFtYJSPnryV1vj", "areaServed": {"@type": "City", "name": "Florianópolis"}, "priceRange": "R$300 - R$2.200", "image": "assets/erick-bottega-tatuador-bottega-ink-banner-computador.webp", "knowsAbout": ["Tatuagem fineline", "Sketch", "Blackwork", "Composições em preto e vermelho", "Arte personalizada"], "founder": {"@type": "Person", "name": "Erick Bottega", "jobTitle": "Tatuador"}, "sameAs": ["https://www.instagram.com/bottegaink/", "https://share.google/g0JAFtYJSPnryV1vj"], "logo": "assets/logo-erick-bottega-ink.png"}</script>
 <link rel="icon" type="image/png" href="favicon-bottega-ink.png">
 <link rel="preload" as="image" href="assets/erick-bottega-tatuador-bottega-ink-banner-celular.webp" imagesrcset="assets/erick-bottega-tatuador-bottega-ink-banner-celular-480.webp 480w, assets/erick-bottega-tatuador-bottega-ink-banner-celular-800.webp 800w, assets/erick-bottega-tatuador-bottega-ink-banner-celular.webp 1080w" imagesizes="100vw" media="(max-width: 899px)" fetchpriority="high">
@@ -412,6 +435,46 @@ footer .foot-row { gap: 1.25rem; }
 .about-copy p { font-size: 1.0625rem; line-height: 1.75; max-width: 34rem; }
 .about-copy p:first-of-type { margin-top: 1.5rem; color: var(--foreground); }
 @media (min-width: 1024px) { .about-copy p { font-size: 1.125rem; } }
+
+/* LGPD: aviso de cookies, política de privacidade e aviso no formulário */
+.link-priv { background: none; border: 0; padding: 0; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+.link-priv:hover { color: var(--gold); }
+#orcamento .form-lgpd { margin: .25rem 0 0; font-size: .8125rem; line-height: 1.55; color: var(--hero-muted); text-align: center; }
+.foot-legal { margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .35rem .6rem; font-size: .75rem; color: #cbbfb1; }
+.cookie {
+  position: fixed; z-index: 45; left: 0; right: 0; bottom: 0;
+  margin: 0 auto; max-width: 40rem;
+  padding: 1.1rem max(1.1rem, env(safe-area-inset-right, 0px)) calc(1.1rem + env(safe-area-inset-bottom, 0px)) max(1.1rem, env(safe-area-inset-left, 0px));
+  background: var(--brown-deeper); color: var(--hero-fg);
+  border: 1px solid rgba(229, 211, 189, .25); border-radius: 1rem 1rem 0 0; box-shadow: 0 -10px 40px rgba(34, 32, 29, .35);
+}
+@media (min-width: 700px) { .cookie { bottom: 1rem; border-radius: 1rem; padding: 1.25rem 1.4rem; } }
+.cookie-titulo { margin: 0; font-family: var(--font-display); font-size: 1.35rem; line-height: 1.2; }
+.cookie-texto { margin: .4rem 0 0; font-size: .875rem; line-height: 1.55; color: var(--hero-muted); }
+.cookie-prefs { margin-top: .85rem; display: grid; gap: .55rem; }
+.ck-op { display: flex; gap: .6rem; align-items: flex-start; font-size: .8125rem; line-height: 1.45; color: var(--hero-muted); cursor: pointer; }
+.ck-op input { margin-top: .15rem; width: 1.05rem; height: 1.05rem; accent-color: var(--terracotta); flex: none; }
+.ck-op strong { color: var(--hero-fg); font-weight: 600; }
+.cookie-acoes { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: .5rem; justify-content: flex-end; }
+.ck-btn { min-height: 2.6rem; padding: .55rem 1rem; border-radius: 999px; font: inherit; font-size: .875rem; font-weight: 600; cursor: pointer; }
+.ck-sec { background: transparent; color: var(--hero-fg); border: 1px solid rgba(229, 211, 189, .45); }
+.ck-sec:hover { border-color: var(--gold); color: var(--gold); }
+.ck-pri { background: var(--gold); color: var(--brown-deeper); border: 1px solid var(--gold); }
+.ck-pri:hover { background: var(--hero-fg); }
+.ck-btn:focus-visible, .link-priv:focus-visible, .priv-fechar:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+@media (max-width: 480px) { .cookie-acoes .ck-btn { flex: 1 1 auto; } .ck-pri { flex-basis: 100% !important; order: -1; } }
+.priv { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; padding: max(1rem, env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px)) max(1rem, env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-left, 0px)); background: rgba(22, 20, 18, .78); }
+.priv-caixa { position: relative; width: 100%; max-width: 46rem; max-height: 100%; overflow-y: auto; overscroll-behavior: contain; background: var(--background); color: var(--foreground); border-radius: 1rem; padding: 2rem 1.4rem 2.25rem; }
+@media (min-width: 700px) { .priv-caixa { padding: 2.5rem 2.75rem 2.75rem; } }
+.priv-fechar { position: sticky; top: 0; float: right; margin: -1rem -.5rem 0 0; width: 2.5rem; height: 2.5rem; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--border); background: var(--card); color: var(--foreground); cursor: pointer; }
+.priv-fechar svg { width: 1.1rem; height: 1.1rem; }
+.priv-corpo h2 { margin: 0; font-family: var(--font-display); font-size: 2rem; line-height: 1.15; }
+.priv-corpo .priv-data { margin-top: .4rem; font-size: .8125rem; color: var(--muted-fg); }
+.priv-corpo h3 { margin: 1.6rem 0 .4rem; font-family: var(--font-body, inherit); font-size: 1rem; font-weight: 600; letter-spacing: 0; }
+.priv-corpo p, .priv-corpo li { font-size: .9375rem; line-height: 1.65; color: var(--muted-fg); }
+.priv-corpo p { margin: .5rem 0 0; }
+.priv-corpo ul { margin: .5rem 0 0; padding-left: 1.2rem; display: grid; gap: .35rem; }
+.priv-corpo strong { color: var(--foreground); font-weight: 600; }
 </style>
 <meta property="og:title" content="Tatuagem Fineline em Florianópolis | Erick Bottega – Bottega Ink">
 <meta property="og:site_name" content="Bottega Ink">
@@ -519,6 +582,7 @@ footer .foot-row { gap: 1.25rem; }
           <input class="hp" id="f-hp" name="empresa" tabindex="-1" autocomplete="off" aria-hidden="true">
           <p class="form-error" id="f-erro" role="alert" hidden></p>
           <button type="submit" class="btn btn-block btn-wa" id="wa-btn"><svg class="icon icon-wa"><use href="#i-wa"/></svg><span data-t="orcBotao">Quero receber meu orçamento</span></button>
+          <p class="form-lgpd" data-t="fLgpd">Ao enviar, você concorda que a Bottega Ink use seu nome e WhatsApp para responder ao seu pedido de orçamento, conforme a <button type="button" class="link-priv" data-open-priv>Política de Privacidade</button>.</p>
         </form>
       </div>
     </div>
@@ -531,9 +595,77 @@ footer .foot-row { gap: 1.25rem; }
       <img class="foot-logo" src="assets/logo-erick-bottega-ink-claro.webp" width="560" height="340" alt="Erick Bottega Ink" loading="lazy" decoding="async">
       <a class="foot-ig" href="https://www.instagram.com/bottegaink" target="_blank" rel="noopener noreferrer" aria-label="Instagram da Bottega Ink" data-ta="aria-label:igAria"><svg><use href="#i-ig"/></svg></a>
     </div>
+    <p class="foot-legal"><button type="button" class="link-priv" data-open-priv><span data-t="polLink">Política de Privacidade</span></button><span aria-hidden="true">·</span><button type="button" class="link-priv" id="ck-abrir"><span data-t="ckLink">Preferências de cookies</span></button></p>
     <p class="small-muted" style="margin:0">© <span id="year">2026</span> Bottega Ink. <span data-t="direitos">Todos os direitos reservados.</span></p>
   </div>
 </footer>
+
+<div class="cookie" id="cookie" role="region" aria-label="Aviso de cookies" data-ta="aria-label:ckAria" hidden>
+  <p class="cookie-titulo" data-t="ckTitulo">Sua privacidade</p>
+  <p class="cookie-texto" data-t="ckTexto">Usamos cookies de análise (Microsoft Clarity) e de marketing (Meta Pixel) para melhorar o site e medir nossos anúncios. Eles só são ativados se você aceitar. Saiba mais na <button type="button" class="link-priv" data-open-priv>Política de Privacidade</button>.</p>
+  <div class="cookie-prefs" id="ck-prefs" hidden>
+    <label class="ck-op"><input type="checkbox" checked disabled><span data-t="ckNec"><strong>Essenciais</strong> · guardam a sua escolha. Sempre ativos.</span></label>
+    <label class="ck-op"><input type="checkbox" id="ck-analise"><span data-t="ckAn"><strong>Análise</strong> · Microsoft Clarity: mapa de calor e gravação da navegação.</span></label>
+    <label class="ck-op"><input type="checkbox" id="ck-marketing"><span data-t="ckMk"><strong>Marketing</strong> · Meta Pixel: medir anúncios no Instagram e no Facebook.</span></label>
+  </div>
+  <div class="cookie-acoes">
+    <button type="button" class="ck-btn ck-sec" id="ck-recusar" data-t="ckRej">Recusar</button>
+    <button type="button" class="ck-btn ck-sec" id="ck-personalizar" data-t="ckCfg">Personalizar</button>
+    <button type="button" class="ck-btn ck-sec" id="ck-salvar" data-t="ckSalvar" hidden>Salvar escolhas</button>
+    <button type="button" class="ck-btn ck-pri" id="ck-aceitar" data-t="ckAcc">Aceitar todos</button>
+  </div>
+</div>
+
+<div class="priv" id="priv" role="dialog" aria-modal="true" aria-labelledby="priv-titulo" hidden>
+  <div class="priv-caixa">
+    <button type="button" class="priv-fechar" id="priv-fechar" aria-label="Fechar a Política de Privacidade" data-ta="aria-label:polFechar"><svg><use href="#i-x"/></svg></button>
+    <div class="priv-corpo" data-t="polTexto"><h2 id="priv-titulo">Política de Privacidade</h2>
+<p class="priv-data">Última atualização: 11 de novembro de 2026</p>
+<p>Esta política explica como a Bottega Ink trata os dados pessoais de quem visita este site e pede orçamento, de acordo com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018, LGPD).</p>
+<h3>1. Quem é o responsável pelos dados</h3>
+<p>Erick Bottega, Bottega Ink. R. Ten. Silveira, 221, Sala 01, 1º andar, Centro, Florianópolis/SC, CEP 88010-300. Contato para assuntos de privacidade: WhatsApp +55 48 98812-3543 ou Instagram @bottegaink.</p>
+<h3>2. Quais dados coletamos</h3>
+<ul>
+<li><strong>No formulário de orçamento:</strong> nome e número de WhatsApp.</li>
+<li><strong>Junto com o formulário, automaticamente:</strong> data e hora do envio, tipo de aparelho, sistema, navegador, tamanho da tela, idioma, página do site e site de onde você veio.</li>
+<li><strong>Com o seu consentimento, por cookies:</strong> dados de navegação, como cliques, rolagem e páginas vistas, e identificadores usados para medir anúncios.</li>
+</ul>
+<p>Não pedimos dados sensíveis pelo site.</p>
+<h3>3. Para que usamos e com qual base legal</h3>
+<ul>
+<li><strong>Responder ao seu pedido de orçamento</strong> pelo WhatsApp: procedimentos preliminares a um contrato, a seu pedido (LGPD, art. 7º, V).</li>
+<li><strong>Entender como o site é usado</strong> (Microsoft Clarity): consentimento (art. 7º, I).</li>
+<li><strong>Medir e melhorar anúncios</strong> no Instagram e no Facebook (Meta Pixel): consentimento (art. 7º, I).</li>
+</ul>
+<h3>4. Com quem compartilhamos</h3>
+<p>Não vendemos seus dados. Eles passam apenas pelos serviços necessários para o site funcionar:</p>
+<ul>
+<li><strong>Make (Celonis):</strong> recebe os dados do formulário e organiza os contatos de orçamento.</li>
+<li><strong>WhatsApp (Meta):</strong> onde a conversa sobre o orçamento acontece.</li>
+<li><strong>Meta Platforms:</strong> Meta Pixel, só com o seu consentimento.</li>
+<li><strong>Microsoft:</strong> Clarity, só com o seu consentimento.</li>
+<li><strong>Hostinger:</strong> hospedagem do site. <strong>Google Fonts:</strong> fornece as fontes do site e recebe o endereço IP do seu aparelho.</li>
+</ul>
+<p>Alguns desses serviços guardam dados fora do Brasil. Essas transferências seguem o art. 33 da LGPD.</p>
+<h3>5. Cookies</h3>
+<ul>
+<li><strong>Essenciais:</strong> guardam no seu navegador a sua escolha sobre cookies. Não precisam de consentimento.</li>
+<li><strong>Análise (Microsoft Clarity):</strong> mapa de calor e gravação da navegação para melhorar o site. Campos de formulário ficam ocultos nas gravações.</li>
+<li><strong>Marketing (Meta Pixel):</strong> registra a visita e o envio do formulário para medir os anúncios. Nome e telefone não são enviados ao Pixel.</li>
+</ul>
+<p>Você pode aceitar, recusar ou mudar sua escolha a qualquer momento em “Preferências de cookies”, no rodapé.</p>
+<h3>6. Por quanto tempo guardamos</h3>
+<p>Os dados de contato ficam guardados pelo tempo necessário para o atendimento e por até 2 anos após o último contato, ou até você pedir a exclusão, salvo obrigação legal. Os dados de análise e de anúncios seguem os prazos de cada ferramenta.</p>
+<h3>7. Seus direitos</h3>
+<p>Você pode pedir, a qualquer momento, a confirmação de que tratamos seus dados, acesso, correção, anonimização, bloqueio ou eliminação, portabilidade, informação sobre com quem compartilhamos e a revogação do consentimento (LGPD, art. 18). Basta escrever no WhatsApp +55 48 98812-3543. Respondemos em até 15 dias. Você também pode reclamar à Autoridade Nacional de Proteção de Dados (ANPD).</p>
+<h3>8. Segurança</h3>
+<p>Usamos conexão segura (HTTPS) e limitamos o acesso aos dados a quem precisa deles para o atendimento.</p>
+<h3>9. Menores de idade</h3>
+<p>Tatuagem é um serviço para maiores de 18 anos. Este site não se destina a menores.</p>
+<h3>10. Mudanças nesta política</h3>
+<p>Podemos atualizar esta política. A data da última versão fica no topo.</p></div>
+  </div>
+</div>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada" data-ta="aria-label:lbAria" hidden>
   <button type="button" class="lb-btn lb-close" id="lb-close" aria-label="Fechar" data-ta="aria-label:lbFechar"><svg><use href="#i-x"/></svg></button>
@@ -783,6 +915,35 @@ renderMarquee();
   if (!reduced) setInterval(() => { if (!paused && !document.hidden && $("lightbox").hidden) scroll(1); }, 4000);
 })();
 
+/* LGPD: aviso de cookies e Política de Privacidade */
+(function () {
+  const box = $("cookie"), prefs = $("ck-prefs"), priv = $("priv");
+  const an = $("ck-analise"), mk = $("ck-marketing");
+  let abriuPor = null;
+  const mostrarAviso = (personalizar) => {
+    const c = window.consentimento.atual() || {};
+    an.checked = !!c.analise; mk.checked = !!c.marketing;
+    prefs.hidden = !personalizar; $("ck-salvar").hidden = !personalizar; $("ck-personalizar").hidden = !!personalizar;
+    box.hidden = false;
+  };
+  const escolher = (c) => { box.hidden = true; window.consentimento.salvar(c); };
+  $("ck-aceitar").addEventListener("click", () => escolher({ analise: true, marketing: true }));
+  $("ck-recusar").addEventListener("click", () => escolher({ analise: false, marketing: false }));
+  $("ck-personalizar").addEventListener("click", () => mostrarAviso(true));
+  $("ck-salvar").addEventListener("click", () => escolher({ analise: an.checked, marketing: mk.checked }));
+  $("ck-abrir").addEventListener("click", () => { mostrarAviso(true); $("ck-salvar").focus(); });
+  if (!window.consentimento.atual()) mostrarAviso(false);
+  /* política: abre por qualquer link [data-open-priv] ou pelo endereço #privacidade */
+  const abrirPol = (btn) => { abriuPor = btn || null; priv.hidden = false; document.body.style.overflow = "hidden"; priv.querySelector(".priv-caixa").scrollTop = 0; $("priv-fechar").focus(); };
+  const fecharPol = () => { priv.hidden = true; document.body.style.overflow = ""; if (location.hash === "#privacidade") history.replaceState(null, "", location.pathname + location.search); if (abriuPor) abriuPor.focus(); };
+  document.addEventListener("click", (e) => { const b = e.target.closest("[data-open-priv]"); if (b) { e.preventDefault(); abrirPol(b); } });
+  $("priv-fechar").addEventListener("click", fecharPol);
+  priv.addEventListener("click", (e) => { if (e.target === priv) fecharPol(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !priv.hidden) fecharPol(); });
+  const pelaUrl = () => { if (location.hash === "#privacidade") abrirPol(null); };
+  window.addEventListener("hashchange", pelaUrl); pelaUrl();
+})();
+
 /* Formulário de orçamento: monta a mensagem e abre o WhatsApp do estúdio */
 site.erroForm = "Preencha seu nome e o WhatsApp com DDD, no formato (48) 9 9999-9999.";
 (function () {
@@ -888,6 +1049,19 @@ const I18N = {
     erro: "Please fill in your name and your WhatsApp number with area code, like (48) 9 9999-9999.",
     ampliar: "Enlarge: ", ampliarFoto: "Enlarge photo: ", googleAria: "Google review", starsAria: "5 out of 5 stars",
     t: {
+      ckTexto: "We use analytics (Microsoft Clarity) and marketing (Meta Pixel) cookies to improve the website and measure our ads. They are only turned on if you accept. Learn more in our <button type=\"button\" class=\"link-priv\" data-open-priv>Privacy Policy</button>.",
+      ckTitulo: "Your privacy",
+      ckNec: "<strong>Essential</strong> · store your choice. Always on.",
+      ckAn: "<strong>Analytics</strong> · Microsoft Clarity: heatmaps and session recordings.",
+      ckMk: "<strong>Marketing</strong> · Meta Pixel: measure ads on Instagram and Facebook.",
+      ckRej: "Decline",
+      ckCfg: "Customize",
+      ckSalvar: "Save choices",
+      ckAcc: "Accept all",
+      ckLink: "Cookie preferences",
+      polLink: "Privacy Policy",
+      fLgpd: "By submitting, you agree that Bottega Ink may use your name and WhatsApp number to reply to your quote request, as described in our <button type=\"button\" class=\"link-priv\" data-open-priv>Privacy Policy</button>.",
+      polTexto: "<h2 id=\"priv-titulo\">Privacy Policy</h2>\n<p class=\"priv-data\">Last updated: November 11, 2026</p>\n<p>This policy explains how Bottega Ink handles the personal data of people who visit this website and request a quote, under Brazil's General Data Protection Law (Law No. 13,709/2018, LGPD).</p>\n<h3>1. Who is responsible for your data</h3>\n<p>Erick Bottega, Bottega Ink. R. Ten. Silveira, 221, Sala 01, 1st floor, Centro, Florianópolis/SC, Brazil, ZIP 88010-300. Privacy contact: WhatsApp +55 48 98812-3543 or Instagram @bottegaink.</p>\n<h3>2. What data we collect</h3>\n<ul>\n<li><strong>In the quote form:</strong> your name and WhatsApp number.</li>\n<li><strong>Automatically, with the form:</strong> date and time of submission, device type, operating system, browser, screen size, language, the page you were on and the site you came from.</li>\n<li><strong>With your consent, through cookies:</strong> browsing data such as clicks, scrolling and pages viewed, and identifiers used to measure ads.</li>\n</ul>\n<p>We do not ask for sensitive data on this website.</p>\n<h3>3. Why we use it and on what legal basis</h3>\n<ul>\n<li><strong>To reply to your quote request</strong> on WhatsApp: pre-contractual steps at your request (LGPD, art. 7, V).</li>\n<li><strong>To understand how the website is used</strong> (Microsoft Clarity): consent (art. 7, I).</li>\n<li><strong>To measure and improve ads</strong> on Instagram and Facebook (Meta Pixel): consent (art. 7, I).</li>\n</ul>\n<h3>4. Who we share it with</h3>\n<p>We never sell your data. It only goes through the services needed to run the website:</p>\n<ul>\n<li><strong>Make (Celonis):</strong> receives the form data and organizes quote requests.</li>\n<li><strong>WhatsApp (Meta):</strong> where the conversation about your quote takes place.</li>\n<li><strong>Meta Platforms:</strong> Meta Pixel, only with your consent.</li>\n<li><strong>Microsoft:</strong> Clarity, only with your consent.</li>\n<li><strong>Hostinger:</strong> website hosting. <strong>Google Fonts:</strong> provides the website fonts and receives your device's IP address.</li>\n</ul>\n<p>Some of these services store data outside Brazil. These transfers follow art. 33 of the LGPD.</p>\n<h3>5. Cookies</h3>\n<ul>\n<li><strong>Essential:</strong> store your cookie choice in your browser. They do not require consent.</li>\n<li><strong>Analytics (Microsoft Clarity):</strong> heatmaps and session recordings to improve the website. Form fields are masked in recordings.</li>\n<li><strong>Marketing (Meta Pixel):</strong> records the visit and the form submission to measure ads. Your name and phone number are never sent to the Pixel.</li>\n</ul>\n<p>You can accept, decline or change your choice at any time under “Cookie preferences” in the footer.</p>\n<h3>6. How long we keep it</h3>\n<p>Contact data is kept for as long as needed to serve you and for up to 2 years after the last contact, or until you ask us to delete it, unless the law requires otherwise. Analytics and ad data follow each tool's retention periods.</p>\n<h3>7. Your rights</h3>\n<p>At any time you can ask us to confirm whether we process your data, and for access, correction, anonymization, blocking or deletion, portability, information on who we share it with, and withdrawal of consent (LGPD, art. 18). Just message us on WhatsApp at +55 48 98812-3543. We reply within 15 days. You may also file a complaint with Brazil's National Data Protection Authority (ANPD).</p>\n<h3>8. Security</h3>\n<p>We use a secure connection (HTTPS) and limit access to the data to the people who need it to serve you.</p>\n<h3>9. Minors</h3>\n<p>Tattooing is a service for adults aged 18 and over. This website is not intended for minors.</p>\n<h3>10. Changes to this policy</h3>\n<p>We may update this policy. The date of the latest version is shown at the top.</p>",
       h1: '<span class="h1-name">Erick Bottega</span><span class="h1-sep"> | </span>Bottega Ink<span class="h1-city">Florianópolis</span>',
       heroSub: "Fine line tattoos in Florianópolis, with delicate linework, artistic compositions and custom work that turns ideas and stories into art.",
       projetos: "Recent work",
@@ -907,6 +1081,8 @@ const I18N = {
       fNome: "Name", fTel: "WhatsApp",
     },
     ta: {
+      ckAria: "Cookie notice",
+      polFechar: "Close the Privacy Policy",
       langAria: "Language", heroAlt: "Erick Bottega, tattoo artist at Bottega Ink in Florianópolis, Brazil, in a white T-shirt, resting his chin on his hands, with a fine line floral tattoo on his arm",
       projetos: "Recent work", projAnt: "Previous work", projProx: "Next work", portfolio: "Portfolio",
       aboutAlt: "Erick Bottega, tattoo artist at Bottega Ink in Florianópolis, Brazil, in a white shirt with a tattooed arm, in front of the Palais Garnier opera house in Paris",
@@ -951,6 +1127,19 @@ const I18N = {
     erro: "Completa tu nombre y tu WhatsApp con código de área, como (48) 9 9999-9999.",
     ampliar: "Ampliar: ", ampliarFoto: "Ampliar foto: ", googleAria: "Reseña de Google", starsAria: "5 de 5 estrellas",
     t: {
+      ckTexto: "Usamos cookies de análisis (Microsoft Clarity) y de marketing (Meta Pixel) para mejorar el sitio y medir nuestros anuncios. Solo se activan si aceptas. Más información en la <button type=\"button\" class=\"link-priv\" data-open-priv>Política de Privacidad</button>.",
+      ckTitulo: "Tu privacidad",
+      ckNec: "<strong>Esenciales</strong> · guardan tu elección. Siempre activos.",
+      ckAn: "<strong>Análisis</strong> · Microsoft Clarity: mapa de calor y grabación de la navegación.",
+      ckMk: "<strong>Marketing</strong> · Meta Pixel: medir anuncios en Instagram y Facebook.",
+      ckRej: "Rechazar",
+      ckCfg: "Personalizar",
+      ckSalvar: "Guardar elección",
+      ckAcc: "Aceptar todos",
+      ckLink: "Preferencias de cookies",
+      polLink: "Política de Privacidad",
+      fLgpd: "Al enviar, aceptas que Bottega Ink use tu nombre y WhatsApp para responder a tu pedido de presupuesto, según la <button type=\"button\" class=\"link-priv\" data-open-priv>Política de Privacidad</button>.",
+      polTexto: "<h2 id=\"priv-titulo\">Política de Privacidad</h2>\n<p class=\"priv-data\">Última actualización: 11 de noviembre de 2026</p>\n<p>Esta política explica cómo Bottega Ink trata los datos personales de quienes visitan este sitio y piden un presupuesto, de acuerdo con la Ley General de Protección de Datos de Brasil (Ley nº 13.709/2018, LGPD).</p>\n<h3>1. Responsable de los datos</h3>\n<p>Erick Bottega, Bottega Ink. R. Ten. Silveira, 221, Sala 01, 1º piso, Centro, Florianópolis/SC, Brasil, CP 88010-300. Contacto para temas de privacidad: WhatsApp +55 48 98812-3543 o Instagram @bottegaink.</p>\n<h3>2. Qué datos recopilamos</h3>\n<ul>\n<li><strong>En el formulario de presupuesto:</strong> nombre y número de WhatsApp.</li>\n<li><strong>Junto con el formulario, automáticamente:</strong> fecha y hora del envío, tipo de dispositivo, sistema, navegador, tamaño de pantalla, idioma, página del sitio y sitio de procedencia.</li>\n<li><strong>Con tu consentimiento, mediante cookies:</strong> datos de navegación, como clics, desplazamiento y páginas vistas, e identificadores usados para medir anuncios.</li>\n</ul>\n<p>No pedimos datos sensibles en este sitio.</p>\n<h3>3. Para qué los usamos y con qué base legal</h3>\n<ul>\n<li><strong>Responder a tu pedido de presupuesto</strong> por WhatsApp: procedimientos preliminares a un contrato, a tu pedido (LGPD, art. 7, V).</li>\n<li><strong>Entender cómo se usa el sitio</strong> (Microsoft Clarity): consentimiento (art. 7, I).</li>\n<li><strong>Medir y mejorar anuncios</strong> en Instagram y Facebook (Meta Pixel): consentimiento (art. 7, I).</li>\n</ul>\n<h3>4. Con quién los compartimos</h3>\n<p>No vendemos tus datos. Solo pasan por los servicios necesarios para que el sitio funcione:</p>\n<ul>\n<li><strong>Make (Celonis):</strong> recibe los datos del formulario y organiza los pedidos de presupuesto.</li>\n<li><strong>WhatsApp (Meta):</strong> donde se conversa sobre el presupuesto.</li>\n<li><strong>Meta Platforms:</strong> Meta Pixel, solo con tu consentimiento.</li>\n<li><strong>Microsoft:</strong> Clarity, solo con tu consentimiento.</li>\n<li><strong>Hostinger:</strong> alojamiento del sitio. <strong>Google Fonts:</strong> proporciona las fuentes del sitio y recibe la dirección IP de tu dispositivo.</li>\n</ul>\n<p>Algunos de estos servicios guardan datos fuera de Brasil. Estas transferencias siguen el art. 33 de la LGPD.</p>\n<h3>5. Cookies</h3>\n<ul>\n<li><strong>Esenciales:</strong> guardan en tu navegador tu elección sobre cookies. No requieren consentimiento.</li>\n<li><strong>Análisis (Microsoft Clarity):</strong> mapa de calor y grabación de la navegación para mejorar el sitio. Los campos del formulario se ocultan en las grabaciones.</li>\n<li><strong>Marketing (Meta Pixel):</strong> registra la visita y el envío del formulario para medir los anuncios. El nombre y el teléfono nunca se envían al Pixel.</li>\n</ul>\n<p>Puedes aceptar, rechazar o cambiar tu elección en cualquier momento en “Preferencias de cookies”, en el pie de página.</p>\n<h3>6. Cuánto tiempo los guardamos</h3>\n<p>Los datos de contacto se guardan el tiempo necesario para atenderte y hasta 2 años después del último contacto, o hasta que pidas su eliminación, salvo obligación legal. Los datos de análisis y de anuncios siguen los plazos de cada herramienta.</p>\n<h3>7. Tus derechos</h3>\n<p>Puedes pedir en cualquier momento la confirmación de que tratamos tus datos, acceso, corrección, anonimización, bloqueo o eliminación, portabilidad, información sobre con quién los compartimos y la revocación del consentimiento (LGPD, art. 18). Solo escríbenos por WhatsApp al +55 48 98812-3543. Respondemos en hasta 15 días. También puedes presentar un reclamo ante la Autoridad Nacional de Protección de Datos de Brasil (ANPD).</p>\n<h3>8. Seguridad</h3>\n<p>Usamos conexión segura (HTTPS) y limitamos el acceso a los datos a quienes los necesitan para atenderte.</p>\n<h3>9. Menores de edad</h3>\n<p>El tatuaje es un servicio para mayores de 18 años. Este sitio no está dirigido a menores.</p>\n<h3>10. Cambios en esta política</h3>\n<p>Podemos actualizar esta política. La fecha de la última versión aparece arriba.</p>",
       h1: '<span class="h1-name">Erick Bottega</span><span class="h1-sep"> | </span>Bottega Ink<span class="h1-city">Florianópolis</span>',
       heroSub: "Tatuajes fineline en Florianópolis, con trazos delicados, composiciones artísticas y proyectos personalizados que transforman ideas e historias en arte.",
       projetos: "Proyectos recientes",
@@ -970,6 +1159,8 @@ const I18N = {
       fNome: "Nombre", fTel: "WhatsApp",
     },
     ta: {
+      ckAria: "Aviso de cookies",
+      polFechar: "Cerrar la Política de Privacidad",
       langAria: "Idioma", heroAlt: "Erick Bottega, tatuador de Bottega Ink en Florianópolis, Brasil, con camiseta blanca, con las manos apoyadas en el mentón y el brazo tatuado con flores en fineline",
       projetos: "Proyectos recientes", projAnt: "Proyecto anterior", projProx: "Siguiente proyecto", portfolio: "Portafolio",
       aboutAlt: "Erick Bottega, tatuador de Bottega Ink en Florianópolis, Brasil, con camisa blanca y el brazo tatuado, frente a la Ópera Garnier de París",
