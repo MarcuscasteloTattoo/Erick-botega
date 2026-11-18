@@ -446,18 +446,13 @@ footer .foot-row { gap: 1.25rem; }
 
 /* formulário passo a passo */
 #orcamento .qf [hidden] { display: none !important; }
-#orcamento .qf { max-width: 34rem; margin: 2rem auto 0; padding: 1.5rem; display: block; border: 1px solid rgba(229, 211, 189, .18); border-radius: 1rem; background: rgba(255, 255, 255, .04); text-align: left; overflow: hidden; }
+#orcamento .qf { max-width: 34rem; margin: 1.5rem auto 0; padding: 1.5rem; display: block; border: 1px solid rgba(229, 211, 189, .18); border-radius: 1rem; background: rgba(255, 255, 255, .04); text-align: left; overflow: hidden; }
 @media (min-width: 640px) { #orcamento .qf { padding: 2rem; } }
-.qf-titulo { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.2; font-weight: 600; color: var(--hero-fg); text-wrap: balance; }
+.qf-titulo { margin-bottom: 1.1rem; font-family: var(--font-display); font-size: 1.6rem; line-height: 1.2; font-weight: 600; color: var(--hero-fg); text-wrap: balance; }
 @media (min-width: 768px) { .qf-titulo { font-size: 1.85rem; } }
-.qf-desc { margin-top: .5rem; font-size: .95rem; line-height: 1.6; color: var(--hero-muted); text-wrap: pretty; }
-.qf-top { display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0 1.4rem; }
-.qf-count { flex: none; font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
-.qf-bar { flex: 1; height: 3px; border-radius: 3px; background: rgba(229, 211, 189, .16); overflow: hidden; }
-.qf-bar i { display: block; height: 100%; background: var(--gold); transition: width .35s ease; }
 .qf-q { font-family: var(--font-body); font-size: 1.15rem; line-height: 1.35; font-weight: 500; color: var(--hero-fg); outline: none; }
 @media (min-width: 768px) { .qf-q { font-size: 1.25rem; } }
-.qf-opts { margin-top: 1.1rem; display: grid; gap: .6rem; }
+.qf-opts { margin-top: .9rem; display: grid; gap: .55rem; }
 .qf-opt { display: flex; align-items: center; gap: .85rem; width: 100%; min-height: 3.4rem; padding: .85rem 1.05rem; border: 1px solid rgba(229, 211, 189, .22); border-radius: .75rem; background: rgba(255, 255, 255, .03); color: var(--hero-fg); font: inherit; font-size: 1rem; line-height: 1.35; text-align: left; cursor: pointer; transition: border-color .2s, background .2s; -webkit-tap-highlight-color: transparent; }
 .qf-opt:hover { border-color: rgba(229, 211, 189, .6); }
 .qf-opt:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
@@ -467,13 +462,16 @@ footer .foot-row { gap: 1.25rem; }
 .qf-opt[aria-checked="true"] .qf-dot::after { content: ""; width: .55rem; height: .55rem; border-radius: 999px; background: var(--gold); }
 .qf-err { margin-top: .6rem; font-size: .875rem; color: #f6c1b0; }
 .qf-err:empty { display: none; }
-.qf-nav { margin-top: 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.qf-nav { margin-top: 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .qf-btn { display: inline-flex; align-items: center; gap: .5rem; min-height: 3rem; padding: .8rem 1.6rem; border: 0; border-radius: 999px; background: var(--gold); color: var(--brown-deeper); font: inherit; font-size: .875rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: filter .2s, transform .2s; }
 .qf-btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
 .qf-btn:focus-visible, .qf-back:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 .qf-back { padding: .5rem 0; border: 0; background: none; color: var(--hero-muted); font: inherit; font-size: .9rem; cursor: pointer; text-underline-offset: 4px; }
 .qf-back:hover { color: var(--hero-fg); text-decoration: underline; }
-.qf-step .campos { margin-top: 1.1rem; }
+.qf-apoio { margin-top: .4rem; font-size: .95rem; line-height: 1.55; color: var(--hero-muted); text-wrap: pretty; }
+.qf-step .campos { margin-top: 1rem; }
+#orcamento .qf-step .campos { gap: .9rem; }
+#orcamento .qf-step label { margin-bottom: .35rem; }
 #orcamento .qf-step .btn-wa { margin-top: 1.25rem; }
 #orcamento .qf-step .form-lgpd { margin-top: 1rem; }
 #orcamento .qf-step .form-error { margin-top: .75rem; }
@@ -484,14 +482,19 @@ footer .foot-row { gap: 1.25rem; }
 @keyframes qfNext { from { opacity: 0; transform: translateX(28px); } }
 @keyframes qfBack { from { opacity: 0; transform: translateX(-28px); } }
 @media (max-width: 639px) {
-  #orcamento .qf { padding: 1.25rem; }
-  .qf-opt { min-height: 3.6rem; }
-  .qf-nav { flex-direction: column-reverse; align-items: stretch; gap: .35rem; }
+  #orcamento .qf { margin-top: 1.25rem; padding: 1.15rem 1rem 1rem; }
+  .qf-titulo { margin-bottom: .85rem; font-size: 1.5rem; }
+  .qf-q { font-size: clamp(1rem, 4.6vw, 1.1rem); line-height: 1.3; }
+  .qf-q-linha { white-space: nowrap; letter-spacing: -.005em; }
+  .qf-opts { margin-top: .75rem; gap: .5rem; }
+  .qf-opt { min-height: 3.25rem; padding: .7rem .95rem; gap: .75rem; }
+  .qf-nav { margin-top: 1rem; flex-direction: column-reverse; align-items: stretch; gap: .2rem; }
+  .qf-apoio { font-size: .9rem; }
   .qf-nav > span:empty { display: none; }
-  .qf-btn { width: 100%; justify-content: center; min-height: 3.4rem; font-size: .95rem; }
-  .qf-back { min-height: 2.75rem; text-align: center; }
+  .qf-btn { width: 100%; justify-content: center; min-height: 3.25rem; font-size: .95rem; }
+  .qf-back { min-height: 2.6rem; text-align: center; }
 }
-@media (prefers-reduced-motion: reduce) { .qf-in-next, .qf-in-back { animation: none; } .qf-bar i { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .qf-in-next, .qf-in-back { animation: none; } }
 .foot-legal { margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .35rem .6rem; font-size: .75rem; color: #cbbfb1; }
 .cookie {
   position: fixed; z-index: 45; left: 0; right: 0; bottom: 0;
@@ -628,8 +631,6 @@ footer .foot-row { gap: 1.25rem; }
         <p class="lead orc-chamada" data-t="orcSub">Solicite seu orçamento se cadastrando abaixo</p>
         <form id="orc-form" class="qf" novalidate>
           <h3 class="qf-titulo" data-t="qfTitulo">Vamos tirar sua ideia do papel?</h3>
-          <p class="qf-desc" data-t="qfDesc">Conte um pouco sobre a tatuagem que você imagina para prepararmos seu orçamento.</p>
-          <div class="qf-top" id="qf-top"><span class="qf-count" aria-live="polite"><span data-t="qfEtapa">Etapa</span> <span id="qf-n">1</span> <span data-t="qfDe">de</span> 4</span><div class="qf-bar" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" data-ta="aria-label:qfProgresso" aria-label="Progresso do formulário"><i id="qf-barra" style="width:25%"></i></div></div>
           <div class="qf-step" data-step="0" data-campo="tipo">
             <h4 class="qf-q" id="qf-q0" tabindex="-1" data-t="qfQ1">Que tipo de tatuagem você está imaginando?</h4>
             <div class="qf-opts" role="radiogroup" aria-labelledby="qf-q0">
@@ -641,7 +642,7 @@ footer .foot-row { gap: 1.25rem; }
             <div class="qf-nav"><span></span><button type="button" class="qf-btn" data-go="next"><span data-t="qfContinuar">Continuar</span> <span aria-hidden="true">→</span></button></div>
           </div>
           <div class="qf-step" data-step="1" data-campo="tamanho" hidden>
-            <h4 class="qf-q" id="qf-q1" tabindex="-1" data-t="qfQ2">E qual tamanho você imagina para ela?</h4>
+            <h4 class="qf-q" id="qf-q1" tabindex="-1" data-t="qfQ2">Qual o tamanho da tatuagem?</h4>
             <div class="qf-opts" role="radiogroup" aria-labelledby="qf-q1">
               <button type="button" class="qf-opt" role="radio" aria-checked="false" data-v="Pequena — até 10 cm"><span class="qf-dot" aria-hidden="true"></span><span data-t="qfS1">Pequena — até 10 cm</span></button>
               <button type="button" class="qf-opt" role="radio" aria-checked="false" data-v="Média — de 10 a 20 cm"><span class="qf-dot" aria-hidden="true"></span><span data-t="qfS2">Média — de 10 a 20 cm</span></button>
@@ -652,7 +653,7 @@ footer .foot-row { gap: 1.25rem; }
             <div class="qf-nav"><button type="button" class="qf-back" data-go="back"><span aria-hidden="true">←</span> <span data-t="qfVoltar">Voltar</span></button><button type="button" class="qf-btn" data-go="next"><span data-t="qfContinuar">Continuar</span> <span aria-hidden="true">→</span></button></div>
           </div>
           <div class="qf-step" data-step="2" data-campo="prazo" hidden>
-            <h4 class="qf-q" id="qf-q2" tabindex="-1" data-t="qfQ3">Pra quando você está pensando em fazer sua tatuagem?</h4>
+            <h4 class="qf-q qf-q-linha" id="qf-q2" tabindex="-1" data-t="qfQ3">Quando pretende fazer sua tattoo?</h4>
             <div class="qf-opts" role="radiogroup" aria-labelledby="qf-q2">
               <button type="button" class="qf-opt" role="radio" aria-checked="false" data-v="O quanto antes! Quero fazer nos próximos dias"><span class="qf-dot" aria-hidden="true"></span><span data-t="qfP1">O quanto antes! Quero fazer nos próximos dias</span></button>
               <button type="button" class="qf-opt" role="radio" aria-checked="false" data-v="Ainda este mês, se possível"><span class="qf-dot" aria-hidden="true"></span><span data-t="qfP2">Ainda este mês, se possível</span></button>
@@ -662,7 +663,8 @@ footer .foot-row { gap: 1.25rem; }
             <div class="qf-nav"><button type="button" class="qf-back" data-go="back"><span aria-hidden="true">←</span> <span data-t="qfVoltar">Voltar</span></button><button type="button" class="qf-btn" data-go="next"><span data-t="qfContinuar">Continuar</span> <span aria-hidden="true">→</span></button></div>
           </div>
           <div class="qf-step" data-step="3" hidden>
-            <h4 class="qf-q" id="qf-q3" tabindex="-1" data-t="qfQ4">Seus dados</h4>
+            <h4 class="qf-q" id="qf-q3" tabindex="-1" data-t="qfQ4">Sua próxima tattoo começa aqui!</h4>
+            <p class="qf-apoio" data-t="qfQ4Txt">Obrigado por compartilhar sua ideia! Deixe seu nome e WhatsApp para entrarmos em contato e preparar seu orçamento.</p>
             <div class="campos">
               <div><label for="f-nome" data-t="fNome">Nome</label><input id="f-nome" name="nome" autocomplete="name" required placeholder="Seu nome" data-ta="placeholder:fNomePh"></div>
               <div><label for="f-tel" data-t="fTel">WhatsApp</label><input id="f-tel" name="tel" type="tel" inputmode="numeric" autocomplete="tel-national" required placeholder="(48) 9 9999-9999"></div>
@@ -1044,7 +1046,7 @@ renderMarquee();
 /* Formulário passo a passo: uma pergunta por vez, com voltar e barra de progresso */
 site.erroOpcao = "Escolha uma opção para continuar.";
 (function () {
-  const form = $("orc-form"), passos = [...form.querySelectorAll(".qf-step")], TOTAL = 4;
+  const form = $("orc-form"), passos = [...form.querySelectorAll(".qf-step")];
   const respostas = { tipo: "", tamanho: "", prazo: "" };
   let atual = 0;
   window.qfRespostas = respostas;
@@ -1054,13 +1056,8 @@ site.erroOpcao = "Escolha uma opção para continuar.";
     const p = passos[n];
     p.hidden = false;
     p.classList.remove("qf-in-next", "qf-in-back");
+    ajustarLinha();
     if (!reduced && dir) { void p.offsetWidth; p.classList.add("qf-in-" + dir); }
-    const top = $("qf-top"); top.hidden = n >= TOTAL;
-    if (n < TOTAL) {
-      $("qf-n").textContent = n + 1;
-      $("qf-barra").style.width = ((n + 1) / TOTAL) * 100 + "%";
-      top.querySelector(".qf-bar").setAttribute("aria-valuenow", n + 1);
-    }
     if (foco !== false) {
       const q = p.querySelector(".qf-q"); if (q) q.focus({ preventScroll: true });
       /* no celular, mantém o topo do formulário à vista ao trocar de etapa */
@@ -1068,6 +1065,19 @@ site.erroOpcao = "Escolha uma opção para continuar.";
       if (r.top < 0 || r.top > innerHeight * .6) form.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
     }
   }
+  /* "Quando pretende fazer sua tattoo?" numa linha só no celular: reduz a letra só o necessário */
+  const linha = form.querySelector(".qf-q-linha");
+  function ajustarLinha() {
+    if (!linha || linha.closest(".qf-step").hidden) return;
+    linha.style.fontSize = ""; linha.style.whiteSpace = "";
+    if (getComputedStyle(linha).whiteSpace !== "nowrap") return;
+    let fs = parseFloat(getComputedStyle(linha).fontSize);
+    while (linha.scrollWidth > linha.clientWidth && fs > 13.5) { fs -= .25; linha.style.fontSize = fs + "px"; }
+    if (linha.scrollWidth > linha.clientWidth) { linha.style.fontSize = ""; linha.style.whiteSpace = "normal"; }
+  }
+  window.addEventListener("resize", ajustarLinha);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajustarLinha);
+  document.addEventListener("click", (e) => { if (e.target.closest(".lang button")) setTimeout(ajustarLinha, 0); });
   window.qfIr = ir;
   window.qfAtual = () => atual;
   const erro = (p, msg) => { const e = p.querySelector(".qf-err"); if (e) e.textContent = msg || ""; };
@@ -1237,25 +1247,23 @@ const I18N = {
       ckLink: "Cookie preferences",
       polLink: "Privacy Policy",
       qfTitulo: "Shall we bring your idea to life?",
-      qfDesc: "Tell us a little about the tattoo you have in mind so we can prepare your quote.",
-      qfEtapa: "Step",
-      qfDe: "of",
       qfVoltar: "Back",
       qfContinuar: "Continue",
       qfQ1: "What kind of tattoo are you imagining?",
       qfT1: "Something delicate, with fine lines",
       qfT2: "A design with more detail and shading",
       qfT3: "An original, larger custom project",
-      qfQ2: "And what size do you have in mind?",
+      qfQ2: "What size is the tattoo?",
       qfS1: "Small — up to 10 cm",
       qfS2: "Medium — 10 to 20 cm",
       qfS3: "Large — over 20 cm",
       qfS4: "I'm not sure yet",
-      qfQ3: "When are you thinking of getting your tattoo?",
+      qfQ3: "When do you plan to get your tattoo?",
       qfP1: "As soon as possible! In the next few days",
       qfP2: "Later this month, if possible",
       qfP3: "I'm planning ahead, no rush for now",
-      qfQ4: "Your details",
+      qfQ4: "Your next tattoo starts here!",
+      qfQ4Txt: "Thanks for sharing your idea! Leave your name and WhatsApp so we can get in touch and prepare your quote.",
       qfFimTitulo: "All set",
       qfFimTexto: "We're opening Erick's WhatsApp so you can continue the conversation.",
       qfFimTeste: "This is a preview for approval: nothing was sent. On the live site, at this point the visitor goes straight to Erick's WhatsApp and the answers go to Make.",
@@ -1287,7 +1295,7 @@ const I18N = {
       projetos: "Recent work", projAnt: "Previous work", projProx: "Next work", portfolio: "Portfolio",
       aboutAlt: "Erick Bottega, tattoo artist at Bottega Ink in Florianópolis, Brazil, in a white shirt with a tattooed arm, in front of the Palais Garnier opera house in Paris",
       avAria: "Client reviews", avAnt: "Previous review", avProx: "Next review",
-      fNomePh: "Your name", qfProgresso: "Form progress",
+      fNomePh: "Your name",
       igAria: "Bottega Ink on Instagram", lbAria: "Enlarged photo", lbFechar: "Close", lbAnt: "Previous photo", lbProx: "Next photo",
     },
     marquee: ["FINE LINE", "SKETCH", "BLACKWORK", "CUSTOM ART", "DELICACY", "PRECISION"],
@@ -1340,25 +1348,23 @@ const I18N = {
       ckLink: "Preferencias de cookies",
       polLink: "Política de Privacidad",
       qfTitulo: "¿Hacemos realidad tu idea?",
-      qfDesc: "Cuéntanos un poco sobre el tatuaje que imaginas para preparar tu presupuesto.",
-      qfEtapa: "Paso",
-      qfDe: "de",
       qfVoltar: "Volver",
       qfContinuar: "Continuar",
       qfQ1: "¿Qué tipo de tatuaje estás imaginando?",
       qfT1: "Algo delicado, con trazos finos",
       qfT2: "Un diseño con más detalles y sombreado",
       qfT3: "Un proyecto de autor, más grande y personalizado",
-      qfQ2: "¿Y de qué tamaño lo imaginas?",
+      qfQ2: "¿De qué tamaño es el tatuaje?",
       qfS1: "Pequeño — hasta 10 cm",
       qfS2: "Mediano — de 10 a 20 cm",
       qfS3: "Grande — más de 20 cm",
       qfS4: "Todavía no estoy seguro",
-      qfQ3: "¿Para cuándo piensas hacerte el tatuaje?",
+      qfQ3: "¿Cuándo piensas hacerte el tatuaje?",
       qfP1: "¡Lo antes posible! En los próximos días",
       qfP2: "Este mismo mes, si es posible",
       qfP3: "Lo estoy planeando, sin prisa por ahora",
-      qfQ4: "Tus datos",
+      qfQ4: "¡Tu próximo tatuaje empieza aquí!",
+      qfQ4Txt: "¡Gracias por compartir tu idea! Deja tu nombre y WhatsApp para que te contactemos y preparemos tu presupuesto.",
       qfFimTitulo: "Listo",
       qfFimTexto: "Estamos abriendo el WhatsApp de Erick para que sigas la conversación.",
       qfFimTeste: "Esta es una vista previa para aprobación: no se envió nada. En el sitio oficial, en este momento la persona va directo al WhatsApp de Erick y las respuestas van a Make.",
@@ -1390,7 +1396,7 @@ const I18N = {
       projetos: "Proyectos recientes", projAnt: "Proyecto anterior", projProx: "Siguiente proyecto", portfolio: "Portafolio",
       aboutAlt: "Erick Bottega, tatuador de Bottega Ink en Florianópolis, Brasil, con camisa blanca y el brazo tatuado, frente a la Ópera Garnier de París",
       avAria: "Reseñas de clientes", avAnt: "Reseña anterior", avProx: "Siguiente reseña",
-      fNomePh: "Tu nombre", qfProgresso: "Progreso del formulario",
+      fNomePh: "Tu nombre",
       igAria: "Instagram de Bottega Ink", lbAria: "Foto ampliada", lbFechar: "Cerrar", lbAnt: "Foto anterior", lbProx: "Foto siguiente",
     },
     marquee: ["FINELINE", "SKETCH", "BLACKWORK", "ARTE PERSONALIZADO", "DELICADEZA", "PRECISIÓN"],
