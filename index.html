@@ -3,21 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Erick Bottega | Bottega Ink</title>
+<title>Prévia do Formulário | Bottega Ink</title>
 <meta name="description" content="Tatuagem fineline em Florianópolis com Erick Bottega, da Bottega Ink: traços delicados, sketch, blackwork e composições em preto e vermelho, com projetos personalizados. Peça seu orçamento pelo WhatsApp.">
 <meta name="keywords" content="tatuagem em Florianópolis, tatuador em Florianópolis, tatuagem fineline Florianópolis, fineline, sketch, blackwork, tatuagem preto e vermelho, arte personalizada, estúdio de tatuagem Florianópolis, Erick Bottega, Bottega Ink">
 <meta name="author" content="Erick Bottega">
+<meta name="robots" content="noindex, nofollow">
 <meta name="geo.region" content="BR-SC">
 <meta name="geo.placename" content="Florianópolis">
 <!-- Consentimento LGPD: Meta Pixel e Microsoft Clarity só carregam depois que o visitante aceita -->
 <script>
+/* MODO_TESTE = true: prévia para aprovação. Não carrega Pixel nem Clarity, não envia ao Make e não abre o WhatsApp. */
+window.MODO_TESTE = true;
 (function () {
   var CHAVE = "bottegaink-consentimento-v1";
   function ler() { try { return JSON.parse(localStorage.getItem(CHAVE)); } catch (e) { return null; } }
   function gravar(c) { try { localStorage.setItem(CHAVE, JSON.stringify(c)); } catch (e) {} }
   /* Meta Pixel Code (código oficial da Meta), ativado só com consentimento de marketing */
   function carregarPixel() {
-    if (window.fbq) return;
+    if (window.fbq || window.MODO_TESTE) return;
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -31,7 +34,7 @@
   }
   /* Microsoft Clarity (código oficial), ativado só com consentimento de análise */
   function carregarClarity() {
-    if (window.clarity) return;
+    if (window.clarity || window.MODO_TESTE) return;
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
@@ -440,6 +443,55 @@ footer .foot-row { gap: 1.25rem; }
 .link-priv { background: none; border: 0; padding: 0; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
 .link-priv:hover { color: var(--gold); }
 #orcamento .form-lgpd { margin: .25rem 0 0; font-size: .8125rem; line-height: 1.55; color: var(--hero-muted); text-align: center; }
+
+/* formulário passo a passo */
+#orcamento .qf [hidden] { display: none !important; }
+#orcamento .qf { max-width: 34rem; margin: 2rem auto 0; padding: 1.5rem; display: block; border: 1px solid rgba(229, 211, 189, .18); border-radius: 1rem; background: rgba(255, 255, 255, .04); text-align: left; overflow: hidden; }
+@media (min-width: 640px) { #orcamento .qf { padding: 2rem; } }
+.qf-titulo { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.2; font-weight: 600; color: var(--hero-fg); text-wrap: balance; }
+@media (min-width: 768px) { .qf-titulo { font-size: 1.85rem; } }
+.qf-desc { margin-top: .5rem; font-size: .95rem; line-height: 1.6; color: var(--hero-muted); text-wrap: pretty; }
+.qf-top { display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0 1.4rem; }
+.qf-count { flex: none; font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.qf-bar { flex: 1; height: 3px; border-radius: 3px; background: rgba(229, 211, 189, .16); overflow: hidden; }
+.qf-bar i { display: block; height: 100%; background: var(--gold); transition: width .35s ease; }
+.qf-q { font-family: var(--font-body); font-size: 1.15rem; line-height: 1.35; font-weight: 500; color: var(--hero-fg); outline: none; }
+@media (min-width: 768px) { .qf-q { font-size: 1.25rem; } }
+.qf-opts { margin-top: 1.1rem; display: grid; gap: .6rem; }
+.qf-opt { display: flex; align-items: center; gap: .85rem; width: 100%; min-height: 3.4rem; padding: .85rem 1.05rem; border: 1px solid rgba(229, 211, 189, .22); border-radius: .75rem; background: rgba(255, 255, 255, .03); color: var(--hero-fg); font: inherit; font-size: 1rem; line-height: 1.35; text-align: left; cursor: pointer; transition: border-color .2s, background .2s; -webkit-tap-highlight-color: transparent; }
+.qf-opt:hover { border-color: rgba(229, 211, 189, .6); }
+.qf-opt:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.qf-opt[aria-checked="true"] { border-color: var(--gold); background: rgba(229, 211, 189, .12); }
+.qf-dot { flex: none; width: 1.1rem; height: 1.1rem; border-radius: 999px; border: 1.5px solid rgba(229, 211, 189, .5); display: grid; place-items: center; }
+.qf-opt[aria-checked="true"] .qf-dot { border-color: var(--gold); }
+.qf-opt[aria-checked="true"] .qf-dot::after { content: ""; width: .55rem; height: .55rem; border-radius: 999px; background: var(--gold); }
+.qf-err { margin-top: .6rem; font-size: .875rem; color: #f6c1b0; }
+.qf-err:empty { display: none; }
+.qf-nav { margin-top: 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.qf-btn { display: inline-flex; align-items: center; gap: .5rem; min-height: 3rem; padding: .8rem 1.6rem; border: 0; border-radius: 999px; background: var(--gold); color: var(--brown-deeper); font: inherit; font-size: .875rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: filter .2s, transform .2s; }
+.qf-btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
+.qf-btn:focus-visible, .qf-back:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.qf-back { padding: .5rem 0; border: 0; background: none; color: var(--hero-muted); font: inherit; font-size: .9rem; cursor: pointer; text-underline-offset: 4px; }
+.qf-back:hover { color: var(--hero-fg); text-decoration: underline; }
+.qf-step .campos { margin-top: 1.1rem; }
+#orcamento .qf-step .btn-wa { margin-top: 1.25rem; }
+#orcamento .qf-step .form-lgpd { margin-top: 1rem; }
+#orcamento .qf-step .form-error { margin-top: .75rem; }
+.qf-nav-fim { margin-top: .75rem; justify-content: center; }
+.qf-text { margin-top: .75rem; color: var(--hero-muted); line-height: 1.6; font-size: .95rem; }
+.qf-in-next { animation: qfNext .38s cubic-bezier(.2, .7, .2, 1); }
+.qf-in-back { animation: qfBack .38s cubic-bezier(.2, .7, .2, 1); }
+@keyframes qfNext { from { opacity: 0; transform: translateX(28px); } }
+@keyframes qfBack { from { opacity: 0; transform: translateX(-28px); } }
+@media (max-width: 639px) {
+  #orcamento .qf { padding: 1.25rem; }
+  .qf-opt { min-height: 3.6rem; }
+  .qf-nav { flex-direction: column-reverse; align-items: stretch; gap: .35rem; }
+  .qf-nav > span:empty { display: none; }
+  .qf-btn { width: 100%; justify-content: center; min-height: 3.4rem; font-size: .95rem; }
+  .qf-back { min-height: 2.75rem; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) { .qf-in-next, .qf-in-back { animation: none; } .qf-bar i { transition: none; } }
 .foot-legal { margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .35rem .6rem; font-size: .75rem; color: #cbbfb1; }
 .cookie {
   position: fixed; z-index: 45; left: 0; right: 0; bottom: 0;
@@ -574,15 +626,59 @@ footer .foot-row { gap: 1.25rem; }
         <h2 class="h2" data-t="orcTitulo">Quanto custa uma tatuagem com Erick Bottega?</h2>
         <p class="lead orc-preco" data-t="orcTexto">Uma sessão com Erick Bottega custa em média de <strong class="orc-destaque">R$&nbsp;650 a R$&nbsp;1.200</strong>. Para trabalhos menores, o valor mínimo é de <strong class="orc-valor">R$&nbsp;300</strong>.</p>
         <p class="lead orc-chamada" data-t="orcSub">Solicite seu orçamento se cadastrando abaixo</p>
-        <form id="orc-form" novalidate>
-          <div class="campos">
-            <div><label for="f-nome" data-t="fNome">Nome</label><input id="f-nome" name="nome" autocomplete="name" required placeholder="Seu nome" data-ta="placeholder:fNomePh"></div>
-            <div><label for="f-tel" data-t="fTel">WhatsApp</label><input id="f-tel" name="tel" type="tel" inputmode="numeric" autocomplete="tel-national" required placeholder="(48) 9 9999-9999"></div>
+        <form id="orc-form" class="qf" novalidate>
+          <h3 class="qf-titulo" data-t="qfTitulo">Vamos tirar sua ideia do papel?</h3>
+          <p class="qf-desc" data-t="qfDesc">Conte um pouco sobre a tatuagem que você imagina para prepararmos seu orçamento.</p>
+          <div class="qf-top" id="qf-top"><span class="qf-count" aria-live="polite"><span data-t="qfEtapa">Etapa</span> <span id="qf-n">1</span> <span data-t="qfDe">de</span> 4</span><div class="qf-bar" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" data-ta="aria-label:qfProgresso" aria-label="Progresso do formulário"><i id="qf-barra" style="width:25%"></i></div></div>
+          <div class="qf-step" data-step="0" data-campo="tipo">
+            <h4 class="qf-q" id="qf-q0" tabindex="-1" data-t="qfQ1">Que tipo de tatuagem você está imaginando?</h4>
+            <div class="qf-opts" role="radiogroup" aria-labelledby="qf-q0">
+              <button type="button" class="qf-opt" role="radio" aria-checked="false" data-v="Algo delicado, com traços finos"><span class="qf-dot" aria-hidden="true"></span><span data-t="qfT1">Algo delicado, com traços finos</span></button>
+              <button type="button" class="qf-opt" role="radio" aria-checked="false" data-v="Um desenho com mais detalhes e sombreamento"><span class="qf-dot" aria-hidden="true"></span><span data-t="qfT2">Um desenho com mais detalhes e sombreamento</span></button>
+              <button type="button" class="qf-opt" role="radio" aria-checked="false" data-v="Um projeto autoral, maior e personalizado"><span class="qf-dot" aria-hidden="true"></span><span data-t="qfT3">Um projeto autoral, maior e personalizado</span></button>
+            </div>
+            <p class="qf-err" role="alert"></p>
+            <div class="qf-nav"><span></span><button type="button" class="qf-btn" data-go="next"><span data-t="qfContinuar">Continuar</span> <span aria-hidden="true">→</span></button></div>
           </div>
-          <input class="hp" id="f-hp" name="empresa" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <p class="form-error" id="f-erro" role="alert" hidden></p>
-          <button type="submit" class="btn btn-block btn-wa" id="wa-btn"><svg class="icon icon-wa"><use href="#i-wa"/></svg><span data-t="orcBotao">Quero receber meu orçamento</span></button>
-          <p class="form-lgpd" data-t="fLgpd">Ao enviar, você concorda que a Bottega Ink use seu nome e WhatsApp para responder ao seu pedido de orçamento, conforme a <button type="button" class="link-priv" data-open-priv>Política de Privacidade</button>.</p>
+          <div class="qf-step" data-step="1" data-campo="tamanho" hidden>
+            <h4 class="qf-q" id="qf-q1" tabindex="-1" data-t="qfQ2">E qual tamanho você imagina para ela?</h4>
+            <div class="qf-opts" role="radiogroup" aria-labelledby="qf-q1">
+              <button type="button" class="qf-opt" role="radio" aria-checked="false" data-v="Pequena — até 10 cm"><span class="qf-dot" aria-hidden="true"></span><span data-t="qfS1">Pequena — até 10 cm</span></button>
+              <button type="button" class="qf-opt" role="radio" aria-checked="false" data-v="Média — de 10 a 20 cm"><span class="qf-dot" aria-hidden="true"></span><span data-t="qfS2">Média — de 10 a 20 cm</span></button>
+              <button type="button" class="qf-opt" role="radio" aria-checked="false" data-v="Grande — acima de 20 cm"><span class="qf-dot" aria-hidden="true"></span><span data-t="qfS3">Grande — acima de 20 cm</span></button>
+              <button type="button" class="qf-opt" role="radio" aria-checked="false" data-v="Ainda não tenho certeza"><span class="qf-dot" aria-hidden="true"></span><span data-t="qfS4">Ainda não tenho certeza</span></button>
+            </div>
+            <p class="qf-err" role="alert"></p>
+            <div class="qf-nav"><button type="button" class="qf-back" data-go="back"><span aria-hidden="true">←</span> <span data-t="qfVoltar">Voltar</span></button><button type="button" class="qf-btn" data-go="next"><span data-t="qfContinuar">Continuar</span> <span aria-hidden="true">→</span></button></div>
+          </div>
+          <div class="qf-step" data-step="2" data-campo="prazo" hidden>
+            <h4 class="qf-q" id="qf-q2" tabindex="-1" data-t="qfQ3">Pra quando você está pensando em fazer sua tatuagem?</h4>
+            <div class="qf-opts" role="radiogroup" aria-labelledby="qf-q2">
+              <button type="button" class="qf-opt" role="radio" aria-checked="false" data-v="O quanto antes! Quero fazer nos próximos dias"><span class="qf-dot" aria-hidden="true"></span><span data-t="qfP1">O quanto antes! Quero fazer nos próximos dias</span></button>
+              <button type="button" class="qf-opt" role="radio" aria-checked="false" data-v="Ainda este mês, se possível"><span class="qf-dot" aria-hidden="true"></span><span data-t="qfP2">Ainda este mês, se possível</span></button>
+              <button type="button" class="qf-opt" role="radio" aria-checked="false" data-v="Estou planejando, sem pressa por enquanto"><span class="qf-dot" aria-hidden="true"></span><span data-t="qfP3">Estou planejando, sem pressa por enquanto</span></button>
+            </div>
+            <p class="qf-err" role="alert"></p>
+            <div class="qf-nav"><button type="button" class="qf-back" data-go="back"><span aria-hidden="true">←</span> <span data-t="qfVoltar">Voltar</span></button><button type="button" class="qf-btn" data-go="next"><span data-t="qfContinuar">Continuar</span> <span aria-hidden="true">→</span></button></div>
+          </div>
+          <div class="qf-step" data-step="3" hidden>
+            <h4 class="qf-q" id="qf-q3" tabindex="-1" data-t="qfQ4">Seus dados</h4>
+            <div class="campos">
+              <div><label for="f-nome" data-t="fNome">Nome</label><input id="f-nome" name="nome" autocomplete="name" required placeholder="Seu nome" data-ta="placeholder:fNomePh"></div>
+              <div><label for="f-tel" data-t="fTel">WhatsApp</label><input id="f-tel" name="tel" type="tel" inputmode="numeric" autocomplete="tel-national" required placeholder="(48) 9 9999-9999"></div>
+            </div>
+            <input class="hp" id="f-hp" name="empresa" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <p class="form-error" id="f-erro" role="alert" hidden></p>
+            <button type="submit" class="btn btn-block btn-wa" id="wa-btn"><svg class="icon icon-wa"><use href="#i-wa"/></svg><span data-t="orcBotao">Quero receber meu orçamento</span></button>
+            <p class="form-lgpd" data-t="fLgpd">Ao enviar, você concorda que a Bottega Ink use seu nome, seu WhatsApp e as respostas sobre a tatuagem para responder ao seu pedido de orçamento, conforme a <button type="button" class="link-priv" data-open-priv>Política de Privacidade</button>.</p>
+            <div class="qf-nav qf-nav-fim"><button type="button" class="qf-back" data-go="back"><span aria-hidden="true">←</span> <span data-t="qfVoltar">Voltar</span></button></div>
+          </div>
+          <div class="qf-step qf-fim" data-step="4" hidden>
+            <h4 class="qf-q" tabindex="-1"><span data-t="qfFimTitulo">Pronto</span>, <span id="qf-nome-fim"></span>!</h4>
+            <p class="qf-text" id="qf-fim-oficial" data-t="qfFimTexto">Estamos abrindo o WhatsApp do Erick para você continuar a conversa.</p>
+            <p class="qf-text" id="qf-fim-teste" data-t="qfFimTeste" hidden>Esta é uma prévia para aprovação: nada foi enviado. No site oficial, neste momento a pessoa é levada direto ao WhatsApp do Erick, e as respostas vão para o Make.</p>
+            <div class="qf-nav"><span></span><button type="button" class="qf-back" data-go="reset" id="qf-reset" hidden><span data-t="qfRecomecar">Recomeçar o teste</span></button></div>
+          </div>
         </form>
       </div>
     </div>
@@ -620,13 +716,13 @@ footer .foot-row { gap: 1.25rem; }
   <div class="priv-caixa">
     <button type="button" class="priv-fechar" id="priv-fechar" aria-label="Fechar a Política de Privacidade" data-ta="aria-label:polFechar"><svg><use href="#i-x"/></svg></button>
     <div class="priv-corpo" data-t="polTexto"><h2 id="priv-titulo">Política de Privacidade</h2>
-<p class="priv-data">Última atualização: 11 de novembro de 2026</p>
+<p class="priv-data">Última atualização: 18 de novembro de 2026</p>
 <p>Esta política explica como a Bottega Ink trata os dados pessoais de quem visita este site e pede orçamento, de acordo com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018, LGPD).</p>
 <h3>1. Quem é o responsável pelos dados</h3>
 <p>Erick Bottega, Bottega Ink. R. Ten. Silveira, 221, Sala 01, 1º andar, Centro, Florianópolis/SC, CEP 88010-300. Contato para assuntos de privacidade: WhatsApp +55 48 98812-3543 ou Instagram @bottegaink.</p>
 <h3>2. Quais dados coletamos</h3>
 <ul>
-<li><strong>No formulário de orçamento:</strong> nome e número de WhatsApp.</li>
+<li><strong>No formulário de orçamento:</strong> nome, número de WhatsApp e as respostas sobre a tatuagem que você imagina (tipo, tamanho e prazo).</li>
 <li><strong>Junto com o formulário, automaticamente:</strong> data e hora do envio, tipo de aparelho, sistema, navegador, tamanho da tela, idioma, página do site e site de onde você veio.</li>
 <li><strong>Com o seu consentimento, por cookies:</strong> dados de navegação, como cliques, rolagem e páginas vistas, e identificadores usados para medir anúncios.</li>
 </ul>
@@ -944,7 +1040,77 @@ renderMarquee();
   window.addEventListener("hashchange", pelaUrl); pelaUrl();
 })();
 
-/* Formulário de orçamento: monta a mensagem e abre o WhatsApp do estúdio */
+
+/* Formulário passo a passo: uma pergunta por vez, com voltar e barra de progresso */
+site.erroOpcao = "Escolha uma opção para continuar.";
+(function () {
+  const form = $("orc-form"), passos = [...form.querySelectorAll(".qf-step")], TOTAL = 4;
+  const respostas = { tipo: "", tamanho: "", prazo: "" };
+  let atual = 0;
+  window.qfRespostas = respostas;
+  function ir(n, dir, foco) {
+    passos[atual].hidden = true;
+    atual = n;
+    const p = passos[n];
+    p.hidden = false;
+    p.classList.remove("qf-in-next", "qf-in-back");
+    if (!reduced && dir) { void p.offsetWidth; p.classList.add("qf-in-" + dir); }
+    const top = $("qf-top"); top.hidden = n >= TOTAL;
+    if (n < TOTAL) {
+      $("qf-n").textContent = n + 1;
+      $("qf-barra").style.width = ((n + 1) / TOTAL) * 100 + "%";
+      top.querySelector(".qf-bar").setAttribute("aria-valuenow", n + 1);
+    }
+    if (foco !== false) {
+      const q = p.querySelector(".qf-q"); if (q) q.focus({ preventScroll: true });
+      /* no celular, mantém o topo do formulário à vista ao trocar de etapa */
+      const r = form.getBoundingClientRect();
+      if (r.top < 0 || r.top > innerHeight * .6) form.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+    }
+  }
+  window.qfIr = ir;
+  window.qfAtual = () => atual;
+  const erro = (p, msg) => { const e = p.querySelector(".qf-err"); if (e) e.textContent = msg || ""; };
+  function avancar() {
+    const p = passos[atual], campo = p.dataset.campo;
+    if (campo && !respostas[campo]) { erro(p, site.erroOpcao); return; }
+    erro(p, "");
+    if (atual < 3) ir(atual + 1, "next");
+    if (atual === 3) setTimeout(() => $("f-nome").focus({ preventScroll: true }), 50);
+  }
+  form.addEventListener("click", (e) => {
+    const o = e.target.closest(".qf-opt");
+    if (o) {
+      const p = o.closest(".qf-step");
+      respostas[p.dataset.campo] = o.dataset.v;
+      p.querySelectorAll(".qf-opt").forEach((b) => b.setAttribute("aria-checked", String(b === o)));
+      erro(p, "");
+      const n = atual;
+      setTimeout(() => { if (atual === n) avancar(); }, 260);
+      return;
+    }
+    const b = e.target.closest("[data-go]"); if (!b) return;
+    if (b.dataset.go === "next") avancar();
+    else if (b.dataset.go === "back" && atual > 0) ir(atual - 1, "back");
+    else if (b.dataset.go === "reset") window.qfRecomecar();
+  });
+  /* setas do teclado entre as opções, como num grupo de rádio */
+  form.addEventListener("keydown", (e) => {
+    if (!["ArrowDown", "ArrowUp", "ArrowLeft", "ArrowRight"].includes(e.key)) return;
+    const o = e.target.closest(".qf-opt"); if (!o) return;
+    const ops = [...o.parentNode.children], i = ops.indexOf(o);
+    const n = ops[(i + (e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : ops.length - 1)) % ops.length];
+    e.preventDefault(); n.focus();
+  });
+  window.qfRecomecar = () => {
+    Object.keys(respostas).forEach((k) => { respostas[k] = ""; });
+    form.querySelectorAll(".qf-opt").forEach((b) => b.setAttribute("aria-checked", "false"));
+    $("f-nome").value = ""; $("f-tel").value = "";
+    ir(0, "back");
+  };
+})();
+
+/* Formulário de orçamento: envia ao Make e abre o WhatsApp do estúdio */
 site.erroForm = "Preencha seu nome e o WhatsApp com DDD, no formato (48) 9 9999-9999.";
 (function () {
   const form = $("orc-form"), err = $("f-erro"), btn = $("wa-btn");
@@ -1000,8 +1166,12 @@ site.erroForm = "Preencha seu nome e o WhatsApp com DDD, no formato (48) 9 9999-
         const dataBR = agora.toLocaleDateString("pt-BR", fuso);
         const horaBR = agora.toLocaleTimeString("pt-BR", { ...fuso, hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
         const disp = dispositivo();
+        const r = window.qfRespostas; /* sempre em português, em qualquer idioma do site */
         const dados = new URLSearchParams({
           nome: v("f-nome"),
+          tipo_tatuagem: r.tipo,
+          tamanho: r.tamanho,
+          prazo: r.prazo,
           telefone: `(${ddd}) ${num}`,
           telefone_completo: `+55 (${ddd}) ${num}`,
           ddd: ddd,
@@ -1021,17 +1191,22 @@ site.erroForm = "Preencha seu nome e o WhatsApp com DDD, no formato (48) 9 9999-
           idioma: document.documentElement.lang,
           user_agent: navigator.userAgent,
         });
-        try { fetch(site.webhookMake, { method: "POST", mode: "no-cors", keepalive: true, body: dados }).catch(() => {}); } catch (_) {}
+        window.qfUltimoEnvio = Object.fromEntries(dados);
+        if (!window.MODO_TESTE) try { fetch(site.webhookMake, { method: "POST", mode: "no-cors", keepalive: true, body: dados }).catch(() => {}); } catch (_) {}
       }
       /* Meta Pixel: um único Lead por envio válido, sem dados pessoais nos parâmetros */
       if (!leadEnviado) {
         leadEnviado = true;
-        try { if (window.fbq) window.fbq("track", "Lead", { content_name: "Formulário de orçamento" }, { eventID: "lead-" + Date.now() }); } catch (_) {}
+        if (!window.MODO_TESTE) try { if (window.fbq) window.fbq("track", "Lead", { content_name: "Formulário de orçamento" }, { eventID: "lead-" + Date.now() }); } catch (_) {}
       }
       const txt = site.mensagemWhatsApp; /* nome e telefone vão só para o webhook */
       const url = `${site.whatsappBase}?text=${encodeURIComponent(txt)}`;
       /* vai direto para o WhatsApp, na mesma aba */
       btn.disabled = true;
+      $("qf-nome-fim").textContent = v("f-nome").split(" ")[0];
+      $("qf-fim-oficial").hidden = !!window.MODO_TESTE; $("qf-fim-teste").hidden = !window.MODO_TESTE; $("qf-reset").hidden = !window.MODO_TESTE;
+      window.qfIr(4, "next");
+      if (window.MODO_TESTE) { enviando = false; btn.disabled = false; leadEnviado = false; return; }
       setTimeout(() => { location.href = url; }, 400); /* tempo para o Make e o Pixel saírem antes do redirecionamento */
     }
   });
@@ -1046,6 +1221,7 @@ const I18N = {
   en: {
     desc: "Fine line tattoos in Florianópolis, Brazil, with Erick Bottega of Bottega Ink: delicate linework, sketch, blackwork and black-and-red compositions, with custom work. Request your quote on WhatsApp.",
     msg: "Hi, Erick! I came from your website and I'd like to get a quote for a tattoo.",
+    erroOp: "Choose an option to continue.",
     erro: "Please fill in your name and your WhatsApp number with area code, like (48) 9 9999-9999.",
     ampliar: "Enlarge: ", ampliarFoto: "Enlarge photo: ", googleAria: "Google review", starsAria: "5 out of 5 stars",
     t: {
@@ -1060,8 +1236,32 @@ const I18N = {
       ckAcc: "Accept all",
       ckLink: "Cookie preferences",
       polLink: "Privacy Policy",
-      fLgpd: "By submitting, you agree that Bottega Ink may use your name and WhatsApp number to reply to your quote request, as described in our <button type=\"button\" class=\"link-priv\" data-open-priv>Privacy Policy</button>.",
-      polTexto: "<h2 id=\"priv-titulo\">Privacy Policy</h2>\n<p class=\"priv-data\">Last updated: November 11, 2026</p>\n<p>This policy explains how Bottega Ink handles the personal data of people who visit this website and request a quote, under Brazil's General Data Protection Law (Law No. 13,709/2018, LGPD).</p>\n<h3>1. Who is responsible for your data</h3>\n<p>Erick Bottega, Bottega Ink. R. Ten. Silveira, 221, Sala 01, 1st floor, Centro, Florianópolis/SC, Brazil, ZIP 88010-300. Privacy contact: WhatsApp +55 48 98812-3543 or Instagram @bottegaink.</p>\n<h3>2. What data we collect</h3>\n<ul>\n<li><strong>In the quote form:</strong> your name and WhatsApp number.</li>\n<li><strong>Automatically, with the form:</strong> date and time of submission, device type, operating system, browser, screen size, language, the page you were on and the site you came from.</li>\n<li><strong>With your consent, through cookies:</strong> browsing data such as clicks, scrolling and pages viewed, and identifiers used to measure ads.</li>\n</ul>\n<p>We do not ask for sensitive data on this website.</p>\n<h3>3. Why we use it and on what legal basis</h3>\n<ul>\n<li><strong>To reply to your quote request</strong> on WhatsApp: pre-contractual steps at your request (LGPD, art. 7, V).</li>\n<li><strong>To understand how the website is used</strong> (Microsoft Clarity): consent (art. 7, I).</li>\n<li><strong>To measure and improve ads</strong> on Instagram and Facebook (Meta Pixel): consent (art. 7, I).</li>\n</ul>\n<h3>4. Who we share it with</h3>\n<p>We never sell your data. It only goes through the services needed to run the website:</p>\n<ul>\n<li><strong>Make (Celonis):</strong> receives the form data and organizes quote requests.</li>\n<li><strong>WhatsApp (Meta):</strong> where the conversation about your quote takes place.</li>\n<li><strong>Meta Platforms:</strong> Meta Pixel, only with your consent.</li>\n<li><strong>Microsoft:</strong> Clarity, only with your consent.</li>\n<li><strong>Hostinger:</strong> website hosting. <strong>Google Fonts:</strong> provides the website fonts and receives your device's IP address.</li>\n</ul>\n<p>Some of these services store data outside Brazil. These transfers follow art. 33 of the LGPD.</p>\n<h3>5. Cookies</h3>\n<ul>\n<li><strong>Essential:</strong> store your cookie choice in your browser. They do not require consent.</li>\n<li><strong>Analytics (Microsoft Clarity):</strong> heatmaps and session recordings to improve the website. Form fields are masked in recordings.</li>\n<li><strong>Marketing (Meta Pixel):</strong> records the visit and the form submission to measure ads. Your name and phone number are never sent to the Pixel.</li>\n</ul>\n<p>You can accept, decline or change your choice at any time under “Cookie preferences” in the footer.</p>\n<h3>6. How long we keep it</h3>\n<p>Contact data is kept for as long as needed to serve you and for up to 2 years after the last contact, or until you ask us to delete it, unless the law requires otherwise. Analytics and ad data follow each tool's retention periods.</p>\n<h3>7. Your rights</h3>\n<p>At any time you can ask us to confirm whether we process your data, and for access, correction, anonymization, blocking or deletion, portability, information on who we share it with, and withdrawal of consent (LGPD, art. 18). Just message us on WhatsApp at +55 48 98812-3543. We reply within 15 days. You may also file a complaint with Brazil's National Data Protection Authority (ANPD).</p>\n<h3>8. Security</h3>\n<p>We use a secure connection (HTTPS) and limit access to the data to the people who need it to serve you.</p>\n<h3>9. Minors</h3>\n<p>Tattooing is a service for adults aged 18 and over. This website is not intended for minors.</p>\n<h3>10. Changes to this policy</h3>\n<p>We may update this policy. The date of the latest version is shown at the top.</p>",
+      qfTitulo: "Shall we bring your idea to life?",
+      qfDesc: "Tell us a little about the tattoo you have in mind so we can prepare your quote.",
+      qfEtapa: "Step",
+      qfDe: "of",
+      qfVoltar: "Back",
+      qfContinuar: "Continue",
+      qfQ1: "What kind of tattoo are you imagining?",
+      qfT1: "Something delicate, with fine lines",
+      qfT2: "A design with more detail and shading",
+      qfT3: "An original, larger custom project",
+      qfQ2: "And what size do you have in mind?",
+      qfS1: "Small — up to 10 cm",
+      qfS2: "Medium — 10 to 20 cm",
+      qfS3: "Large — over 20 cm",
+      qfS4: "I'm not sure yet",
+      qfQ3: "When are you thinking of getting your tattoo?",
+      qfP1: "As soon as possible! In the next few days",
+      qfP2: "Later this month, if possible",
+      qfP3: "I'm planning ahead, no rush for now",
+      qfQ4: "Your details",
+      qfFimTitulo: "All set",
+      qfFimTexto: "We're opening Erick's WhatsApp so you can continue the conversation.",
+      qfFimTeste: "This is a preview for approval: nothing was sent. On the live site, at this point the visitor goes straight to Erick's WhatsApp and the answers go to Make.",
+      qfRecomecar: "Restart the test",
+      fLgpd: "By submitting, you agree that Bottega Ink may use your name, your WhatsApp number and your answers about the tattoo to reply to your quote request, as described in our <button type=\"button\" class=\"link-priv\" data-open-priv>Privacy Policy</button>.",
+      polTexto: "<h2 id=\"priv-titulo\">Privacy Policy</h2>\n<p class=\"priv-data\">Last updated: November 18, 2026</p>\n<p>This policy explains how Bottega Ink handles the personal data of people who visit this website and request a quote, under Brazil's General Data Protection Law (Law No. 13,709/2018, LGPD).</p>\n<h3>1. Who is responsible for your data</h3>\n<p>Erick Bottega, Bottega Ink. R. Ten. Silveira, 221, Sala 01, 1st floor, Centro, Florianópolis/SC, Brazil, ZIP 88010-300. Privacy contact: WhatsApp +55 48 98812-3543 or Instagram @bottegaink.</p>\n<h3>2. What data we collect</h3>\n<ul>\n<li><strong>In the quote form:</strong> your name, WhatsApp number and your answers about the tattoo you have in mind (type, size and timing).</li>\n<li><strong>Automatically, with the form:</strong> date and time of submission, device type, operating system, browser, screen size, language, the page you were on and the site you came from.</li>\n<li><strong>With your consent, through cookies:</strong> browsing data such as clicks, scrolling and pages viewed, and identifiers used to measure ads.</li>\n</ul>\n<p>We do not ask for sensitive data on this website.</p>\n<h3>3. Why we use it and on what legal basis</h3>\n<ul>\n<li><strong>To reply to your quote request</strong> on WhatsApp: pre-contractual steps at your request (LGPD, art. 7, V).</li>\n<li><strong>To understand how the website is used</strong> (Microsoft Clarity): consent (art. 7, I).</li>\n<li><strong>To measure and improve ads</strong> on Instagram and Facebook (Meta Pixel): consent (art. 7, I).</li>\n</ul>\n<h3>4. Who we share it with</h3>\n<p>We never sell your data. It only goes through the services needed to run the website:</p>\n<ul>\n<li><strong>Make (Celonis):</strong> receives the form data and organizes quote requests.</li>\n<li><strong>WhatsApp (Meta):</strong> where the conversation about your quote takes place.</li>\n<li><strong>Meta Platforms:</strong> Meta Pixel, only with your consent.</li>\n<li><strong>Microsoft:</strong> Clarity, only with your consent.</li>\n<li><strong>Hostinger:</strong> website hosting. <strong>Google Fonts:</strong> provides the website fonts and receives your device's IP address.</li>\n</ul>\n<p>Some of these services store data outside Brazil. These transfers follow art. 33 of the LGPD.</p>\n<h3>5. Cookies</h3>\n<ul>\n<li><strong>Essential:</strong> store your cookie choice in your browser. They do not require consent.</li>\n<li><strong>Analytics (Microsoft Clarity):</strong> heatmaps and session recordings to improve the website. Form fields are masked in recordings.</li>\n<li><strong>Marketing (Meta Pixel):</strong> records the visit and the form submission to measure ads. Your name and phone number are never sent to the Pixel.</li>\n</ul>\n<p>You can accept, decline or change your choice at any time under “Cookie preferences” in the footer.</p>\n<h3>6. How long we keep it</h3>\n<p>Contact data is kept for as long as needed to serve you and for up to 2 years after the last contact, or until you ask us to delete it, unless the law requires otherwise. Analytics and ad data follow each tool's retention periods.</p>\n<h3>7. Your rights</h3>\n<p>At any time you can ask us to confirm whether we process your data, and for access, correction, anonymization, blocking or deletion, portability, information on who we share it with, and withdrawal of consent (LGPD, art. 18). Just message us on WhatsApp at +55 48 98812-3543. We reply within 15 days. You may also file a complaint with Brazil's National Data Protection Authority (ANPD).</p>\n<h3>8. Security</h3>\n<p>We use a secure connection (HTTPS) and limit access to the data to the people who need it to serve you.</p>\n<h3>9. Minors</h3>\n<p>Tattooing is a service for adults aged 18 and over. This website is not intended for minors.</p>\n<h3>10. Changes to this policy</h3>\n<p>We may update this policy. The date of the latest version is shown at the top.</p>",
       h1: '<span class="h1-name">Erick Bottega</span><span class="h1-sep"> | </span>Bottega Ink<span class="h1-city">Florianópolis</span>',
       heroSub: "Fine line tattoos in Florianópolis, with delicate linework, artistic compositions and custom work that turns ideas and stories into art.",
       projetos: "Recent work",
@@ -1087,7 +1287,7 @@ const I18N = {
       projetos: "Recent work", projAnt: "Previous work", projProx: "Next work", portfolio: "Portfolio",
       aboutAlt: "Erick Bottega, tattoo artist at Bottega Ink in Florianópolis, Brazil, in a white shirt with a tattooed arm, in front of the Palais Garnier opera house in Paris",
       avAria: "Client reviews", avAnt: "Previous review", avProx: "Next review",
-      fNomePh: "Your name",
+      fNomePh: "Your name", qfProgresso: "Form progress",
       igAria: "Bottega Ink on Instagram", lbAria: "Enlarged photo", lbFechar: "Close", lbAnt: "Previous photo", lbProx: "Next photo",
     },
     marquee: ["FINE LINE", "SKETCH", "BLACKWORK", "CUSTOM ART", "DELICACY", "PRECISION"],
@@ -1124,6 +1324,7 @@ const I18N = {
   es: {
     desc: "Tatuajes fineline en Florianópolis con Erick Bottega, de Bottega Ink: trazos delicados, sketch, blackwork y composiciones en negro y rojo, con proyectos personalizados. Solicita tu presupuesto por WhatsApp.",
     msg: "¡Hola, Erick! Vengo de tu sitio web y me gustaría pedir un presupuesto para un tatuaje.",
+    erroOp: "Elige una opción para continuar.",
     erro: "Completa tu nombre y tu WhatsApp con código de área, como (48) 9 9999-9999.",
     ampliar: "Ampliar: ", ampliarFoto: "Ampliar foto: ", googleAria: "Reseña de Google", starsAria: "5 de 5 estrellas",
     t: {
@@ -1138,8 +1339,32 @@ const I18N = {
       ckAcc: "Aceptar todos",
       ckLink: "Preferencias de cookies",
       polLink: "Política de Privacidad",
-      fLgpd: "Al enviar, aceptas que Bottega Ink use tu nombre y WhatsApp para responder a tu pedido de presupuesto, según la <button type=\"button\" class=\"link-priv\" data-open-priv>Política de Privacidad</button>.",
-      polTexto: "<h2 id=\"priv-titulo\">Política de Privacidad</h2>\n<p class=\"priv-data\">Última actualización: 11 de noviembre de 2026</p>\n<p>Esta política explica cómo Bottega Ink trata los datos personales de quienes visitan este sitio y piden un presupuesto, de acuerdo con la Ley General de Protección de Datos de Brasil (Ley nº 13.709/2018, LGPD).</p>\n<h3>1. Responsable de los datos</h3>\n<p>Erick Bottega, Bottega Ink. R. Ten. Silveira, 221, Sala 01, 1º piso, Centro, Florianópolis/SC, Brasil, CP 88010-300. Contacto para temas de privacidad: WhatsApp +55 48 98812-3543 o Instagram @bottegaink.</p>\n<h3>2. Qué datos recopilamos</h3>\n<ul>\n<li><strong>En el formulario de presupuesto:</strong> nombre y número de WhatsApp.</li>\n<li><strong>Junto con el formulario, automáticamente:</strong> fecha y hora del envío, tipo de dispositivo, sistema, navegador, tamaño de pantalla, idioma, página del sitio y sitio de procedencia.</li>\n<li><strong>Con tu consentimiento, mediante cookies:</strong> datos de navegación, como clics, desplazamiento y páginas vistas, e identificadores usados para medir anuncios.</li>\n</ul>\n<p>No pedimos datos sensibles en este sitio.</p>\n<h3>3. Para qué los usamos y con qué base legal</h3>\n<ul>\n<li><strong>Responder a tu pedido de presupuesto</strong> por WhatsApp: procedimientos preliminares a un contrato, a tu pedido (LGPD, art. 7, V).</li>\n<li><strong>Entender cómo se usa el sitio</strong> (Microsoft Clarity): consentimiento (art. 7, I).</li>\n<li><strong>Medir y mejorar anuncios</strong> en Instagram y Facebook (Meta Pixel): consentimiento (art. 7, I).</li>\n</ul>\n<h3>4. Con quién los compartimos</h3>\n<p>No vendemos tus datos. Solo pasan por los servicios necesarios para que el sitio funcione:</p>\n<ul>\n<li><strong>Make (Celonis):</strong> recibe los datos del formulario y organiza los pedidos de presupuesto.</li>\n<li><strong>WhatsApp (Meta):</strong> donde se conversa sobre el presupuesto.</li>\n<li><strong>Meta Platforms:</strong> Meta Pixel, solo con tu consentimiento.</li>\n<li><strong>Microsoft:</strong> Clarity, solo con tu consentimiento.</li>\n<li><strong>Hostinger:</strong> alojamiento del sitio. <strong>Google Fonts:</strong> proporciona las fuentes del sitio y recibe la dirección IP de tu dispositivo.</li>\n</ul>\n<p>Algunos de estos servicios guardan datos fuera de Brasil. Estas transferencias siguen el art. 33 de la LGPD.</p>\n<h3>5. Cookies</h3>\n<ul>\n<li><strong>Esenciales:</strong> guardan en tu navegador tu elección sobre cookies. No requieren consentimiento.</li>\n<li><strong>Análisis (Microsoft Clarity):</strong> mapa de calor y grabación de la navegación para mejorar el sitio. Los campos del formulario se ocultan en las grabaciones.</li>\n<li><strong>Marketing (Meta Pixel):</strong> registra la visita y el envío del formulario para medir los anuncios. El nombre y el teléfono nunca se envían al Pixel.</li>\n</ul>\n<p>Puedes aceptar, rechazar o cambiar tu elección en cualquier momento en “Preferencias de cookies”, en el pie de página.</p>\n<h3>6. Cuánto tiempo los guardamos</h3>\n<p>Los datos de contacto se guardan el tiempo necesario para atenderte y hasta 2 años después del último contacto, o hasta que pidas su eliminación, salvo obligación legal. Los datos de análisis y de anuncios siguen los plazos de cada herramienta.</p>\n<h3>7. Tus derechos</h3>\n<p>Puedes pedir en cualquier momento la confirmación de que tratamos tus datos, acceso, corrección, anonimización, bloqueo o eliminación, portabilidad, información sobre con quién los compartimos y la revocación del consentimiento (LGPD, art. 18). Solo escríbenos por WhatsApp al +55 48 98812-3543. Respondemos en hasta 15 días. También puedes presentar un reclamo ante la Autoridad Nacional de Protección de Datos de Brasil (ANPD).</p>\n<h3>8. Seguridad</h3>\n<p>Usamos conexión segura (HTTPS) y limitamos el acceso a los datos a quienes los necesitan para atenderte.</p>\n<h3>9. Menores de edad</h3>\n<p>El tatuaje es un servicio para mayores de 18 años. Este sitio no está dirigido a menores.</p>\n<h3>10. Cambios en esta política</h3>\n<p>Podemos actualizar esta política. La fecha de la última versión aparece arriba.</p>",
+      qfTitulo: "¿Hacemos realidad tu idea?",
+      qfDesc: "Cuéntanos un poco sobre el tatuaje que imaginas para preparar tu presupuesto.",
+      qfEtapa: "Paso",
+      qfDe: "de",
+      qfVoltar: "Volver",
+      qfContinuar: "Continuar",
+      qfQ1: "¿Qué tipo de tatuaje estás imaginando?",
+      qfT1: "Algo delicado, con trazos finos",
+      qfT2: "Un diseño con más detalles y sombreado",
+      qfT3: "Un proyecto de autor, más grande y personalizado",
+      qfQ2: "¿Y de qué tamaño lo imaginas?",
+      qfS1: "Pequeño — hasta 10 cm",
+      qfS2: "Mediano — de 10 a 20 cm",
+      qfS3: "Grande — más de 20 cm",
+      qfS4: "Todavía no estoy seguro",
+      qfQ3: "¿Para cuándo piensas hacerte el tatuaje?",
+      qfP1: "¡Lo antes posible! En los próximos días",
+      qfP2: "Este mismo mes, si es posible",
+      qfP3: "Lo estoy planeando, sin prisa por ahora",
+      qfQ4: "Tus datos",
+      qfFimTitulo: "Listo",
+      qfFimTexto: "Estamos abriendo el WhatsApp de Erick para que sigas la conversación.",
+      qfFimTeste: "Esta es una vista previa para aprobación: no se envió nada. En el sitio oficial, en este momento la persona va directo al WhatsApp de Erick y las respuestas van a Make.",
+      qfRecomecar: "Reiniciar la prueba",
+      fLgpd: "Al enviar, aceptas que Bottega Ink use tu nombre, tu WhatsApp y tus respuestas sobre el tatuaje para responder a tu pedido de presupuesto, según la <button type=\"button\" class=\"link-priv\" data-open-priv>Política de Privacidad</button>.",
+      polTexto: "<h2 id=\"priv-titulo\">Política de Privacidad</h2>\n<p class=\"priv-data\">Última actualización: 18 de noviembre de 2026</p>\n<p>Esta política explica cómo Bottega Ink trata los datos personales de quienes visitan este sitio y piden un presupuesto, de acuerdo con la Ley General de Protección de Datos de Brasil (Ley nº 13.709/2018, LGPD).</p>\n<h3>1. Responsable de los datos</h3>\n<p>Erick Bottega, Bottega Ink. R. Ten. Silveira, 221, Sala 01, 1º piso, Centro, Florianópolis/SC, Brasil, CP 88010-300. Contacto para temas de privacidad: WhatsApp +55 48 98812-3543 o Instagram @bottegaink.</p>\n<h3>2. Qué datos recopilamos</h3>\n<ul>\n<li><strong>En el formulario de presupuesto:</strong> nombre, número de WhatsApp y tus respuestas sobre el tatuaje que imaginas (tipo, tamaño y plazo).</li>\n<li><strong>Junto con el formulario, automáticamente:</strong> fecha y hora del envío, tipo de dispositivo, sistema, navegador, tamaño de pantalla, idioma, página del sitio y sitio de procedencia.</li>\n<li><strong>Con tu consentimiento, mediante cookies:</strong> datos de navegación, como clics, desplazamiento y páginas vistas, e identificadores usados para medir anuncios.</li>\n</ul>\n<p>No pedimos datos sensibles en este sitio.</p>\n<h3>3. Para qué los usamos y con qué base legal</h3>\n<ul>\n<li><strong>Responder a tu pedido de presupuesto</strong> por WhatsApp: procedimientos preliminares a un contrato, a tu pedido (LGPD, art. 7, V).</li>\n<li><strong>Entender cómo se usa el sitio</strong> (Microsoft Clarity): consentimiento (art. 7, I).</li>\n<li><strong>Medir y mejorar anuncios</strong> en Instagram y Facebook (Meta Pixel): consentimiento (art. 7, I).</li>\n</ul>\n<h3>4. Con quién los compartimos</h3>\n<p>No vendemos tus datos. Solo pasan por los servicios necesarios para que el sitio funcione:</p>\n<ul>\n<li><strong>Make (Celonis):</strong> recibe los datos del formulario y organiza los pedidos de presupuesto.</li>\n<li><strong>WhatsApp (Meta):</strong> donde se conversa sobre el presupuesto.</li>\n<li><strong>Meta Platforms:</strong> Meta Pixel, solo con tu consentimiento.</li>\n<li><strong>Microsoft:</strong> Clarity, solo con tu consentimiento.</li>\n<li><strong>Hostinger:</strong> alojamiento del sitio. <strong>Google Fonts:</strong> proporciona las fuentes del sitio y recibe la dirección IP de tu dispositivo.</li>\n</ul>\n<p>Algunos de estos servicios guardan datos fuera de Brasil. Estas transferencias siguen el art. 33 de la LGPD.</p>\n<h3>5. Cookies</h3>\n<ul>\n<li><strong>Esenciales:</strong> guardan en tu navegador tu elección sobre cookies. No requieren consentimiento.</li>\n<li><strong>Análisis (Microsoft Clarity):</strong> mapa de calor y grabación de la navegación para mejorar el sitio. Los campos del formulario se ocultan en las grabaciones.</li>\n<li><strong>Marketing (Meta Pixel):</strong> registra la visita y el envío del formulario para medir los anuncios. El nombre y el teléfono nunca se envían al Pixel.</li>\n</ul>\n<p>Puedes aceptar, rechazar o cambiar tu elección en cualquier momento en “Preferencias de cookies”, en el pie de página.</p>\n<h3>6. Cuánto tiempo los guardamos</h3>\n<p>Los datos de contacto se guardan el tiempo necesario para atenderte y hasta 2 años después del último contacto, o hasta que pidas su eliminación, salvo obligación legal. Los datos de análisis y de anuncios siguen los plazos de cada herramienta.</p>\n<h3>7. Tus derechos</h3>\n<p>Puedes pedir en cualquier momento la confirmación de que tratamos tus datos, acceso, corrección, anonimización, bloqueo o eliminación, portabilidad, información sobre con quién los compartimos y la revocación del consentimiento (LGPD, art. 18). Solo escríbenos por WhatsApp al +55 48 98812-3543. Respondemos en hasta 15 días. También puedes presentar un reclamo ante la Autoridad Nacional de Protección de Datos de Brasil (ANPD).</p>\n<h3>8. Seguridad</h3>\n<p>Usamos conexión segura (HTTPS) y limitamos el acceso a los datos a quienes los necesitan para atenderte.</p>\n<h3>9. Menores de edad</h3>\n<p>El tatuaje es un servicio para mayores de 18 años. Este sitio no está dirigido a menores.</p>\n<h3>10. Cambios en esta política</h3>\n<p>Podemos actualizar esta política. La fecha de la última versión aparece arriba.</p>",
       h1: '<span class="h1-name">Erick Bottega</span><span class="h1-sep"> | </span>Bottega Ink<span class="h1-city">Florianópolis</span>',
       heroSub: "Tatuajes fineline en Florianópolis, con trazos delicados, composiciones artísticas y proyectos personalizados que transforman ideas e historias en arte.",
       projetos: "Proyectos recientes",
@@ -1165,7 +1390,7 @@ const I18N = {
       projetos: "Proyectos recientes", projAnt: "Proyecto anterior", projProx: "Siguiente proyecto", portfolio: "Portafolio",
       aboutAlt: "Erick Bottega, tatuador de Bottega Ink en Florianópolis, Brasil, con camisa blanca y el brazo tatuado, frente a la Ópera Garnier de París",
       avAria: "Reseñas de clientes", avAnt: "Reseña anterior", avProx: "Siguiente reseña",
-      fNomePh: "Tu nombre",
+      fNomePh: "Tu nombre", qfProgresso: "Progreso del formulario",
       igAria: "Instagram de Bottega Ink", lbAria: "Foto ampliada", lbFechar: "Cerrar", lbAnt: "Foto anterior", lbProx: "Foto siguiente",
     },
     marquee: ["FINELINE", "SKETCH", "BLACKWORK", "ARTE PERSONALIZADO", "DELICADEZA", "PRECISIÓN"],
@@ -1205,7 +1430,7 @@ const I18N = {
   const meta = document.querySelector('meta[name="description"]');
   /* português: guardado a partir da própria página e do objeto site */
   const PT = {
-    desc: meta ? meta.content : "", msg: site.mensagemWhatsApp, erro: site.erroForm,
+    desc: meta ? meta.content : "", msg: site.mensagemWhatsApp, erro: site.erroForm, erroOp: site.erroOpcao,
     ampliar: "Ampliar: ", ampliarFoto: "Ampliar foto: ", googleAria: "Avaliação do Google", starsAria: "5 de 5 estrelas",
     t: {}, ta: {},
     marquee: [...site.marquee],
@@ -1235,6 +1460,8 @@ const I18N = {
     site.avaliacoes.forEach((a, i) => { const v = L.avaliacoes[i]; a.tempo = v.tempo; a.texto = v.texto; (a.fotos || []).forEach((f, j) => { if (v.fotos && v.fotos[j]) f.alt = v.fotos[j]; }); });
     site.mensagemWhatsApp = L.msg;
     site.erroForm = L.erro;
+    site.erroOpcao = L.erroOp;
+    document.querySelectorAll("#orc-form .qf-err").forEach((e) => { if (e.textContent) e.textContent = L.erroOp; });
     const nE = site.estilos.length;
     document.querySelectorAll("#styles-track .style-card").forEach((c, i) => {
       const e = site.estilos[i % nE];
