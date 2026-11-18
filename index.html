@@ -476,6 +476,9 @@ footer .foot-row { gap: 1.25rem; }
 #orcamento .qf-step .form-lgpd { margin-top: 1rem; }
 #orcamento .qf-step .form-error { margin-top: .75rem; }
 .qf-nav-fim { margin-top: .75rem; justify-content: center; }
+.qf-btn-cheio { width: 100%; justify-content: center; min-height: 3.25rem; margin-top: 1.1rem; }
+.qf-sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+#orcamento .qf-step .campos + .form-error, #orcamento .qf-step .campos + .hp + .form-error { margin-top: .6rem; }
 .qf-text { margin-top: .75rem; color: var(--hero-muted); line-height: 1.6; font-size: .95rem; }
 .qf-in-next { animation: qfNext .38s cubic-bezier(.2, .7, .2, 1); }
 .qf-in-back { animation: qfBack .38s cubic-bezier(.2, .7, .2, 1); }
@@ -489,6 +492,7 @@ footer .foot-row { gap: 1.25rem; }
   .qf-opts { margin-top: .75rem; gap: .5rem; }
   .qf-opt { min-height: 3.25rem; padding: .7rem .95rem; gap: .75rem; }
   .qf-nav { margin-top: 1rem; flex-direction: column-reverse; align-items: stretch; gap: .2rem; }
+  .qf-nav-fim { margin-top: .6rem; }
   .qf-apoio { font-size: .9rem; }
   .qf-nav > span:empty { display: none; }
   .qf-btn { width: 100%; justify-content: center; min-height: 3.25rem; font-size: .95rem; }
@@ -639,7 +643,7 @@ footer .foot-row { gap: 1.25rem; }
               <button type="button" class="qf-opt" role="radio" aria-checked="false" data-v="Um projeto autoral, maior e personalizado"><span class="qf-dot" aria-hidden="true"></span><span data-t="qfT3">Um projeto autoral, maior e personalizado</span></button>
             </div>
             <p class="qf-err" role="alert"></p>
-            <div class="qf-nav"><span></span><button type="button" class="qf-btn" data-go="next"><span data-t="qfContinuar">Continuar</span> <span aria-hidden="true">→</span></button></div>
+            
           </div>
           <div class="qf-step" data-step="1" data-campo="tamanho" hidden>
             <h4 class="qf-q" id="qf-q1" tabindex="-1" data-t="qfQ2">Qual o tamanho da tatuagem?</h4>
@@ -650,7 +654,7 @@ footer .foot-row { gap: 1.25rem; }
               <button type="button" class="qf-opt" role="radio" aria-checked="false" data-v="Ainda não tenho certeza"><span class="qf-dot" aria-hidden="true"></span><span data-t="qfS4">Ainda não tenho certeza</span></button>
             </div>
             <p class="qf-err" role="alert"></p>
-            <div class="qf-nav"><button type="button" class="qf-back" data-go="back"><span aria-hidden="true">←</span> <span data-t="qfVoltar">Voltar</span></button><button type="button" class="qf-btn" data-go="next"><span data-t="qfContinuar">Continuar</span> <span aria-hidden="true">→</span></button></div>
+            <div class="qf-nav qf-nav-fim"><button type="button" class="qf-back" data-go="back"><span aria-hidden="true">←</span> <span data-t="qfVoltar">Voltar</span></button></div>
           </div>
           <div class="qf-step" data-step="2" data-campo="prazo" hidden>
             <h4 class="qf-q qf-q-linha" id="qf-q2" tabindex="-1" data-t="qfQ3">Quando pretende fazer sua tattoo?</h4>
@@ -660,14 +664,22 @@ footer .foot-row { gap: 1.25rem; }
               <button type="button" class="qf-opt" role="radio" aria-checked="false" data-v="Estou planejando, sem pressa por enquanto"><span class="qf-dot" aria-hidden="true"></span><span data-t="qfP3">Estou planejando, sem pressa por enquanto</span></button>
             </div>
             <p class="qf-err" role="alert"></p>
-            <div class="qf-nav"><button type="button" class="qf-back" data-go="back"><span aria-hidden="true">←</span> <span data-t="qfVoltar">Voltar</span></button><button type="button" class="qf-btn" data-go="next"><span data-t="qfContinuar">Continuar</span> <span aria-hidden="true">→</span></button></div>
+            <div class="qf-nav qf-nav-fim"><button type="button" class="qf-back" data-go="back"><span aria-hidden="true">←</span> <span data-t="qfVoltar">Voltar</span></button></div>
           </div>
           <div class="qf-step" data-step="3" hidden>
             <h4 class="qf-q" id="qf-q3" tabindex="-1" data-t="qfQ4">Sua próxima tattoo começa aqui!</h4>
             <p class="qf-apoio" data-t="qfQ4Txt">Obrigado por compartilhar sua ideia! Deixe seu nome e WhatsApp para entrarmos em contato e preparar seu orçamento.</p>
             <div class="campos">
-              <div><label for="f-nome" data-t="fNome">Nome</label><input id="f-nome" name="nome" autocomplete="name" required placeholder="Seu nome" data-ta="placeholder:fNomePh"></div>
-              <div><label for="f-tel" data-t="fTel">WhatsApp</label><input id="f-tel" name="tel" type="tel" inputmode="numeric" autocomplete="tel-national" required placeholder="(48) 9 9999-9999"></div>
+              <div><label for="f-nome" data-t="qfNomeLabel">Como podemos te chamar?</label><input id="f-nome" name="nome" autocomplete="given-name" enterkeyhint="next" required placeholder="Seu nome" data-ta="placeholder:fNomePh"></div>
+            </div>
+            <p class="qf-err" data-tipo="nome" role="alert"></p>
+            <button type="button" class="qf-btn qf-btn-cheio" data-go="next"><span data-t="qfContinuar">Continuar</span> <span aria-hidden="true">→</span></button>
+            <div class="qf-nav qf-nav-fim"><button type="button" class="qf-back" data-go="back"><span aria-hidden="true">←</span> <span data-t="qfVoltar">Voltar</span></button></div>
+          </div>
+          <div class="qf-step" data-step="4" hidden>
+            <h4 class="qf-q" id="qf-q4" tabindex="-1"><span data-t="qfOla">Prazer</span>, <span id="qf-nome-ola"></span>! <span data-t="qfQ5">Qual o seu WhatsApp?</span></h4>
+            <div class="campos">
+              <div><label class="qf-sr" for="f-tel" data-t="fTel">WhatsApp</label><input id="f-tel" name="tel" type="tel" inputmode="numeric" autocomplete="tel-national" enterkeyhint="send" required placeholder="(48) 9 9999-9999"></div>
             </div>
             <input class="hp" id="f-hp" name="empresa" tabindex="-1" autocomplete="off" aria-hidden="true">
             <p class="form-error" id="f-erro" role="alert" hidden></p>
@@ -675,7 +687,7 @@ footer .foot-row { gap: 1.25rem; }
             <p class="form-lgpd" data-t="fLgpd">Ao enviar, você concorda que a Bottega Ink use seu nome, seu WhatsApp e as respostas sobre a tatuagem para responder ao seu pedido de orçamento, conforme a <button type="button" class="link-priv" data-open-priv>Política de Privacidade</button>.</p>
             <div class="qf-nav qf-nav-fim"><button type="button" class="qf-back" data-go="back"><span aria-hidden="true">←</span> <span data-t="qfVoltar">Voltar</span></button></div>
           </div>
-          <div class="qf-step qf-fim" data-step="4" hidden>
+          <div class="qf-step qf-fim" data-step="5" hidden>
             <h4 class="qf-q" tabindex="-1"><span data-t="qfFimTitulo">Pronto</span>, <span id="qf-nome-fim"></span>!</h4>
             <p class="qf-text" id="qf-fim-oficial" data-t="qfFimTexto">Estamos abrindo o WhatsApp do Erick para você continuar a conversa.</p>
             <p class="qf-text" id="qf-fim-teste" data-t="qfFimTeste" hidden>Esta é uma prévia para aprovação: nada foi enviado. No site oficial, neste momento a pessoa é levada direto ao WhatsApp do Erick, e as respostas vão para o Make.</p>
@@ -1045,6 +1057,7 @@ renderMarquee();
 
 /* Formulário passo a passo: uma pergunta por vez, com voltar e barra de progresso */
 site.erroOpcao = "Escolha uma opção para continuar.";
+site.erroNome = "Digite seu nome para continuar.";
 (function () {
   const form = $("orc-form"), passos = [...form.querySelectorAll(".qf-step")];
   const respostas = { tipo: "", tamanho: "", prazo: "" };
@@ -1084,9 +1097,15 @@ site.erroOpcao = "Escolha uma opção para continuar.";
   function avancar() {
     const p = passos[atual], campo = p.dataset.campo;
     if (campo && !respostas[campo]) { erro(p, site.erroOpcao); return; }
+    if (atual === 3) {
+      const nome = $("f-nome").value.trim();
+      if (!nome) { erro(p, site.erroNome); $("f-nome").focus(); return; }
+      $("qf-nome-ola").textContent = nome.split(/\s+/)[0];
+    }
     erro(p, "");
-    if (atual < 3) ir(atual + 1, "next");
-    if (atual === 3) setTimeout(() => $("f-nome").focus({ preventScroll: true }), 50);
+    if (atual < 4) ir(atual + 1, "next");
+    const campo3 = atual === 3 ? "f-nome" : atual === 4 ? "f-tel" : "";
+    if (campo3) setTimeout(() => $(campo3).focus({ preventScroll: true }), 60);
   }
   form.addEventListener("click", (e) => {
     const o = e.target.closest(".qf-opt");
@@ -1112,6 +1131,9 @@ site.erroOpcao = "Escolha uma opção para continuar.";
     const n = ops[(i + (e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : ops.length - 1)) % ops.length];
     e.preventDefault(); n.focus();
   });
+  /* Enter no campo de nome passa para o WhatsApp em vez de enviar */
+  form.addEventListener("submit", (e) => { if (atual < 4) { e.preventDefault(); e.stopImmediatePropagation(); if (atual === 3) avancar(); } }, true);
+  $("f-nome").addEventListener("input", () => erro(passos[3], ""));
   window.qfRecomecar = () => {
     Object.keys(respostas).forEach((k) => { respostas[k] = ""; });
     form.querySelectorAll(".qf-opt").forEach((b) => b.setAttribute("aria-checked", "false"));
@@ -1121,7 +1143,7 @@ site.erroOpcao = "Escolha uma opção para continuar.";
 })();
 
 /* Formulário de orçamento: envia ao Make e abre o WhatsApp do estúdio */
-site.erroForm = "Preencha seu nome e o WhatsApp com DDD, no formato (48) 9 9999-9999.";
+site.erroForm = "Digite seu WhatsApp com DDD, no formato (48) 9 9999-9999.";
 (function () {
   const form = $("orc-form"), err = $("f-erro"), btn = $("wa-btn");
   const v = (id) => $(id).value.trim();
@@ -1215,7 +1237,7 @@ site.erroForm = "Preencha seu nome e o WhatsApp com DDD, no formato (48) 9 9999-
       btn.disabled = true;
       $("qf-nome-fim").textContent = v("f-nome").split(" ")[0];
       $("qf-fim-oficial").hidden = !!window.MODO_TESTE; $("qf-fim-teste").hidden = !window.MODO_TESTE; $("qf-reset").hidden = !window.MODO_TESTE;
-      window.qfIr(4, "next");
+      window.qfIr(5, "next");
       if (window.MODO_TESTE) { enviando = false; btn.disabled = false; leadEnviado = false; return; }
       setTimeout(() => { location.href = url; }, 400); /* tempo para o Make e o Pixel saírem antes do redirecionamento */
     }
@@ -1232,7 +1254,8 @@ const I18N = {
     desc: "Fine line tattoos in Florianópolis, Brazil, with Erick Bottega of Bottega Ink: delicate linework, sketch, blackwork and black-and-red compositions, with custom work. Request your quote on WhatsApp.",
     msg: "Hi, Erick! I came from your website and I'd like to get a quote for a tattoo.",
     erroOp: "Choose an option to continue.",
-    erro: "Please fill in your name and your WhatsApp number with area code, like (48) 9 9999-9999.",
+    erroNome: "Enter your name to continue.",
+    erro: "Enter your WhatsApp number with area code, like (48) 9 9999-9999.",
     ampliar: "Enlarge: ", ampliarFoto: "Enlarge photo: ", googleAria: "Google review", starsAria: "5 out of 5 stars",
     t: {
       ckTexto: "We use analytics (Microsoft Clarity) and marketing (Meta Pixel) cookies to improve the website and measure our ads. They are only turned on if you accept. Learn more in our <button type=\"button\" class=\"link-priv\" data-open-priv>Privacy Policy</button>.",
@@ -1263,6 +1286,9 @@ const I18N = {
       qfP2: "Later this month, if possible",
       qfP3: "I'm planning ahead, no rush for now",
       qfQ4: "Your next tattoo starts here!",
+      qfNomeLabel: "What should we call you?",
+      qfOla: "Nice to meet you",
+      qfQ5: "What's your WhatsApp number?",
       qfQ4Txt: "Thanks for sharing your idea! Leave your name and WhatsApp so we can get in touch and prepare your quote.",
       qfFimTitulo: "All set",
       qfFimTexto: "We're opening Erick's WhatsApp so you can continue the conversation.",
@@ -1333,7 +1359,8 @@ const I18N = {
     desc: "Tatuajes fineline en Florianópolis con Erick Bottega, de Bottega Ink: trazos delicados, sketch, blackwork y composiciones en negro y rojo, con proyectos personalizados. Solicita tu presupuesto por WhatsApp.",
     msg: "¡Hola, Erick! Vengo de tu sitio web y me gustaría pedir un presupuesto para un tatuaje.",
     erroOp: "Elige una opción para continuar.",
-    erro: "Completa tu nombre y tu WhatsApp con código de área, como (48) 9 9999-9999.",
+    erroNome: "Escribe tu nombre para continuar.",
+    erro: "Escribe tu WhatsApp con código de área, como (48) 9 9999-9999.",
     ampliar: "Ampliar: ", ampliarFoto: "Ampliar foto: ", googleAria: "Reseña de Google", starsAria: "5 de 5 estrellas",
     t: {
       ckTexto: "Usamos cookies de análisis (Microsoft Clarity) y de marketing (Meta Pixel) para mejorar el sitio y medir nuestros anuncios. Solo se activan si aceptas. Más información en la <button type=\"button\" class=\"link-priv\" data-open-priv>Política de Privacidad</button>.",
@@ -1364,6 +1391,9 @@ const I18N = {
       qfP2: "Este mismo mes, si es posible",
       qfP3: "Lo estoy planeando, sin prisa por ahora",
       qfQ4: "¡Tu próximo tatuaje empieza aquí!",
+      qfNomeLabel: "¿Cómo te llamamos?",
+      qfOla: "Encantados",
+      qfQ5: "¿Cuál es tu WhatsApp?",
       qfQ4Txt: "¡Gracias por compartir tu idea! Deja tu nombre y WhatsApp para que te contactemos y preparemos tu presupuesto.",
       qfFimTitulo: "Listo",
       qfFimTexto: "Estamos abriendo el WhatsApp de Erick para que sigas la conversación.",
@@ -1436,7 +1466,7 @@ const I18N = {
   const meta = document.querySelector('meta[name="description"]');
   /* português: guardado a partir da própria página e do objeto site */
   const PT = {
-    desc: meta ? meta.content : "", msg: site.mensagemWhatsApp, erro: site.erroForm, erroOp: site.erroOpcao,
+    desc: meta ? meta.content : "", msg: site.mensagemWhatsApp, erro: site.erroForm, erroOp: site.erroOpcao, erroNome: site.erroNome,
     ampliar: "Ampliar: ", ampliarFoto: "Ampliar foto: ", googleAria: "Avaliação do Google", starsAria: "5 de 5 estrelas",
     t: {}, ta: {},
     marquee: [...site.marquee],
@@ -1467,7 +1497,8 @@ const I18N = {
     site.mensagemWhatsApp = L.msg;
     site.erroForm = L.erro;
     site.erroOpcao = L.erroOp;
-    document.querySelectorAll("#orc-form .qf-err").forEach((e) => { if (e.textContent) e.textContent = L.erroOp; });
+    site.erroNome = L.erroNome;
+    document.querySelectorAll("#orc-form .qf-err").forEach((e) => { if (e.textContent) e.textContent = e.dataset.tipo === "nome" ? L.erroNome : L.erroOp; });
     const nE = site.estilos.length;
     document.querySelectorAll("#styles-track .style-card").forEach((c, i) => {
       const e = site.estilos[i % nE];
