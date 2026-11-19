@@ -500,27 +500,29 @@ footer .foot-row { gap: 1.25rem; }
 @media (prefers-reduced-motion: reduce) { .qf-in-next, .qf-in-back { animation: none; } }
 .foot-legal { margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .35rem .6rem; font-size: .75rem; color: #cbbfb1; }
 .cookie {
-  position: fixed; z-index: 45; left: 0; right: 0; bottom: 0;
-  margin: 0 auto; max-width: 40rem;
-  padding: 1.1rem max(1.1rem, env(safe-area-inset-right, 0px)) calc(1.1rem + env(safe-area-inset-bottom, 0px)) max(1.1rem, env(safe-area-inset-left, 0px));
-  background: var(--brown-deeper); color: var(--hero-fg);
-  border: 1px solid rgba(229, 211, 189, .25); border-radius: 1rem 1rem 0 0; box-shadow: 0 -10px 40px rgba(34, 32, 29, .35);
+  position: fixed; z-index: 45; left: .6rem; right: .6rem; bottom: calc(.6rem + env(safe-area-inset-bottom, 0px));
+  margin: 0 auto; max-width: 46rem; padding: .75rem .85rem;
+  background: rgba(34, 32, 29, .96); color: var(--hero-fg);
+  border: 1px solid rgba(229, 211, 189, .2); border-radius: .9rem; box-shadow: 0 8px 30px rgba(34, 32, 29, .3);
+  display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem;
 }
-@media (min-width: 700px) { .cookie { bottom: 1rem; border-radius: 1rem; padding: 1.25rem 1.4rem; } }
-.cookie-titulo { margin: 0; font-family: var(--font-display); font-size: 1.35rem; line-height: 1.2; }
-.cookie-texto { margin: .4rem 0 0; font-size: .875rem; line-height: 1.55; color: var(--hero-muted); }
-.cookie-prefs { margin-top: .85rem; display: grid; gap: .55rem; }
+.cookie[hidden], .cookie-prefs[hidden] { display: none; }
+.cookie-titulo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.cookie-texto { flex: 1 1 18rem; margin: 0; font-size: .8125rem; line-height: 1.45; color: var(--hero-muted); }
+.cookie-prefs { flex-basis: 100%; display: grid; gap: .5rem; }
+.cookie-acoes { flex: 1 1 auto; display: flex; align-items: center; gap: .45rem; justify-content: flex-end; }
 .ck-op { display: flex; gap: .6rem; align-items: flex-start; font-size: .8125rem; line-height: 1.45; color: var(--hero-muted); cursor: pointer; }
 .ck-op input { margin-top: .15rem; width: 1.05rem; height: 1.05rem; accent-color: var(--terracotta); flex: none; }
 .ck-op strong { color: var(--hero-fg); font-weight: 600; }
-.cookie-acoes { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: .5rem; justify-content: flex-end; }
-.ck-btn { min-height: 2.6rem; padding: .55rem 1rem; border-radius: 999px; font: inherit; font-size: .875rem; font-weight: 600; cursor: pointer; }
+.ck-btn { min-height: 2.5rem; padding: .45rem 1.1rem; border-radius: 999px; font: inherit; font-size: .8125rem; font-weight: 600; cursor: pointer; }
+#ck-personalizar { order: -1; margin-right: auto; min-height: 2.5rem; padding: .45rem .2rem; border: 0; background: none; color: var(--hero-muted); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+#ck-personalizar:hover { color: var(--gold); }
 .ck-sec { background: transparent; color: var(--hero-fg); border: 1px solid rgba(229, 211, 189, .45); }
 .ck-sec:hover { border-color: var(--gold); color: var(--gold); }
 .ck-pri { background: var(--gold); color: var(--brown-deeper); border: 1px solid var(--gold); }
 .ck-pri:hover { background: var(--hero-fg); }
 .ck-btn:focus-visible, .link-priv:focus-visible, .priv-fechar:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
-@media (max-width: 480px) { .cookie-acoes .ck-btn { flex: 1 1 auto; } .ck-pri { flex-basis: 100% !important; order: -1; } }
+@media (max-width: 480px) { .cookie { gap: .5rem; padding: .7rem .8rem; } .cookie-texto { flex-basis: 100%; } .cookie-acoes { flex-basis: 100%; } #ck-personalizar { font-size: .75rem; } .cookie-acoes #ck-recusar, .cookie-acoes #ck-aceitar, .cookie-acoes #ck-salvar { flex: 1 1 0; } }
 .priv { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; padding: max(1rem, env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px)) max(1rem, env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-left, 0px)); background: rgba(22, 20, 18, .78); }
 .priv-caixa { position: relative; width: 100%; max-width: 46rem; max-height: 100%; overflow-y: auto; overscroll-behavior: contain; background: var(--background); color: var(--foreground); border-radius: 1rem; padding: 2rem 1.4rem 2.25rem; }
 @media (min-width: 700px) { .priv-caixa { padding: 2.5rem 2.75rem 2.75rem; } }
@@ -711,7 +713,7 @@ footer .foot-row { gap: 1.25rem; }
 
 <div class="cookie" id="cookie" role="region" aria-label="Aviso de cookies" data-ta="aria-label:ckAria" hidden>
   <p class="cookie-titulo" data-t="ckTitulo">Sua privacidade</p>
-  <p class="cookie-texto" data-t="ckTexto">Usamos cookies de análise (Microsoft Clarity) e de marketing (Meta Pixel) para melhorar o site e medir nossos anúncios. Eles só são ativados se você aceitar. Saiba mais na <button type="button" class="link-priv" data-open-priv>Política de Privacidade</button>.</p>
+  <p class="cookie-texto" data-t="ckTexto">Usamos cookies para melhorar o site e medir anúncios, só com a sua permissão. <button type="button" class="link-priv" data-open-priv>Saiba mais</button></p>
   <div class="cookie-prefs" id="ck-prefs" hidden>
     <label class="ck-op"><input type="checkbox" checked disabled><span data-t="ckNec"><strong>Essenciais</strong> · guardam a sua escolha. Sempre ativos.</span></label>
     <label class="ck-op"><input type="checkbox" id="ck-analise"><span data-t="ckAn"><strong>Análise</strong> · Microsoft Clarity: mapa de calor e gravação da navegação.</span></label>
@@ -720,8 +722,8 @@ footer .foot-row { gap: 1.25rem; }
   <div class="cookie-acoes">
     <button type="button" class="ck-btn ck-sec" id="ck-recusar" data-t="ckRej">Recusar</button>
     <button type="button" class="ck-btn ck-sec" id="ck-personalizar" data-t="ckCfg">Personalizar</button>
-    <button type="button" class="ck-btn ck-sec" id="ck-salvar" data-t="ckSalvar" hidden>Salvar escolhas</button>
-    <button type="button" class="ck-btn ck-pri" id="ck-aceitar" data-t="ckAcc">Aceitar todos</button>
+    <button type="button" class="ck-btn ck-sec" id="ck-salvar" data-t="ckSalvar" hidden>Salvar</button>
+    <button type="button" class="ck-btn ck-pri" id="ck-aceitar" data-t="ckAcc">Aceitar</button>
   </div>
 </div>
 
@@ -1257,15 +1259,15 @@ const I18N = {
     erro: "Enter your WhatsApp number with area code, like (48) 9 9999-9999.",
     ampliar: "Enlarge: ", ampliarFoto: "Enlarge photo: ", googleAria: "Google review", starsAria: "5 out of 5 stars",
     t: {
-      ckTexto: "We use analytics (Microsoft Clarity) and marketing (Meta Pixel) cookies to improve the website and measure our ads. They are only turned on if you accept. Learn more in our <button type=\"button\" class=\"link-priv\" data-open-priv>Privacy Policy</button>.",
+      ckTexto: "We use cookies to improve the website and measure ads, only with your permission. <button type=\"button\" class=\"link-priv\" data-open-priv>Learn more</button>",
       ckTitulo: "Your privacy",
       ckNec: "<strong>Essential</strong> · store your choice. Always on.",
       ckAn: "<strong>Analytics</strong> · Microsoft Clarity: heatmaps and session recordings.",
       ckMk: "<strong>Marketing</strong> · Meta Pixel: measure ads on Instagram and Facebook.",
       ckRej: "Decline",
       ckCfg: "Customize",
-      ckSalvar: "Save choices",
-      ckAcc: "Accept all",
+      ckSalvar: "Save",
+      ckAcc: "Accept",
       ckLink: "Cookie preferences",
       polLink: "Privacy Policy",
       qfTitulo: "Shall we bring your idea to life?",
@@ -1362,15 +1364,15 @@ const I18N = {
     erro: "Escribe tu WhatsApp con código de área, como (48) 9 9999-9999.",
     ampliar: "Ampliar: ", ampliarFoto: "Ampliar foto: ", googleAria: "Reseña de Google", starsAria: "5 de 5 estrellas",
     t: {
-      ckTexto: "Usamos cookies de análisis (Microsoft Clarity) y de marketing (Meta Pixel) para mejorar el sitio y medir nuestros anuncios. Solo se activan si aceptas. Más información en la <button type=\"button\" class=\"link-priv\" data-open-priv>Política de Privacidad</button>.",
+      ckTexto: "Usamos cookies para mejorar el sitio y medir anuncios, solo con tu permiso. <button type=\"button\" class=\"link-priv\" data-open-priv>Más información</button>",
       ckTitulo: "Tu privacidad",
       ckNec: "<strong>Esenciales</strong> · guardan tu elección. Siempre activos.",
       ckAn: "<strong>Análisis</strong> · Microsoft Clarity: mapa de calor y grabación de la navegación.",
       ckMk: "<strong>Marketing</strong> · Meta Pixel: medir anuncios en Instagram y Facebook.",
       ckRej: "Rechazar",
       ckCfg: "Personalizar",
-      ckSalvar: "Guardar elección",
-      ckAcc: "Aceptar todos",
+      ckSalvar: "Guardar",
+      ckAcc: "Aceptar",
       ckLink: "Preferencias de cookies",
       polLink: "Política de Privacidad",
       qfTitulo: "¿Hacemos realidad tu idea?",
