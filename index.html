@@ -515,14 +515,18 @@ footer .foot-row { gap: 1.25rem; }
 .ck-op input { margin-top: .15rem; width: 1.05rem; height: 1.05rem; accent-color: var(--terracotta); flex: none; }
 .ck-op strong { color: var(--hero-fg); font-weight: 600; }
 .ck-btn { min-height: 2.5rem; padding: .45rem 1.1rem; border-radius: 999px; font: inherit; font-size: .8125rem; font-weight: 600; cursor: pointer; }
-#ck-personalizar { order: -1; margin-right: auto; min-height: 2.5rem; padding: .45rem .2rem; border: 0; background: none; color: var(--hero-muted); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
-#ck-personalizar:hover { color: var(--gold); }
+#ck-personalizar, #ck-recusar { min-height: 2.5rem; padding: .45rem .3rem; border: 0; background: none; color: var(--hero-muted); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+#ck-personalizar { order: -1; }
+#ck-recusar { margin-right: auto; }
+#ck-personalizar:hover, #ck-recusar:hover { color: var(--gold); }
+#ck-aceitar { padding: .45rem 1.6rem; }
+@media (min-width: 700px) { .cookie { width: max-content; max-width: calc(100% - 1.2rem); padding: .55rem .6rem .55rem 1.1rem; gap: .5rem 1.5rem; } .cookie-texto { flex: 0 1 auto; } .cookie-acoes { flex: 0 0 auto; } }
 .ck-sec { background: transparent; color: var(--hero-fg); border: 1px solid rgba(229, 211, 189, .45); }
 .ck-sec:hover { border-color: var(--gold); color: var(--gold); }
 .ck-pri { background: var(--gold); color: var(--brown-deeper); border: 1px solid var(--gold); }
 .ck-pri:hover { background: var(--hero-fg); }
 .ck-btn:focus-visible, .link-priv:focus-visible, .priv-fechar:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
-@media (max-width: 480px) { .cookie { gap: .5rem; padding: .7rem .8rem; } .cookie-texto { flex-basis: 100%; } .cookie-acoes { flex-basis: 100%; } #ck-personalizar { font-size: .75rem; } .cookie-acoes #ck-recusar, .cookie-acoes #ck-aceitar, .cookie-acoes #ck-salvar { flex: 1 1 0; } }
+@media (max-width: 480px) { .cookie { gap: .2rem; padding: .55rem .55rem .5rem .8rem; border-radius: .8rem; } .cookie-texto { flex-basis: 100%; font-size: .75rem; } .cookie-acoes { flex-basis: 100%; gap: .2rem; } #ck-personalizar, #ck-recusar { font-size: .75rem; min-height: 2.25rem; padding: .3rem .35rem; } #ck-personalizar { padding-left: 0; } .ck-pri, #ck-salvar { min-height: 2.25rem; font-size: .8125rem; } }
 .priv { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; padding: max(1rem, env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px)) max(1rem, env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-left, 0px)); background: rgba(22, 20, 18, .78); }
 .priv-caixa { position: relative; width: 100%; max-width: 46rem; max-height: 100%; overflow-y: auto; overscroll-behavior: contain; background: var(--background); color: var(--foreground); border-radius: 1rem; padding: 2rem 1.4rem 2.25rem; }
 @media (min-width: 700px) { .priv-caixa { padding: 2.5rem 2.75rem 2.75rem; } }
@@ -713,7 +717,7 @@ footer .foot-row { gap: 1.25rem; }
 
 <div class="cookie" id="cookie" role="region" aria-label="Aviso de cookies" data-ta="aria-label:ckAria" hidden>
   <p class="cookie-titulo" data-t="ckTitulo">Sua privacidade</p>
-  <p class="cookie-texto" data-t="ckTexto">Usamos cookies para melhorar o site e medir anúncios, só com a sua permissão. <button type="button" class="link-priv" data-open-priv>Saiba mais</button></p>
+  <p class="cookie-texto" data-t="ckTexto">Usamos cookies para melhorar sua experiência. <button type="button" class="link-priv" data-open-priv>Saiba mais</button></p>
   <div class="cookie-prefs" id="ck-prefs" hidden>
     <label class="ck-op"><input type="checkbox" checked disabled><span data-t="ckNec"><strong>Essenciais</strong> · guardam a sua escolha. Sempre ativos.</span></label>
     <label class="ck-op"><input type="checkbox" id="ck-analise"><span data-t="ckAn"><strong>Análise</strong> · Microsoft Clarity: mapa de calor e gravação da navegação.</span></label>
@@ -1259,7 +1263,7 @@ const I18N = {
     erro: "Enter your WhatsApp number with area code, like (48) 9 9999-9999.",
     ampliar: "Enlarge: ", ampliarFoto: "Enlarge photo: ", googleAria: "Google review", starsAria: "5 out of 5 stars",
     t: {
-      ckTexto: "We use cookies to improve the website and measure ads, only with your permission. <button type=\"button\" class=\"link-priv\" data-open-priv>Learn more</button>",
+      ckTexto: "We use cookies to improve your experience. <button type=\"button\" class=\"link-priv\" data-open-priv>Learn more</button>",
       ckTitulo: "Your privacy",
       ckNec: "<strong>Essential</strong> · store your choice. Always on.",
       ckAn: "<strong>Analytics</strong> · Microsoft Clarity: heatmaps and session recordings.",
@@ -1364,7 +1368,7 @@ const I18N = {
     erro: "Escribe tu WhatsApp con código de área, como (48) 9 9999-9999.",
     ampliar: "Ampliar: ", ampliarFoto: "Ampliar foto: ", googleAria: "Reseña de Google", starsAria: "5 de 5 estrellas",
     t: {
-      ckTexto: "Usamos cookies para mejorar el sitio y medir anuncios, solo con tu permiso. <button type=\"button\" class=\"link-priv\" data-open-priv>Más información</button>",
+      ckTexto: "Usamos cookies para mejorar tu experiencia. <button type=\"button\" class=\"link-priv\" data-open-priv>Saber más</button>",
       ckTitulo: "Tu privacidad",
       ckNec: "<strong>Esenciales</strong> · guardan tu elección. Siempre activos.",
       ckAn: "<strong>Análisis</strong> · Microsoft Clarity: mapa de calor y grabación de la navegación.",
