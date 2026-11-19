@@ -17,9 +17,17 @@ Funciona em qualquer hospedagem de site estático. Envie o `index.html`, os íco
 
 ## Formulário de orçamento
 
-O visitante preenche nome e WhatsApp, com máscara `(DD) 9 0000-0000`. Ao enviar:
+Formulário passo a passo, uma pergunta por tela, com "← Voltar" em todas as etapas:
 
-1. Os dados vão para o webhook do Make (`webhookMake` no objeto `site`), com data e hora de Brasília, telefone no padrão brasileiro, dispositivo, sistema, navegador e página de origem.
+1. Que tipo de tatuagem você está imaginando? (tocar na opção já avança)
+2. Qual o tamanho da tatuagem?
+3. Quando pretende fazer sua tattoo?
+4. Nome ("Sua próxima tattoo começa aqui!")
+5. WhatsApp, com máscara `(DD) 9 0000-0000`, e o botão "Quero receber meu orçamento"
+
+As perguntas e opções ficam no HTML (`.qf-step`); as traduções, nas chaves `qf*` do `I18N`. Ao enviar:
+
+1. Os dados vão para o webhook do Make (`webhookMake` no objeto `site`): nome, `tipo_tatuagem`, `tamanho` e `prazo` (sempre em português, em qualquer idioma do site), data e hora de Brasília, telefone no padrão brasileiro, dispositivo, sistema, navegador e página de origem.
 2. O Meta Pixel registra o evento `Lead`, sem dados pessoais.
 3. O visitante vai direto para o WhatsApp (`whatsappBase`), com a mensagem `mensagemWhatsApp`.
 
