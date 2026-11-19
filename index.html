@@ -445,7 +445,7 @@ footer .foot-row { gap: 1.25rem; }
 #orcamento .qf [hidden] { display: none !important; }
 #orcamento .qf { max-width: 34rem; margin: 1.5rem auto 0; padding: 1.5rem; display: block; border: 1px solid rgba(229, 211, 189, .18); border-radius: 1rem; background: rgba(255, 255, 255, .04); text-align: left; overflow: hidden; }
 @media (min-width: 640px) { #orcamento .qf { padding: 2rem; } }
-.qf-titulo { margin-bottom: 1.1rem; font-family: var(--font-display); font-size: 1.6rem; line-height: 1.2; font-weight: 600; color: var(--hero-fg); text-wrap: balance; }
+.qf-titulo { margin-bottom: 1.1rem; font-family: var(--font-display); font-size: 1.6rem; line-height: 1.2; font-weight: 500; color: var(--hero-fg); text-wrap: balance; }
 @media (min-width: 768px) { .qf-titulo { font-size: 1.85rem; } }
 .qf-q { font-family: var(--font-body); font-size: 1.15rem; line-height: 1.35; font-weight: 500; color: var(--hero-fg); outline: none; }
 @media (min-width: 768px) { .qf-q { font-size: 1.25rem; } }
@@ -1217,7 +1217,6 @@ site.erroForm = "Digite seu WhatsApp com DDD, no formato (48) 9 9999-9999.";
           idioma: document.documentElement.lang,
           user_agent: navigator.userAgent,
         });
-        window.qfUltimoEnvio = Object.fromEntries(dados);
         try { fetch(site.webhookMake, { method: "POST", mode: "no-cors", keepalive: true, body: dados }).catch(() => {}); } catch (_) {}
       }
       /* Meta Pixel: um único Lead por envio válido, sem dados pessoais nos parâmetros */
