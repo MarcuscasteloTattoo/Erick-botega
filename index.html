@@ -11,15 +11,13 @@
 <meta name="geo.placename" content="Florianópolis">
 <!-- Consentimento LGPD: Meta Pixel e Microsoft Clarity só carregam depois que o visitante aceita -->
 <script>
-/* MODO_TESTE = true: prévia para aprovação. Não carrega Pixel nem Clarity, não envia ao Make e não abre o WhatsApp. */
-window.MODO_TESTE = false;
 (function () {
   var CHAVE = "bottegaink-consentimento-v1";
   function ler() { try { return JSON.parse(localStorage.getItem(CHAVE)); } catch (e) { return null; } }
   function gravar(c) { try { localStorage.setItem(CHAVE, JSON.stringify(c)); } catch (e) {} }
   /* Meta Pixel Code (código oficial da Meta), ativado só com consentimento de marketing */
   function carregarPixel() {
-    if (window.fbq || window.MODO_TESTE) return;
+    if (window.fbq) return;
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -33,7 +31,7 @@ window.MODO_TESTE = false;
   }
   /* Microsoft Clarity (código oficial), ativado só com consentimento de análise */
   function carregarClarity() {
-    if (window.clarity || window.MODO_TESTE) return;
+    if (window.clarity) return;
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
@@ -695,8 +693,6 @@ footer .foot-row { gap: 1.25rem; }
           <div class="qf-step qf-fim" data-step="5" hidden>
             <h4 class="qf-q" tabindex="-1"><span data-t="qfFimTitulo">Pronto</span>, <span id="qf-nome-fim"></span>!</h4>
             <p class="qf-text" id="qf-fim-oficial" data-t="qfFimTexto">Estamos abrindo o WhatsApp do Erick para você continuar a conversa.</p>
-            <p class="qf-text" id="qf-fim-teste" data-t="qfFimTeste" hidden>Esta é uma prévia para aprovação: nada foi enviado. No site oficial, neste momento a pessoa é levada direto ao WhatsApp do Erick, e as respostas vão para o Make.</p>
-            <div class="qf-nav"><span></span><button type="button" class="qf-back" data-go="reset" id="qf-reset" hidden><span data-t="qfRecomecar">Recomeçar o teste</span></button></div>
           </div>
         </form>
       </div>
@@ -1126,7 +1122,6 @@ site.erroNome = "Digite seu nome para continuar.";
     const b = e.target.closest("[data-go]"); if (!b) return;
     if (b.dataset.go === "next") avancar();
     else if (b.dataset.go === "back" && atual > 0) ir(atual - 1, "back");
-    else if (b.dataset.go === "reset") window.qfRecomecar();
   });
   /* setas do teclado entre as opções, como num grupo de rádio */
   form.addEventListener("keydown", (e) => {
@@ -1139,12 +1134,6 @@ site.erroNome = "Digite seu nome para continuar.";
   /* Enter no campo de nome passa para o WhatsApp em vez de enviar */
   form.addEventListener("submit", (e) => { if (atual < 4) { e.preventDefault(); e.stopImmediatePropagation(); if (atual === 3) avancar(); } }, true);
   $("f-nome").addEventListener("input", () => erro(passos[3], ""));
-  window.qfRecomecar = () => {
-    Object.keys(respostas).forEach((k) => { respostas[k] = ""; });
-    form.querySelectorAll(".qf-opt").forEach((b) => b.setAttribute("aria-checked", "false"));
-    $("f-nome").value = ""; $("f-tel").value = "";
-    ir(0, "back");
-  };
 })();
 
 /* Formulário de orçamento: envia ao Make e abre o WhatsApp do estúdio */
@@ -1229,21 +1218,19 @@ site.erroForm = "Digite seu WhatsApp com DDD, no formato (48) 9 9999-9999.";
           user_agent: navigator.userAgent,
         });
         window.qfUltimoEnvio = Object.fromEntries(dados);
-        if (!window.MODO_TESTE) try { fetch(site.webhookMake, { method: "POST", mode: "no-cors", keepalive: true, body: dados }).catch(() => {}); } catch (_) {}
+        try { fetch(site.webhookMake, { method: "POST", mode: "no-cors", keepalive: true, body: dados }).catch(() => {}); } catch (_) {}
       }
       /* Meta Pixel: um único Lead por envio válido, sem dados pessoais nos parâmetros */
       if (!leadEnviado) {
         leadEnviado = true;
-        if (!window.MODO_TESTE) try { if (window.fbq) window.fbq("track", "Lead", { content_name: "Formulário de orçamento" }, { eventID: "lead-" + Date.now() }); } catch (_) {}
+        try { if (window.fbq) window.fbq("track", "Lead", { content_name: "Formulário de orçamento" }, { eventID: "lead-" + Date.now() }); } catch (_) {}
       }
       const txt = site.mensagemWhatsApp; /* nome e telefone vão só para o webhook */
       const url = `${site.whatsappBase}?text=${encodeURIComponent(txt)}`;
       /* vai direto para o WhatsApp, na mesma aba */
       btn.disabled = true;
       $("qf-nome-fim").textContent = v("f-nome").split(" ")[0];
-      $("qf-fim-oficial").hidden = !!window.MODO_TESTE; $("qf-fim-teste").hidden = !window.MODO_TESTE; $("qf-reset").hidden = !window.MODO_TESTE;
       window.qfIr(5, "next");
-      if (window.MODO_TESTE) { enviando = false; btn.disabled = false; leadEnviado = false; return; }
       setTimeout(() => { location.href = url; }, 400); /* tempo para o Make e o Pixel saírem antes do redirecionamento */
     }
   });
@@ -1297,8 +1284,6 @@ const I18N = {
       qfQ4Txt: "Thanks for sharing your idea! Leave your name and WhatsApp so we can get in touch and prepare your quote.",
       qfFimTitulo: "All set",
       qfFimTexto: "We're opening Erick's WhatsApp so you can continue the conversation.",
-      qfFimTeste: "This is a preview for approval: nothing was sent. On the live site, at this point the visitor goes straight to Erick's WhatsApp and the answers go to Make.",
-      qfRecomecar: "Restart the test",
       fLgpd: "By submitting, you agree that Bottega Ink may use your name, your WhatsApp number and your answers about the tattoo to reply to your quote request, as described in our <button type=\"button\" class=\"link-priv\" data-open-priv>Privacy Policy</button>.",
       polTexto: "<h2 id=\"priv-titulo\">Privacy Policy</h2>\n<p class=\"priv-data\">Last updated: November 18, 2026</p>\n<p>This policy explains how Bottega Ink handles the personal data of people who visit this website and request a quote, under Brazil's General Data Protection Law (Law No. 13,709/2018, LGPD).</p>\n<h3>1. Who is responsible for your data</h3>\n<p>Erick Bottega, Bottega Ink. R. Ten. Silveira, 221, Sala 01, 1st floor, Centro, Florianópolis/SC, Brazil, ZIP 88010-300. Privacy contact: WhatsApp +55 48 98812-3543 or Instagram @bottegaink.</p>\n<h3>2. What data we collect</h3>\n<ul>\n<li><strong>In the quote form:</strong> your name, WhatsApp number and your answers about the tattoo you have in mind (type, size and timing).</li>\n<li><strong>Automatically, with the form:</strong> date and time of submission, device type, operating system, browser, screen size, language, the page you were on and the site you came from.</li>\n<li><strong>With your consent, through cookies:</strong> browsing data such as clicks, scrolling and pages viewed, and identifiers used to measure ads.</li>\n</ul>\n<p>We do not ask for sensitive data on this website.</p>\n<h3>3. Why we use it and on what legal basis</h3>\n<ul>\n<li><strong>To reply to your quote request</strong> on WhatsApp: pre-contractual steps at your request (LGPD, art. 7, V).</li>\n<li><strong>To understand how the website is used</strong> (Microsoft Clarity): consent (art. 7, I).</li>\n<li><strong>To measure and improve ads</strong> on Instagram and Facebook (Meta Pixel): consent (art. 7, I).</li>\n</ul>\n<h3>4. Who we share it with</h3>\n<p>We never sell your data. It only goes through the services needed to run the website:</p>\n<ul>\n<li><strong>Make (Celonis):</strong> receives the form data and organizes quote requests.</li>\n<li><strong>WhatsApp (Meta):</strong> where the conversation about your quote takes place.</li>\n<li><strong>Meta Platforms:</strong> Meta Pixel, only with your consent.</li>\n<li><strong>Microsoft:</strong> Clarity, only with your consent.</li>\n<li><strong>Hostinger:</strong> website hosting. <strong>Google Fonts:</strong> provides the website fonts and receives your device's IP address.</li>\n</ul>\n<p>Some of these services store data outside Brazil. These transfers follow art. 33 of the LGPD.</p>\n<h3>5. Cookies</h3>\n<ul>\n<li><strong>Essential:</strong> store your cookie choice in your browser. They do not require consent.</li>\n<li><strong>Analytics (Microsoft Clarity):</strong> heatmaps and session recordings to improve the website. Form fields are masked in recordings.</li>\n<li><strong>Marketing (Meta Pixel):</strong> records the visit and the form submission to measure ads. Your name and phone number are never sent to the Pixel.</li>\n</ul>\n<p>You can accept, decline or change your choice at any time under “Cookie preferences” in the footer.</p>\n<h3>6. How long we keep it</h3>\n<p>Contact data is kept for as long as needed to serve you and for up to 2 years after the last contact, or until you ask us to delete it, unless the law requires otherwise. Analytics and ad data follow each tool's retention periods.</p>\n<h3>7. Your rights</h3>\n<p>At any time you can ask us to confirm whether we process your data, and for access, correction, anonymization, blocking or deletion, portability, information on who we share it with, and withdrawal of consent (LGPD, art. 18). Just message us on WhatsApp at +55 48 98812-3543. We reply within 15 days. You may also file a complaint with Brazil's National Data Protection Authority (ANPD).</p>\n<h3>8. Security</h3>\n<p>We use a secure connection (HTTPS) and limit access to the data to the people who need it to serve you.</p>\n<h3>9. Minors</h3>\n<p>Tattooing is a service for adults aged 18 and over. This website is not intended for minors.</p>\n<h3>10. Changes to this policy</h3>\n<p>We may update this policy. The date of the latest version is shown at the top.</p>",
       h1: '<span class="h1-name">Erick Bottega</span><span class="h1-sep"> | </span>Bottega Ink<span class="h1-city">Florianópolis</span>',
@@ -1402,8 +1387,6 @@ const I18N = {
       qfQ4Txt: "¡Gracias por compartir tu idea! Deja tu nombre y WhatsApp para que te contactemos y preparemos tu presupuesto.",
       qfFimTitulo: "Listo",
       qfFimTexto: "Estamos abriendo el WhatsApp de Erick para que sigas la conversación.",
-      qfFimTeste: "Esta es una vista previa para aprobación: no se envió nada. En el sitio oficial, en este momento la persona va directo al WhatsApp de Erick y las respuestas van a Make.",
-      qfRecomecar: "Reiniciar la prueba",
       fLgpd: "Al enviar, aceptas que Bottega Ink use tu nombre, tu WhatsApp y tus respuestas sobre el tatuaje para responder a tu pedido de presupuesto, según la <button type=\"button\" class=\"link-priv\" data-open-priv>Política de Privacidad</button>.",
       polTexto: "<h2 id=\"priv-titulo\">Política de Privacidad</h2>\n<p class=\"priv-data\">Última actualización: 18 de noviembre de 2026</p>\n<p>Esta política explica cómo Bottega Ink trata los datos personales de quienes visitan este sitio y piden un presupuesto, de acuerdo con la Ley General de Protección de Datos de Brasil (Ley nº 13.709/2018, LGPD).</p>\n<h3>1. Responsable de los datos</h3>\n<p>Erick Bottega, Bottega Ink. R. Ten. Silveira, 221, Sala 01, 1º piso, Centro, Florianópolis/SC, Brasil, CP 88010-300. Contacto para temas de privacidad: WhatsApp +55 48 98812-3543 o Instagram @bottegaink.</p>\n<h3>2. Qué datos recopilamos</h3>\n<ul>\n<li><strong>En el formulario de presupuesto:</strong> nombre, número de WhatsApp y tus respuestas sobre el tatuaje que imaginas (tipo, tamaño y plazo).</li>\n<li><strong>Junto con el formulario, automáticamente:</strong> fecha y hora del envío, tipo de dispositivo, sistema, navegador, tamaño de pantalla, idioma, página del sitio y sitio de procedencia.</li>\n<li><strong>Con tu consentimiento, mediante cookies:</strong> datos de navegación, como clics, desplazamiento y páginas vistas, e identificadores usados para medir anuncios.</li>\n</ul>\n<p>No pedimos datos sensibles en este sitio.</p>\n<h3>3. Para qué los usamos y con qué base legal</h3>\n<ul>\n<li><strong>Responder a tu pedido de presupuesto</strong> por WhatsApp: procedimientos preliminares a un contrato, a tu pedido (LGPD, art. 7, V).</li>\n<li><strong>Entender cómo se usa el sitio</strong> (Microsoft Clarity): consentimiento (art. 7, I).</li>\n<li><strong>Medir y mejorar anuncios</strong> en Instagram y Facebook (Meta Pixel): consentimiento (art. 7, I).</li>\n</ul>\n<h3>4. Con quién los compartimos</h3>\n<p>No vendemos tus datos. Solo pasan por los servicios necesarios para que el sitio funcione:</p>\n<ul>\n<li><strong>Make (Celonis):</strong> recibe los datos del formulario y organiza los pedidos de presupuesto.</li>\n<li><strong>WhatsApp (Meta):</strong> donde se conversa sobre el presupuesto.</li>\n<li><strong>Meta Platforms:</strong> Meta Pixel, solo con tu consentimiento.</li>\n<li><strong>Microsoft:</strong> Clarity, solo con tu consentimiento.</li>\n<li><strong>Hostinger:</strong> alojamiento del sitio. <strong>Google Fonts:</strong> proporciona las fuentes del sitio y recibe la dirección IP de tu dispositivo.</li>\n</ul>\n<p>Algunos de estos servicios guardan datos fuera de Brasil. Estas transferencias siguen el art. 33 de la LGPD.</p>\n<h3>5. Cookies</h3>\n<ul>\n<li><strong>Esenciales:</strong> guardan en tu navegador tu elección sobre cookies. No requieren consentimiento.</li>\n<li><strong>Análisis (Microsoft Clarity):</strong> mapa de calor y grabación de la navegación para mejorar el sitio. Los campos del formulario se ocultan en las grabaciones.</li>\n<li><strong>Marketing (Meta Pixel):</strong> registra la visita y el envío del formulario para medir los anuncios. El nombre y el teléfono nunca se envían al Pixel.</li>\n</ul>\n<p>Puedes aceptar, rechazar o cambiar tu elección en cualquier momento en “Preferencias de cookies”, en el pie de página.</p>\n<h3>6. Cuánto tiempo los guardamos</h3>\n<p>Los datos de contacto se guardan el tiempo necesario para atenderte y hasta 2 años después del último contacto, o hasta que pidas su eliminación, salvo obligación legal. Los datos de análisis y de anuncios siguen los plazos de cada herramienta.</p>\n<h3>7. Tus derechos</h3>\n<p>Puedes pedir en cualquier momento la confirmación de que tratamos tus datos, acceso, corrección, anonimización, bloqueo o eliminación, portabilidad, información sobre con quién los compartimos y la revocación del consentimiento (LGPD, art. 18). Solo escríbenos por WhatsApp al +55 48 98812-3543. Respondemos en hasta 15 días. También puedes presentar un reclamo ante la Autoridad Nacional de Protección de Datos de Brasil (ANPD).</p>\n<h3>8. Seguridad</h3>\n<p>Usamos conexión segura (HTTPS) y limitamos el acceso a los datos a quienes los necesitan para atenderte.</p>\n<h3>9. Menores de edad</h3>\n<p>El tatuaje es un servicio para mayores de 18 años. Este sitio no está dirigido a menores.</p>\n<h3>10. Cambios en esta política</h3>\n<p>Podemos actualizar esta política. La fecha de la última versión aparece arriba.</p>",
       h1: '<span class="h1-name">Erick Bottega</span><span class="h1-sep"> | </span>Bottega Ink<span class="h1-city">Florianópolis</span>',
